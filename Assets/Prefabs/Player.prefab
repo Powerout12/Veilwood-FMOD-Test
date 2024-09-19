@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 954386218018464814}
   - component: {fileID: 8278897203418734430}
   - component: {fileID: 7291603624577058753}
-  - component: {fileID: 8865022450268817314}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -111,22 +110,8 @@ MonoBehaviour:
   playerHeight: 2
   ground:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   orientation: {fileID: 2948405178405840430}
---- !u!114 &8865022450268817314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458327864404202536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f15aadcaccb4b1846a076e96e45fd8f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 3801851222536505025}
-  rocketLauncher: {fileID: 0}
 --- !u!1 &1060290861880225202
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5634429398668762257}
+  - component: {fileID: 6136283132044129129}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -301,6 +287,21 @@ Transform:
   - {fileID: 968838946076285070}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6136283132044129129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4953640713924337418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f24f3be984d79746bfd249bc428005b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySize: 10
+  inventorySystem:
+    inventorySlots: []
 --- !u!1 &5686050863370877425
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +483,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cf8b8c9989b420b40abb634b76ab4b9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
