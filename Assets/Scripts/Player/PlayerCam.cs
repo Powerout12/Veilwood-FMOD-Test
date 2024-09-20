@@ -14,12 +14,30 @@ public class PlayerCam : MonoBehaviour
 
     private void Start()
     {
+        CursorLock();
+    }
+
+    private static void CursorLock()
+    {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
+        if (PlayerMovement.accesingInventory)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
+        else if (!PlayerMovement.accesingInventory)
+        {
+            CursorLock();
+        }
+
+          
+
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
@@ -47,3 +65,4 @@ public class PlayerCam : MonoBehaviour
 
     }
 }
+

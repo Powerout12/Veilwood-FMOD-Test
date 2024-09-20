@@ -21,7 +21,6 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered");
         var inventory = other.transform.GetComponent<InventoryHolder>();
 
        if (!inventory) return;
