@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         savedMoveSpeed = moveSpeed;
-      
+        accesingInventory = false;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -61,10 +61,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        MyInput();
         if (isStalled)
             return;
 
-        MyInput();
+        MyMovementInput();
         SpeedControl();
         CheckGrounded();
 
@@ -80,6 +81,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void MyInput()
+    {
+
+        if (accesingInventory)
+        {
+            isStalled = true;
+        }
+        else if (!accesingInventory)
+        {
+            isStalled = false;
+        }
+    }
+
+    private void MyMovementInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
@@ -110,30 +124,16 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = savedMoveSpeed;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            accesingInventory = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            accesingInventory = false;
-        }
-
-
-
-
-
     }
 
-    private IEnumerator CheckIfGroundedAfterFirstJump()
+   /* private IEnumerator CheckIfGroundedAfterFirstJump()
     {
         yield return new WaitForSeconds(jumpCooldown);
         if (grounded)
         {
             ResetDoubleJump();
         }
-    }
+    }*/
 
     private void MovePlayer()
     {
