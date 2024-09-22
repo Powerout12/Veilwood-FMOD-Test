@@ -27,7 +27,17 @@ public class PlayerInteraction : MonoBehaviour
             {
                 Vector3 pos = structManager.CheckTile(hit.point);
                 if(pos != new Vector3(0,0,0)) structManager.SpawnStructure(testStructure, pos);
-                else print("Tile is not free");
+            }
+        }
+        //TO TEST CLEARING A STRUCTURE
+        if(Input.GetMouseButtonDown(1))
+        {
+            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
+            RaycastHit hit;
+
+            if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+            {
+                Destroy(hit.collider.gameObject);
             }
         }
 

@@ -37,4 +37,23 @@ public class StructureManager : MonoBehaviour
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         tileMap.SetTile(gridPos, occupiedTile);
     }
+
+    public void SetTile(Vector3 pos)
+    {
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        tileMap.SetTile(gridPos, occupiedTile);
+    }
+
+    public void Set4Tile(Vector3 pos) //to set a cube of tiles for big structures, currently unimplemented
+    {
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        tileMap.SetTile(gridPos, occupiedTile);
+    }
+
+    public void ClearTile(Vector3 pos)
+    {
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        print(tileMap.GetTile(gridPos));
+        tileMap.SetTile(gridPos, freeTile);
+    }
 }
