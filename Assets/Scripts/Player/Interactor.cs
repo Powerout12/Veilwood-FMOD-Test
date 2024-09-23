@@ -16,6 +16,8 @@ public class Interactor : MonoBehaviour
         isInteracting = false;
     }
 
+    //TODO: Put this in with player inputs that cam already made
+
     private void Update()
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);  // Raycast from the camera
@@ -32,7 +34,7 @@ public class Interactor : MonoBehaviour
                 if (interactable != null)
                 {
                     StartInteraction(interactable);
-                    PlayerMovement.accesingInventory = true;  // Assuming this controls the inventory UI
+                    PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
                     Debug.Log("Opened Inventory of Interactable Object");
                 }
             }

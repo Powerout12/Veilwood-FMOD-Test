@@ -5,7 +5,17 @@ using UnityEngine;
 public class StaticInventoryDisplay : InventoryDisplay
 {
     [SerializeField] private InventoryHolder inventoryHolder;
-    [SerializeField] private InventorySlot_UI[] slots;
+    [SerializeField] protected InventorySlot_UI[] slots;
+
+    /*protected virtual void OnEnable()
+    {
+        PlayerInventoryHolder.OnPlayerInventoryChanged += RefreshStaticDisplay;
+    }
+
+    protected virtual void OnDisable()
+    {
+        PlayerInventoryHolder.OnPlayerInventoryChanged -= RefreshStaticDisplay;
+    }*/ //TODO: Incorperate hotbar
 
     protected override void Start()
     {

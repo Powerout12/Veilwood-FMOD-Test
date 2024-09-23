@@ -25,13 +25,13 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerMovement.accesingInventory)
+        if (PlayerMovement.accessingInventory)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             return;
         }
-        else if (!PlayerMovement.accesingInventory)
+        else if (!PlayerMovement.accessingInventory)
         {
             CursorLock();
         }

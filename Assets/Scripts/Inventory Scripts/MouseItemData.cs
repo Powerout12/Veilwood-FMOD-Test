@@ -13,6 +13,8 @@ public class MouseItemData : MonoBehaviour
 
     private void Awake()
     {
+        itemSprite.gameObject.SetActive(true);
+        itemCount.gameObject.SetActive(true);
         itemSprite.color = Color.clear;
         itemCount.text = "";
 

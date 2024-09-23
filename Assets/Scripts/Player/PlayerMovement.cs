@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
   
 
     public static bool isStalled;
-    public static bool accesingInventory;
+    public static bool accessingInventory;
 
     float horizontalInput;
     float verticalInput;
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         savedMoveSpeed = moveSpeed;
-        accesingInventory = false;
+        accessingInventory = false;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -83,11 +83,11 @@ public class PlayerMovement : MonoBehaviour
     private void MyInput()
     {
 
-        if (accesingInventory)
+        if (accessingInventory)
         {
             isStalled = true;
         }
-        else if (!accesingInventory)
+        else if (!accessingInventory)
         {
             isStalled = false;
         }
@@ -115,11 +115,11 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }*/
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !accesingInventory)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !accessingInventory)
         {
             moveSpeed = sprintSpeed;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) && !accesingInventory)
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !accessingInventory)
         {
             moveSpeed = savedMoveSpeed;
         }

@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class PlayerInventoryHolder : InventoryHolder
 {
-
     [SerializeField] protected int secondaryInventorySize;
     [SerializeField] protected InventorySystem secondaryInventorySystem;
 
@@ -16,29 +15,29 @@ public class PlayerInventoryHolder : InventoryHolder
     protected override void Awake()
     {
         base.Awake();
-
         secondaryInventorySystem = new InventorySystem(secondaryInventorySize);
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !PlayerMovement.accesingInventory)
+        // Only trigger the event to open the backpack if no inventory is open
+        if (Input.GetKeyDown(KeyCode.E) && !PlayerMovement.accessingInventory)
         {
             OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem);
         }
     }
 
     public bool AddToInventory(InventoryItemData data, int amount)
+    {
+        if (primaryInventorySystem.AddToInventory(data, amount))
         {
-            if (primaryInventorySystem.AddToInventory(data, amount))
-            {
-                return true;
-            }
-
-            else if (secondaryInventorySystem.AddToInventory(data, amount))
-            {
-                return true;
-            }
-                
-        return false;
+            return true;
         }
+        else if (secondaryInventorySystem.AddToInventory(data, amount))
+        {
+            return true;
+        }
+
+        return false;
     }
+}
