@@ -1,11 +1,39 @@
+using SaveLoadSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SaveLoadSystem
+public class SaveGameManager : MonoBehaviour
 {
-    public static class SaveGameManager
+    public static SaveData data;
+
+    private void Awake()
     {
-        public static SaveData CurrentSaveData = new SaveData();
+        data = new SaveData();
+        SaveLoad.OnLoadGame += LoadData;
     }
+
+    public void DeleteData()
+    {
+        SaveLoad.DeleteSaveData();
+    }
+
+    public static void SaveData()
+    {
+        var saveData = data;
+
+        SaveLoad.SaveGame(saveData);
+    }
+    public static void LoadData(SaveData _data)
+    {
+        data = _data;
+    }
+
+    public static void TryLoadData()
+    {
+        SaveLoad.LoadGame();
+    }
+
+
 }

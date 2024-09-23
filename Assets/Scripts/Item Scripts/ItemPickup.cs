@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SaveLoadSystem;
+using System;
 
 [RequireComponent(typeof(SphereCollider))]
-
+[RequireComponent(typeof(UniqueID))]
 public class ItemPickup : MonoBehaviour
 {
     public float PickUpRadius = 1f;
@@ -12,12 +14,45 @@ public class ItemPickup : MonoBehaviour
 
     private SphereCollider myCollider;
 
+    [SerializeField] private ItemPickupSaveData itemSaveData;
+    private string id;
+
     private void Awake()
     {
+        id = GetComponent<UniqueID>().ID;
+        SaveLoad.OnLoadGame += LoadGame;
+        itemSaveData = new ItemPickupSaveData(ItemData, transform.position, transform.rotation);
+
+
+
         myCollider = GetComponent<SphereCollider>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
     }
+
+   
+
+    private void Start()
+    {
+        SaveGameManager.data.activeItems.Add(id, itemSaveData);
+    }
+
+    private void LoadGame(SaveData data)
+    {
+        if (data.collectedItems.Contains(id))
+        {
+            Debug.Log("Destroying");
+            Destroy(this.gameObject);
+        }
+        
+    }
+
+    private void OnDestroy()
+    {
+        if(SaveGameManager.data.activeItems.ContainsKey(id)) SaveGameManager.data.activeItems.Remove(id);
+        SaveLoad.OnLoadGame -= LoadGame;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,9 +62,25 @@ public class ItemPickup : MonoBehaviour
 
         if (inventory.AddToInventory(ItemData, 1))
         {
+            SaveGameManager.data.collectedItems.Add(id);
             Destroy(this.gameObject);
         }
 
 
+    }
+}
+
+[System.Serializable]
+public struct ItemPickupSaveData
+{
+    public InventoryItemData itemData;
+    public Vector3 position;
+    public Quaternion rotation;
+
+    public ItemPickupSaveData(InventoryItemData _itemData, Vector3 _position, Quaternion _rotation)
+    {
+        itemData = _itemData;
+        position = _position;
+        rotation = _rotation;
     }
 }
