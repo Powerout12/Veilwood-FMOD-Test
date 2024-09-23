@@ -26,6 +26,7 @@ public class StructureBehaviorScript : MonoBehaviour
 
     void OnDestroy()
     {
+        if(!gameObject.scene.isLoaded) return;
         print("Destroyed");
         structManager.ClearTile(transform.position);
     }
