@@ -41,20 +41,7 @@ public class PlayerInteraction : MonoBehaviour
         //STRUCT INTERACTION
         if(Input.GetMouseButtonDown(1))
         {
-            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
-            RaycastHit hit;
-
-        
-            if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
-            {
-                var interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null)
-                {
-                    StartInteraction(interactable);
-                    PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
-                    Debug.Log("Opened Inventory of Interactable Object");
-                }
-            }
+            StructureInteraction();
             //TO TEST CLEARING A STRUCTURE
             //DestroyStruct();
         }
@@ -80,6 +67,24 @@ public class PlayerInteraction : MonoBehaviour
         if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
             Destroy(hit.collider.gameObject);
+        }
+    }
+
+    void StructureInteraction()
+    {
+        Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+        {
+            var interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                StartInteraction(interactable);
+                PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
+                Debug.Log("Opened Inventory of Interactable Object");
+            }
         }
     }
 
