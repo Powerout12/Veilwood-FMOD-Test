@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2400f1e1724e5ba44ad5075b1f5e4fa1, type: 3}
-  m_Name: PaleCarrotSeeds
+  m_Script: {fileID: 11500000, guid: 2edfa73c5b2ca624f88c7f0fb8be25d6, type: 3}
+  m_Name: PaleCarrotSeed
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 0
   displayName: Pale Carrot Seeds
-  description: Carrot Seeds
+  description: 
   icon: {fileID: 112162144, guid: be6afb23f3e5fc54cb6baa4782d3d68f, type: 3}
-  maxStackSize: 6
+  maxStackSize: 10
+  plantable: 1
+  cropData: {fileID: 11400000, guid: 803ee950098efcb4291d3f9a5bf5e87e, type: 2}
