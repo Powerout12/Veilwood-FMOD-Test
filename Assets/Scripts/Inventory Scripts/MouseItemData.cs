@@ -13,6 +13,8 @@ public class MouseItemData : MonoBehaviour
 
     private void Awake()
     {
+        itemSprite.gameObject.SetActive(true);
+        itemCount.gameObject.SetActive(true);
         itemSprite.color = Color.clear;
         itemCount.text = "";
 
@@ -29,13 +31,16 @@ public class MouseItemData : MonoBehaviour
 
     private void Update()
     {
-        if (assignedInventorySlot.ItemData != null)
+        //TODO: Add controller support
+
+        if (assignedInventorySlot.ItemData != null) //If has an item, follow the mouse position
         {
             transform.position = Input.mousePosition;
 
             if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
             {
                 ClearSlot();
+                // TODO: Drop the item on the ground
             }
 
         }

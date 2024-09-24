@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
   
 
     public static bool isStalled;
-    public static bool accesingInventory;
+    public static bool accessingInventory;
 
     float horizontalInput;
     float verticalInput;
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         savedMoveSpeed = moveSpeed;
-      
+        accessingInventory = false;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -61,10 +61,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        MyInput();
         if (isStalled)
             return;
 
-        MyInput();
+        MyMovementInput();
         SpeedControl();
         CheckGrounded();
 
@@ -80,6 +81,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void MyInput()
+    {
+
+        if (accessingInventory)
+        {
+            isStalled = true;
+        }
+        else if (!accessingInventory)
+        {
+            isStalled = false;
+        }
+    }
+
+    private void MyMovementInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
@@ -101,39 +115,25 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }*/
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !accesingInventory)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !accessingInventory)
         {
             moveSpeed = sprintSpeed;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) && !accesingInventory)
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !accessingInventory)
         {
             moveSpeed = savedMoveSpeed;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            accesingInventory = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            accesingInventory = false;
-        }
-
-
-
-
-
     }
 
-    private IEnumerator CheckIfGroundedAfterFirstJump()
+   /* private IEnumerator CheckIfGroundedAfterFirstJump()
     {
         yield return new WaitForSeconds(jumpCooldown);
         if (grounded)
         {
             ResetDoubleJump();
         }
-    }
+    }*/
 
     private void MovePlayer()
     {
