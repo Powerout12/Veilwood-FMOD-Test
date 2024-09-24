@@ -41,9 +41,9 @@ public class PlayerInteraction : MonoBehaviour
         //STRUCT INTERACTION
         if(Input.GetMouseButtonDown(1))
         {
-            StructureInteraction();
+            //StructureInteraction();
             //TO TEST CLEARING A STRUCTURE
-            //DestroyStruct();
+            DestroyStruct();
         }
 
     }
