@@ -61,7 +61,7 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    private void EndConversation()
+    public void EndConversation()
     {
         // Clear queue
         paragraphs.Clear();
