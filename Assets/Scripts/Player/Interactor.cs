@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Interactor : MonoBehaviour
@@ -27,15 +28,24 @@ public class Interactor : MonoBehaviour
         if (Physics.Raycast(ray, out hit, raycastDistance, InteractionLayer))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
+            GameObject interactObject = hit.collider.GameObject(); //Added this for dialogue stuff sowwy!!!
 
             // If right-click is pressed and an interactable object is detected
             if (Input.GetMouseButtonDown(1)) 
             {
-                if (interactable != null)
+                if (interactable != null) 
                 {
-                    StartInteraction(interactable);
-                    PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
-                    Debug.Log("Opened Inventory of Interactable Object");
+                    if (interactObject.tag ==  "NPC") // Also this teehee!!!
+                    {
+                        StartInteraction(interactable);
+                        Debug.Log("NPC Interacted");
+                    }  
+                    else
+                    {
+                        StartInteraction(interactable);
+                        PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
+                        Debug.Log("Opened Inventory of Interactable Object");
+                    }
                 }
             }
         }
