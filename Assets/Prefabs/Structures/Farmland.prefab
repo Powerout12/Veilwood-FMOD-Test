@@ -193,9 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555dc3be56bae9146a477b95e8f87fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  structData: {fileID: 0}
+  structData: {fileID: 11400000, guid: 4bb8c5d0417971e499a33ac0a0c86ee3, type: 2}
   health: 5
   maxHealth: 5
+  crop: {fileID: 0}
+  waterLevel: 0
 --- !u!1001 &7364721809948816860
 PrefabInstance:
   m_ObjectHideFlags: 0
