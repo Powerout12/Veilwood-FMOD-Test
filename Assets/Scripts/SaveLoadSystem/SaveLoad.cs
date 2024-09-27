@@ -1,75 +1,95 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
+using System.Text;
+using UnityEngine;
 using UnityEngine.Events;
 
-namespace SaveLoadSystem
-{
 public static class SaveLoad
 {
-    public static SaveData CurrentSaveData = new SaveData();
-
-    public const string SaveDirectory = "/SaveData/";
-    public const string FileName = "SaveGame.sav";
-
     public static UnityAction OnSaveGame;
     public static UnityAction<SaveData> OnLoadGame;
 
-    public static bool SaveGame(SaveData data)
+    private static string directory = "/SaveData/";
+    private static string fileName = "SaveGame.sav";
+
+    private static readonly string keyWord = "1361315";
+
+    public static bool Save(SaveData data)
     {
+        bool encryptData = SaveGameManager.EncryptSaveFile;
+
         OnSaveGame?.Invoke();
 
-        var dir = Application.persistentDataPath + SaveDirectory; //check what full directory is
+        string dir = Application.persistentDataPath + directory;
 
-        if (!Directory.Exists(dir)) //if it doesnt exist create the folder
-        {
+        GUIUtility.systemCopyBuffer = dir;
+
+        if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
+
+        string json = JsonUtility.ToJson(data, true);
+
+
+        if (encryptData)
+        {
+            var encryptedJson = EncryptDecrypt(json);
+            File.WriteAllText(dir + fileName, encryptedJson);
+        }
+        else
+        {
+            File.WriteAllText(dir + fileName, json);
         }
 
-        string json = JsonUtility.ToJson(CurrentSaveData, true); //writes the save file
-        File.WriteAllText(dir + FileName, json);
-
-        Debug.Log("Saving Game");
-
-        GUIUtility.systemCopyBuffer = dir; //copies directory to clipboard
+        Debug.Log("Saving game");
 
         return true;
     }
 
-    public static void LoadGame()
+    public static SaveData Load()
     {
+        bool needsDecryption = SaveGameManager.EncryptSaveFile;
 
-
-
-        string fullPath = Application.persistentDataPath + SaveDirectory + FileName;
-        SaveData tempData = new SaveData();
+        string fullPath = Application.persistentDataPath + directory + fileName;
+        SaveData data = new SaveData();
 
         if (File.Exists(fullPath))
         {
-            string json = File.ReadAllText(fullPath);
-            tempData = JsonUtility.FromJson<SaveData>(json);
+            var jsonData = File.ReadAllText(fullPath);
 
-            OnLoadGame?.Invoke(tempData);
+            data = JsonUtility.FromJson<SaveData>(needsDecryption ? EncryptDecrypt(jsonData) : jsonData);
+
+            OnLoadGame?.Invoke(data);
+
+
         }
         else
         {
-            Debug.LogError("Save file does not exist!");
+            Debug.Log("Save file does not exist!");
         }
 
-        CurrentSaveData = tempData;
-
-
+        return data;
     }
 
-        public static void DeleteSaveData()
-        {
-            string fullPath = Application.persistentDataPath + SaveDirectory + FileName;
-            if (File.Exists(fullPath))
-            { 
-                File.Delete(fullPath); 
-            }
-        }
-}
-}
+    public static void DeleteSaveData()
+    {
+        string fullPath = Application.persistentDataPath + directory + fileName;
 
+        if (File.Exists(fullPath)) File.Delete(fullPath);
+    }
+
+    private static string EncryptDecrypt(string data)
+    {
+        string result = "";
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            result += (char)(data[i] ^ keyWord[i % keyWord.Length]);
+        }
+
+        return result;
+    }
+
+
+}

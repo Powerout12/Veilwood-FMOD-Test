@@ -1,39 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class PlayerInventoryHolder : InventoryHolder
 {
-    [SerializeField] protected int secondaryInventorySize;
-    [SerializeField] protected InventorySystem secondaryInventorySystem;
 
-    public InventorySystem InventorySystem => secondaryInventorySystem;
 
-    public static UnityAction<InventorySystem> OnPlayerBackpackDisplayRequested;
+    public static UnityAction OnPlayerInventoryChanged;
 
-    protected override void Awake()
+    public static UnityAction<InventorySystem, int> OnPlayerInventoryDisplayRequested;
+
+    private void Start()
     {
-        base.Awake();
-        secondaryInventorySystem = new InventorySystem(secondaryInventorySize);
+        SaveGameManager.data.playerInventory = new InventorySaveData(primaryInventorySystem);
     }
+
+    protected override void LoadInventory(SaveData data)
+    {
+        // Check the save data for this specific chests inventory, and if it exists, load it in.
+        if (data.playerInventory.InvSystem != null)
+        {
+            this.primaryInventorySystem = data.playerInventory.InvSystem;
+            OnPlayerInventoryChanged?.Invoke();
+        }
+    }
+
 
     void Update()
     {
-        // Only trigger the event to open the backpack if no inventory is open
-        if (Input.GetKeyDown(KeyCode.E) && !PlayerMovement.accessingInventory)
-        {
-            OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem);
-        }
+        if (Input.GetKeyDown(KeyCode.E)) OnPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
     }
 
     public bool AddToInventory(InventoryItemData data, int amount)
     {
         if (primaryInventorySystem.AddToInventory(data, amount))
-        {
-            return true;
-        }
-        else if (secondaryInventorySystem.AddToInventory(data, amount))
         {
             return true;
         }

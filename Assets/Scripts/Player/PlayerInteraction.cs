@@ -41,9 +41,9 @@ public class PlayerInteraction : MonoBehaviour
         //STRUCT INTERACTION
         if(Input.GetMouseButtonDown(1))
         {
-            //StructureInteraction();
+            StructureInteraction();
             //TO TEST CLEARING A STRUCTURE
-            DestroyStruct();
+            //DestroyStruct();
         }
 
     }
@@ -66,7 +66,11 @@ public class PlayerInteraction : MonoBehaviour
 
         if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
-            Destroy(hit.collider.gameObject);
+            if (hit.collider.gameObject.CompareTag("Interactable"))
+            {
+                return;
+            }
+            else Destroy(hit.collider.gameObject);
         }
     }
 
@@ -82,7 +86,7 @@ public class PlayerInteraction : MonoBehaviour
             if (interactable != null)
             {
                 StartInteraction(interactable);
-                PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
+                PlayerMovement.accessingInventory = true;  
                 Debug.Log("Opened Inventory of Interactable Object");
             }
         }

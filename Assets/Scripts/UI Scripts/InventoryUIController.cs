@@ -1,93 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InventoryUIController : MonoBehaviour
 {
-    public DynamicInventoryDisplay chestPanel;
+    [FormerlySerializedAs("chestPanel")] public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
-
-    private bool isBackpackOpen = false;  
-    private bool inventoryDisplayed = false;
-    public bool readyToPress;
 
     private void Awake()
     {
-        inventoryDisplayed = false;
-        chestPanel.gameObject.SetActive(false);
+        inventoryPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
-        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested += DisplayPlayerBackpack;
+        PlayerInventoryHolder.OnPlayerInventoryDisplayRequested += DisplayPlayerInventory;
     }
 
     private void OnDisable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
-        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested -= DisplayPlayerBackpack;
+        PlayerInventoryHolder.OnPlayerInventoryDisplayRequested -= DisplayPlayerInventory;
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            readyToPress = true;
-        }
+        if (inventoryPanel.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.E))
+            inventoryPanel.gameObject.SetActive(false);
 
-       
-        if (Input.GetKeyDown(KeyCode.E) && PlayerMovement.accessingInventory && readyToPress)
-        {
-            
-            if (chestPanel.gameObject.activeInHierarchy)
-            {
-                CloseInventory();
-            }
-            else if (isBackpackOpen)
-            {
-                CloseBackpack();
-            }
-        }
+        if (playerBackpackPanel.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.E))
+            playerBackpackPanel.gameObject.SetActive(false);
     }
 
-    void DisplayInventory(InventorySystem invToDisplay)
+    void DisplayInventory(InventorySystem invToDisplay, int offset)
     {
-        PlayerMovement.accessingInventory = true;
-        chestPanel.gameObject.SetActive(true);
+        inventoryPanel.gameObject.SetActive(true);
+        inventoryPanel.RefreshDynamicInventory(invToDisplay, offset);
+    }
+
+    void DisplayPlayerInventory(InventorySystem invToDisplay, int offset)
+    {
         playerBackpackPanel.gameObject.SetActive(true);
-        chestPanel.RefreshDynamicInventory(invToDisplay);
-        inventoryDisplayed = true;
-        isBackpackOpen = true;
-
-    }
-
-    void DisplayPlayerBackpack(InventorySystem invToDisplay)
-    {
-        if (!isBackpackOpen)
-        {
-            PlayerMovement.accessingInventory = true;
-            playerBackpackPanel.gameObject.SetActive(true);
-            playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
-            isBackpackOpen = true; 
-            readyToPress = false;
-        }
-    }
-
-    void CloseInventory()
-    {
-        chestPanel.gameObject.SetActive(false);
-        playerBackpackPanel.gameObject.SetActive(false);
-        PlayerMovement.accessingInventory = false;
-        inventoryDisplayed = false;
-        isBackpackOpen = false; 
-    }
-
-    void CloseBackpack()
-    {
-        playerBackpackPanel.gameObject.SetActive(false);
-        PlayerMovement.accessingInventory = false;
-        isBackpackOpen = false; 
+        playerBackpackPanel.RefreshDynamicInventory(invToDisplay, offset);
     }
 }

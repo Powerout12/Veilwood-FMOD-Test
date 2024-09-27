@@ -2,11 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class InventorySlot_UI : MonoBehaviour
 {
     [SerializeField] private Image itemSprite;
     [SerializeField] private TextMeshProUGUI itemCount;
+    [SerializeField] private GameObject slotHighlight;
     [SerializeField] private InventorySlot assignedInventorySlot;
 
     private Button button;
@@ -66,9 +68,8 @@ public class InventorySlot_UI : MonoBehaviour
         itemCount.text = "";
     }
 
-
-
-
-
-
+    public void ToggleHighlight()
+    {
+        slotHighlight.SetActive(!slotHighlight.activeInHierarchy);
+    }
 }
