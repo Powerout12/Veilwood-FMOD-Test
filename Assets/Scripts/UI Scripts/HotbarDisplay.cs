@@ -1,70 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HotbarDisplay : StaticInventoryDisplay
+public class HotbarDisplay : MonoBehaviour
 {
-    private int maxIndexSize = 8;
-    private int currentIndex = 0;
+    public InputManager inputManager;  // Reference to the InputManager
+    public InventorySlot_UI[] hotbarSlots;   // Array of hotbar slots (InventorySlot_UI)
 
-    private void Awake()
+    private void OnEnable()
     {
-
+        // Subscribe to the input manager's OnNumberPressed event
+        if (inputManager != null)
+        {
+            inputManager.OnNumberPressed += HandleNumberPressed;
+        }
     }
 
-    protected override void Start()
+    private void OnDisable()
     {
-        base.Start();
-
-        currentIndex = 0;
-        maxIndexSize = slots.Length - 1;
-
-        slots[currentIndex].ToggleHighlight();
+        // Unsubscribe to avoid memory leaks
+        if (inputManager != null)
+        {
+            inputManager.OnNumberPressed -= HandleNumberPressed;
+        }
     }
 
-    protected override void OnEnable()
+    // Method to handle number presses
+    private void HandleNumberPressed(int number)
     {
-        base.OnEnable();
-
-
+        // Assuming hotbarSlots array has exactly 9 slots, 1-based (1 to 9)
+        if (number > 0 && number <= hotbarSlots.Length)
+        {
+            SelectHotbarSlot(number - 1);  // Hotbar slots are 0-indexed
+        }
     }
 
-    protected override void OnDisable()
+    private void SelectHotbarSlot(int slotIndex)
     {
-        base.OnDisable();
+        // Example logic for selecting the item in the hotbar slot
+        InventorySlot_UI selectedSlot = hotbarSlots[slotIndex];
 
+        if (selectedSlot.AssignedInventorySlot != null && selectedSlot.AssignedInventorySlot.ItemData != null)
+        {
+            //Debug.Log($"Selected item from hotbar slot {slotIndex + 1}: {selectedSlot.AssignedInventorySlot.ItemData.displayName}");
 
-    }
-
-    private void Update()
-    {
-        //Mousewheel implementation
-    }
-
-    private void UseItem()
-    {
-        if (slots[currentIndex].AssignedInventorySlot != null) { slots[currentIndex].AssignedInventorySlot.ItemData.UseItem(); }
-    }
-
-    private void ChangeIndex(int direction)
-    {
-        slots[currentIndex].ToggleHighlight();
-        currentIndex += direction;
-
-        if (currentIndex > maxIndexSize) currentIndex = 0;
-        if (currentIndex < 0) currentIndex = maxIndexSize;
-
-        slots[currentIndex].ToggleHighlight();
-    }
-
-    private void SetIndex(int newIndex)
-    {
-        slots[currentIndex].ToggleHighlight();
-        if (newIndex < 0) newIndex = 0;
-        if (newIndex > maxIndexSize) newIndex = maxIndexSize;
-
-        currentIndex = newIndex;
-
-        slots[currentIndex].ToggleHighlight();
+          
+            selectedSlot.AssignedInventorySlot.ItemData.UseItem();
+        }
+        else
+        {
+            Debug.Log($"No item in hotbar slot {slotIndex + 1}");
+        }
     }
 }

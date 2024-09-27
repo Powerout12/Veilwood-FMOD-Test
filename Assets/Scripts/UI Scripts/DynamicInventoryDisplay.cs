@@ -6,36 +6,50 @@ using System.Linq;
 public class DynamicInventoryDisplay : InventoryDisplay
 {
     [SerializeField] protected InventorySlot_UI slotPrefab;
+   
+    protected override void Start()
+    {
+       
+        base.Start();
 
-    public void RefreshDynamicInventory(InventorySystem invToDisplay, int offset)
+      
+    }
+
+  
+
+    public void RefreshDynamicInventory(InventorySystem invToDisplay)
     {
         ClearSlots();
         inventorySystem = invToDisplay;
         if (inventorySystem != null) inventorySystem.OnInventorySlotChanged += UpdateSlot;
-        AssignSlot(invToDisplay, offset);
+        AssignSlot(invToDisplay);
     }
 
-    public override void AssignSlot(InventorySystem invToDisplay, int offset)
+    public override void AssignSlot(InventorySystem invToDisplay)
     {
+     
 
         slotDictionary = new Dictionary<InventorySlot_UI, InventorySlot>();
 
         if (invToDisplay == null) return;
 
-        for (int i = offset; i < invToDisplay.InventorySize; i++)
+
+
+        for (int i = 0; i < invToDisplay.InventorySize; i++)
         {
             var uiSlot = Instantiate(slotPrefab, transform);
             slotDictionary.Add(uiSlot, invToDisplay.InventorySlots[i]);
             uiSlot.Init(invToDisplay.InventorySlots[i]);
             uiSlot.UpdateUISlot();
         }
+
     }
 
     private void ClearSlots()
     {
-        foreach (var item in transform.Cast<Transform>())
+        foreach(var item in transform.Cast<Transform>())
         {
-            Destroy(item.gameObject);
+            Destroy(item.gameObject); //TODO: Look into object pooling 
         }
 
         if (slotDictionary != null) slotDictionary.Clear();

@@ -12,7 +12,7 @@ public abstract class InventoryDisplay : MonoBehaviour
     public InventorySystem InventorySystem => inventorySystem;
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => slotDictionary;
 
-    public abstract void AssignSlot(InventorySystem invToDisplay, int offset); // Implemented in child classes.
+    public abstract void AssignSlot(InventorySystem invToDisplay); // Implemented in child classes
 
     protected virtual void Start()
     {
@@ -21,11 +21,11 @@ public abstract class InventoryDisplay : MonoBehaviour
 
     protected virtual void UpdateSlot(InventorySlot updatedSlot)
     {
-        foreach (var slot in SlotDictionary)
+        foreach (var slot in slotDictionary)
         {
             if (slot.Value == updatedSlot) // Slot value - the "under the hood" inventory slot.
             {
-                slot.Key.UpdateUISlot(updatedSlot); // Slot key - the UI representation of the value.
+                slot.Key.UpdateUISlot(updatedSlot); // slot key - the ui representation of the value/
             }
         }
     }
@@ -77,7 +77,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                 return ;
             }
 
-            else if (isSameItem && !clickedUISlot.AssignedInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize, out int leftInStack))
+            else if (isSameItem && !clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.assignedInventorySlot.StackSize, out int leftInStack))
             {
                 if (leftInStack < 1) SwapSlots(clickedUISlot); // Stack is full so swap items
                 else // Slot is not at max, so take whats needed from mouse inventory

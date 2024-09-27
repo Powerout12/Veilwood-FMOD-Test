@@ -1,3 +1,4 @@
+using SaveLoadSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,36 +6,63 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(UniqueID))]
-public class ChestInventory : InventoryHolder, IInteractable
+
+public class ChestInventory : InventoryHolder , IInteractable
 {
-    public UnityAction<IInteractable> OnInteractionComplete { get; set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+       SaveLoad.OnLoadGame += LoadInventory;
+    }
 
     private void Start()
     {
-        var chestSaveData = new InventorySaveData(primaryInventorySystem, transform.position, transform.rotation);
+        var chestSavedData = new ChestSaveData(primaryInventorySystem, transform.position, transform.rotation);
 
-        SaveGameManager.data.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSaveData);
+        SaveLoad.CurrentSaveData.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSavedData);
     }
 
-    protected override void LoadInventory(SaveData data)
+
+    private void LoadInventory(SaveData data)
     {
-        // Check the save data for this specific chests inventory, and if it exists, load it in.
-        if (data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out InventorySaveData chestData))
+        if (data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out ChestSaveData chestData))
         {
-            this.primaryInventorySystem = chestData.InvSystem;
-            this.transform.position = chestData.Position;
-            this.transform.rotation = chestData.Rotation;
+            this.primaryInventorySystem = chestData.invSystem;
+            this.transform.position = chestData.position;
+            this.transform.rotation = chestData.rotation;
         }
     }
 
+    public UnityAction<IInteractable> OnInteractionComplete { get; set; }
+
     public void Interact(PlayerInteraction interactor, out bool interactSuccessful)
     {
-        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem, 0);
+       
+        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem);
         interactSuccessful = true;
     }
-
     public void EndInteraction()
     {
-
+       
     }
+
+ 
+}
+
+[System.Serializable]
+
+public struct ChestSaveData
+{
+    public InventorySystem invSystem;
+    public Vector3 position;
+    public Quaternion rotation;
+
+    public ChestSaveData(InventorySystem _invSystem, Vector3 _position, Quaternion _rotation)
+    {
+        invSystem = _invSystem;
+        position = _position;
+        rotation = _rotation;
+    }
+
 }
