@@ -15,7 +15,7 @@ public class FaceCamera : MonoBehaviour
     {
         Vector3 fwd = player.forward; 
         fwd.y = 0; 
-        transform.rotation = Quaternion.LookRotation(fwd);
+        if (fwd != Vector3.zero) transform.rotation = Quaternion.LookRotation(fwd);
     }
 
 

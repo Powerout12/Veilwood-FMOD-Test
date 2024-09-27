@@ -105,15 +105,6 @@ MonoBehaviour:
   moveSpeed: 7
   sprintSpeed: 10
   groundDrag: 5
-  jumpForce: 15
-  jumpCooldown: 0.25
-  airMultiplier: 0.4
-  hasDoubleJumpPower: 1
-  jumpKey: 32
-  playerHeight: 2
-  ground:
-    serializedVersion: 2
-    m_Bits: 0
   orientation: {fileID: 2948405178405840430}
 --- !u!114 &4060353663220160237
 MonoBehaviour:
@@ -161,6 +152,7 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   testStructure: {fileID: 2961193080738427394, guid: 5f5fcaf963705e0419b1ecadb42c0641,
     type: 3}
+  testItem: {fileID: 11400000, guid: e38605f28bd999346a131705990b3b9a, type: 2}
 --- !u!1 &1060290861880225202
 GameObject:
   m_ObjectHideFlags: 0
