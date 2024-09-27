@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public Camera mainCam;
 
     public GameObject testStructure;
+    public InventoryItemData testItem;
 
     StructureManager structManager;
 
@@ -41,9 +42,26 @@ public class PlayerInteraction : MonoBehaviour
         //STRUCT INTERACTION
         if(Input.GetMouseButtonDown(1))
         {
-            //StructureInteraction();
+            StructureInteraction();
             //TO TEST CLEARING A STRUCTURE
-            DestroyStruct();
+            //DestroyStruct();
+        }
+
+        if(Input.GetKeyDown("f"))
+        {
+            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
+            RaycastHit hit;
+
+
+            if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+            {
+                var structure = hit.collider.GetComponent<StructureBehaviorScript>();
+                if (structure != null)
+                {
+                    structure.StructureInteraction();
+                    Debug.Log("Tried to harvest plant");
+                }
+            }
         }
 
     }
@@ -84,6 +102,14 @@ public class PlayerInteraction : MonoBehaviour
                 StartInteraction(interactable);
                 PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
                 Debug.Log("Opened Inventory of Interactable Object");
+                return;
+            }
+
+            var structure = hit.collider.GetComponent<StructureBehaviorScript>();
+            if (structure != null)
+            {
+                structure.ItemInteraction(testItem);
+                Debug.Log("Added crop to farmland");
             }
         }
     }

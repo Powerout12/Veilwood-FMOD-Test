@@ -14,21 +14,27 @@ public class StructureBehaviorScript : MonoBehaviour
     public float maxHealth = 5;
 
 
-    void Awake()
+    public void Awake()
     {
         structManager = FindObjectOfType<StructureManager>();
+        structManager.allStructs.Add(this);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Update()
     {
-        
+        if(health <= 0) Destroy(this.gameObject);
     }
+
+    public virtual void StructureInteraction(){}
+    public virtual void ItemInteraction(InventoryItemData item){}
+    public virtual void HourPassed(){}
 
     void OnDestroy()
     {
         if(!gameObject.scene.isLoaded) return;
         print("Destroyed");
         structManager.ClearTile(transform.position);
+        structManager.allStructs.Remove(this);
     }
 }

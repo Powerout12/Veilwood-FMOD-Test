@@ -9,10 +9,20 @@ public class StructureManager : MonoBehaviour
     public Tilemap tileMap;
     public TileBase freeTile, occupiedTile;
 
+    public List<StructureBehaviorScript> allStructs;
+
 
     void Start()
     {
         
+    }
+
+    public void HourUpdate()
+    {
+        foreach (StructureBehaviorScript structure in allStructs)
+        {
+            structure.HourPassed();
+        }
     }
 
 
