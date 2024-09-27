@@ -7,15 +7,26 @@ public class InventoryUIController : MonoBehaviour
     public DynamicInventoryDisplay chestPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
 
+    PlayerInventoryHolder inventoryHolder;
+
     private bool isBackpackOpen = false;  
-    private bool inventoryDisplayed = false;
+ 
     public bool readyToPress;
 
     private void Awake()
     {
-        inventoryDisplayed = false;
+        readyToPress = true;
         chestPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
+
+        inventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
+
+    }
+
+    void Start()
+    {
+        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
+        CloseBackpack();
     }
 
     private void OnEnable()
@@ -38,8 +49,13 @@ public class InventoryUIController : MonoBehaviour
         }
 
        
-        if (Input.GetKeyDown(KeyCode.E) && PlayerMovement.accessingInventory && readyToPress)
+        if (Input.GetKeyDown(KeyCode.E) && readyToPress)
         {
+            if(!PlayerMovement.accessingInventory)
+            {
+                PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
+                return;
+            }
             
             if (chestPanel.gameObject.activeInHierarchy)
             {
@@ -48,17 +64,20 @@ public class InventoryUIController : MonoBehaviour
             else if (isBackpackOpen)
             {
                 CloseBackpack();
+                print("Closing backpack");
             }
         }
+        
     }
 
     void DisplayInventory(InventorySystem invToDisplay)
     {
+        //Chest Inventory
         PlayerMovement.accessingInventory = true;
         chestPanel.gameObject.SetActive(true);
         playerBackpackPanel.gameObject.SetActive(true);
         chestPanel.RefreshDynamicInventory(invToDisplay);
-        inventoryDisplayed = true;
+       
         isBackpackOpen = true;
 
     }
@@ -67,6 +86,7 @@ public class InventoryUIController : MonoBehaviour
     {
         if (!isBackpackOpen)
         {
+            print("Opening");
             PlayerMovement.accessingInventory = true;
             playerBackpackPanel.gameObject.SetActive(true);
             playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
@@ -77,15 +97,17 @@ public class InventoryUIController : MonoBehaviour
 
     void CloseInventory()
     {
+        //Close Chest
         chestPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
         PlayerMovement.accessingInventory = false;
-        inventoryDisplayed = false;
+
         isBackpackOpen = false; 
     }
 
     void CloseBackpack()
     {
+        print("Closing");
         playerBackpackPanel.gameObject.SetActive(false);
         PlayerMovement.accessingInventory = false;
         isBackpackOpen = false; 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerInventoryHolder : InventoryHolder
 {
     [SerializeField] protected int secondaryInventorySize;
-    [SerializeField] protected InventorySystem secondaryInventorySystem;
+    [SerializeField] public InventorySystem secondaryInventorySystem;
 
     public InventorySystem InventorySystem => secondaryInventorySystem;
 
@@ -23,7 +23,7 @@ public class PlayerInventoryHolder : InventoryHolder
         // Only trigger the event to open the backpack if no inventory is open
         if (Input.GetKeyDown(KeyCode.E) && !PlayerMovement.accessingInventory)
         {
-            OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem);
+            //OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem);
         }
     }
 
