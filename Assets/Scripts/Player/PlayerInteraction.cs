@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         //ITEM INTERACTION
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
             Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
             RaycastHit hit;
@@ -40,7 +40,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         //STRUCT INTERACTION
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) && !PlayerMovement.accessingInventory)
         {
             StructureInteraction();
             //TO TEST CLEARING A STRUCTURE
@@ -117,7 +117,7 @@ public class PlayerInteraction : MonoBehaviour
             var structure = hit.collider.GetComponent<StructureBehaviorScript>();
             if (structure != null)
             {
-                structure.ItemInteraction(testItem);
+                structure.ItemInteraction(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
                 Debug.Log("Added crop to farmland");
                 return;
             }

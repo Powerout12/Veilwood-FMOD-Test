@@ -20,6 +20,7 @@ public class FarmLand : StructureBehaviorScript
     void Awake()
     {
         base.Awake();
+        SpriteChange();
     }
 
     // Update is called once per frame
@@ -36,6 +37,7 @@ public class FarmLand : StructureBehaviorScript
             crop = newCrop.cropData;
             growthStage = 1;
             SpriteChange();
+            HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
         }
     }
 

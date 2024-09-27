@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 5962323216527670430}
   - component: {fileID: 2585995695750049734}
   - component: {fileID: 8262519478181452215}
+  - component: {fileID: 5967104726679935031}
   m_Layer: 5
   m_Name: Player Hotbar
   m_TagString: Untagged
@@ -407,6 +408,29 @@ MonoBehaviour:
   mouseInventoryItem: {fileID: 5119735143478905454}
   inventoryHolder: {fileID: 0}
   slots:
+  - {fileID: 8838867210631926264}
+  - {fileID: 8353293368196348826}
+  - {fileID: 6127011027610960326}
+  - {fileID: 5038051159351952900}
+  - {fileID: 3706820912880081532}
+  - {fileID: 8547596604545325884}
+  - {fileID: 8354725679011541147}
+  - {fileID: 97727464865530670}
+  - {fileID: 1968076083526249922}
+--- !u!114 &5967104726679935031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728201716639736941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f423fd4b47175c468716a73c766d73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 0}
+  hotbarSlots:
   - {fileID: 8838867210631926264}
   - {fileID: 8353293368196348826}
   - {fileID: 6127011027610960326}
@@ -1328,7 +1352,7 @@ GameObject:
   - component: {fileID: 8400881667396027317}
   - component: {fileID: 4608636023833659039}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

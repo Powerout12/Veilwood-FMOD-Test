@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8883901233060397173}
   - component: {fileID: 4040343108907326756}
   - component: {fileID: 1570504167119801372}
+  - component: {fileID: 4750952263133987452}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   tileMap: {fileID: 0}
   freeTile: {fileID: 11400000, guid: fb09f6225d3c7794f97e6f296c9e5a0d, type: 2}
   occupiedTile: {fileID: 11400000, guid: 147fc03a3d7579845993f41d1f7b4ecc, type: 2}
+  allStructs: []
 --- !u!114 &1570504167119801372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,5 +60,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36f9f1e80beadc54f9ec8f58837125c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4750952263133987452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905684624903694689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a26d7ca0fce7d428bcab116bcd5719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -4,6 +4,7 @@ public class HotbarDisplay : MonoBehaviour
 {
     public InputManager inputManager;  // Reference to the InputManager
     public InventorySlot_UI[] hotbarSlots;   // Array of hotbar slots (InventorySlot_UI)
+    public static InventorySlot_UI currentSlot;
 
     private void OnEnable()
     {
@@ -36,14 +37,15 @@ public class HotbarDisplay : MonoBehaviour
     private void SelectHotbarSlot(int slotIndex)
     {
         // Example logic for selecting the item in the hotbar slot
-        InventorySlot_UI selectedSlot = hotbarSlots[slotIndex];
+        currentSlot = hotbarSlots[slotIndex];
 
-        if (selectedSlot.AssignedInventorySlot != null && selectedSlot.AssignedInventorySlot.ItemData != null)
+        if (currentSlot.AssignedInventorySlot != null && currentSlot.AssignedInventorySlot.ItemData != null)
         {
-            //Debug.Log($"Selected item from hotbar slot {slotIndex + 1}: {selectedSlot.AssignedInventorySlot.ItemData.displayName}");
+            //Debug.Log($"Selected item from hotbar slot {slotIndex + 1}: {currentSlot.AssignedInventorySlot.ItemData.displayName}");
 
+            //This is where you can assign the currently selected hotbar
           
-            selectedSlot.AssignedInventorySlot.ItemData.UseItem();
+            currentSlot.AssignedInventorySlot.ItemData.UseItem();
         }
         else
         {
