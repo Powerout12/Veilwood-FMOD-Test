@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70dbf8d30e14dbf4a99b211eb63c25fb, type: 3}
-  m_Name: Hoe
+  m_Script: {fileID: 11500000, guid: c39589dfb3252e04aa90d862e1b4a77b, type: 3}
+  m_Name: Barrel
   m_EditorClassIdentifier: 
-  ID: 0
-  displayName: Hoe
-  description: Tills ground/melee
+  ID: 3
+  displayName: Barrel
+  description: Collects water
   icon: {fileID: 0}
   maxStackSize: 1
-  durability: 100
-  handPrefab: {fileID: 0}
-  behavior: {fileID: 11400000, guid: 749d713e7182797438a0bcc8f3228b62, type: 2}
+  placedPrefab: {fileID: 0}

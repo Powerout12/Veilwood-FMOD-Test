@@ -11,11 +11,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory System/Inventory Item")]
 public class InventoryItemData : ScriptableObject
 {
-    public int ID;
+    public int ID = -1;
     public string displayName;
     [TextArea(4,4)]
     public string description;
     public Sprite icon;
     public int maxStackSize;
    
+    public void UseItem()
+    {
+        Debug.Log($"Using {this.displayName}");
+    }
 }

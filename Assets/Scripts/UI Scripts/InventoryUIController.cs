@@ -8,12 +8,12 @@ public class InventoryUIController : MonoBehaviour
     public DynamicInventoryDisplay playerBackpackPanel;
 
     private bool isBackpackOpen = false;  
-    private bool inventoryDisplayed = false;
+ 
     public bool readyToPress;
 
     private void Awake()
     {
-        inventoryDisplayed = false;
+
         chestPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
     }
@@ -58,7 +58,7 @@ public class InventoryUIController : MonoBehaviour
         chestPanel.gameObject.SetActive(true);
         playerBackpackPanel.gameObject.SetActive(true);
         chestPanel.RefreshDynamicInventory(invToDisplay);
-        inventoryDisplayed = true;
+       
         isBackpackOpen = true;
 
     }
@@ -80,7 +80,7 @@ public class InventoryUIController : MonoBehaviour
         chestPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
         PlayerMovement.accessingInventory = false;
-        inventoryDisplayed = false;
+
         isBackpackOpen = false; 
     }
 
