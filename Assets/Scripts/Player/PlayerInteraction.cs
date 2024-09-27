@@ -97,10 +97,18 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
-            GameObject interactObject = hit.collider.gameObject;
+            GameObject hitObject = hit.collider.gameObject;
             if (interactable != null)
             {
                 StartInteraction(interactable);
+                
+                if (hitObject.tag ==  "NPC") // Also this teehee!!!
+                {
+                    Debug.Log("NPC Interacted");
+                    return;
+                }  
+
+
                 PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
                 Debug.Log("Opened Inventory of Interactable Object");
                 return;
@@ -111,17 +119,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 structure.ItemInteraction(testItem);
                 Debug.Log("Added crop to farmland");
-                if (interactObject.tag ==  "NPC") // Also this teehee!!!
-                {
-                    StartInteraction(interactable);
-                    Debug.Log("NPC Interacted");
-                }  
-                else
-                {
-                    StartInteraction(interactable);
-                    PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
-                    Debug.Log("Opened Inventory of Interactable Object");
-                }
+                return;
             }
         }
     }
