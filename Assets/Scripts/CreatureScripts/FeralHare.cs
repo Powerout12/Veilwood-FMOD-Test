@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class FeralHare : CreatureBehaviorScript
 {
@@ -23,5 +22,10 @@ public class FeralHare : CreatureBehaviorScript
     public void CropCheck()
     {
         //search for crops
+    }
+
+    public void Hop()
+    {
+        //hare will jump toward a random direction using physics, using rb.addforce to a random vector3 position in addition to a vector3.up force
     }
 }
