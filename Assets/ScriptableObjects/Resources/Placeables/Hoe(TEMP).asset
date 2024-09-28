@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c39589dfb3252e04aa90d862e1b4a77b, type: 3}
-  m_Name: Barrel
+  m_Name: Hoe(TEMP)
   m_EditorClassIdentifier: 
-  ID: 3
-  displayName: Barrel
-  description: Collects water
-  icon: {fileID: 21300000, guid: 15b5c1fe6d051474aab29c7e5d38b339, type: 3}
-  maxStackSize: 3
-  placedPrefab: {fileID: 3161338315516755844, guid: e8af2d42c07a0964f8e6a3cb435718fe,
+  ID: -1
+  displayName: Hoe
+  description: Tills the ground for crops
+  icon: {fileID: 21300000, guid: cc71651a65bb3c94ca093fc2d928b1f6, type: 3}
+  maxStackSize: 1
+  placedPrefab: {fileID: 2961193080738427394, guid: 5f5fcaf963705e0419b1ecadb42c0641,
     type: 3}
+  removeAfterUse: 0
