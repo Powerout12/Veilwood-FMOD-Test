@@ -15,6 +15,6 @@ MonoBehaviour:
   ID: 3
   displayName: Barrel
   description: Collects water
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 15b5c1fe6d051474aab29c7e5d38b339, type: 3}
   maxStackSize: 1
   placedPrefab: {fileID: 0}
