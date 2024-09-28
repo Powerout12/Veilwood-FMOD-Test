@@ -26,42 +26,29 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ITEM INTERACTION
+        //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
-            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
-            RaycastHit hit;
-
-            if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 7))
-            {
-                Vector3 pos = structManager.CheckTile(hit.point);
-                if(pos != new Vector3(0,0,0)) structManager.SpawnStructure(testStructure, pos);
-            }
+            //TestSpawnStruct();
+            UseHotBarItem();
         }
 
-        //STRUCT INTERACTION
+        //RIGHT CLICK USES AN ITEM ON A STRUCTURE, EX: PLANTING A SEED IN FARMLAND
         if(Input.GetMouseButtonDown(1) && !PlayerMovement.accessingInventory)
         {
-            StructureInteraction();
-            //TO TEST CLEARING A STRUCTURE
-            //DestroyStruct();
+            StructureInteractionWithItem();
+        }
+
+        //SPACE INTERACTS WITH A STRUCTURE WITHOUT USING AN ITEM, EX: HARVESTING A CROP
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            InteractWithObject();
         }
 
         if(Input.GetKeyDown("f"))
         {
-            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
-            RaycastHit hit;
-
-
-            if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
-            {
-                var structure = hit.collider.GetComponent<StructureBehaviorScript>();
-                if (structure != null)
-                {
-                    structure.StructureInteraction();
-                    Debug.Log("Tried to harvest plant");
-                }
-            }
+            //TO TEST CLEARING A STRUCTURE
+            DestroyStruct();
         }
 
     }
@@ -88,7 +75,25 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    void StructureInteraction()
+    void StructureInteractionWithItem()
+    {
+        Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+        {
+            var structure = hit.collider.GetComponent<StructureBehaviorScript>();
+            if (structure != null)
+            {
+                structure.ItemInteraction(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
+                Debug.Log("Interacted with item");
+                return;
+            }
+        }
+    }
+
+    void InteractWithObject()
     {
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
@@ -102,7 +107,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 StartInteraction(interactable);
                 
-                if (hitObject.tag ==  "NPC") // Also this teehee!!!
+                if (hitObject.tag ==  "NPC") // Also this teehee!!! //Lauren?????
                 {
                     Debug.Log("NPC Interacted");
                     return;
@@ -117,12 +122,31 @@ public class PlayerInteraction : MonoBehaviour
             var structure = hit.collider.GetComponent<StructureBehaviorScript>();
             if (structure != null)
             {
-                structure.ItemInteraction(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
-                Debug.Log("Added crop to farmland");
-                return;
+                structure.StructureInteraction();
+                Debug.Log("Interacting with a structure");
             }
         }
     }
 
+    void TestSpawnStruct()
+    {
+        Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+
+        if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 7))
+        {
+            Vector3 pos = structManager.CheckTile(hit.point);
+            if(pos != new Vector3(0,0,0)) structManager.SpawnStructure(testStructure, pos);
+        }
+    }
+
+    void UseHotBarItem()
+    {
+        InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+
+        //Is it a placeable item?
+        PlaceableItem p_item = item as PlaceableItem;
+        if(p_item) p_item.PlaceStructure(mainCam.transform);
+    }
     
 }

@@ -23,6 +23,11 @@ public class FarmLand : StructureBehaviorScript
         SpriteChange();
     }
 
+    void Start()
+    {
+        if(!crop) ignoreNextGrowthMoment = true;
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -62,6 +62,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f9f1e80beadc54f9ec8f58837125c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeText: {fileID: 0}
+  dayLight: {fileID: 0}
+  skyMat: {fileID: 2100000, guid: b765a272ba3f08b4cbd57e302799320e, type: 2}
+  nightColor: {r: 0.24705882, g: 0.41568628, b: 0.42352942, a: 1}
+  dayColor: {r: 1, g: 0.9607843, b: 0.76862746, a: 1}
 --- !u!114 &4750952263133987452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,3 +79,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a26d7ca0fce7d428bcab116bcd5719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  structGrid: {fileID: 0}
+  activeColor: {r: 1, g: 1, b: 1, a: 0.12156863}
+  hiddenColor: {r: 1, g: 1, b: 1, a: 0}
