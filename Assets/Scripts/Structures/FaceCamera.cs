@@ -9,13 +9,24 @@ public class FaceCamera : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerCam>().transform;
+        StartCoroutine("FacePlayer");
     }
 
     void Update()
     {
-        Vector3 fwd = player.forward; 
-        fwd.y = 0; 
-        if (fwd != Vector3.zero) transform.rotation = Quaternion.LookRotation(fwd);
+        
+    }
+
+    IEnumerator FacePlayer()
+    {
+        do
+        {
+            Vector3 fwd = player.forward; 
+            fwd.y = 0; 
+            if (fwd != Vector3.zero) transform.rotation = Quaternion.LookRotation(fwd);
+            yield return new WaitForSeconds(0.2f);
+        }
+        while(gameObject.activeSelf);
     }
 
 
