@@ -11,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     public InventoryItemData testItem;
 
     StructureManager structManager;
+    PlayerInventoryHolder playerInventoryHolder;
 
     public bool isInteracting { get; private set; }
 
@@ -19,6 +20,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if(!mainCam) mainCam = FindObjectOfType<Camera>();
         structManager = FindObjectOfType<StructureManager>();
+        playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
     }
 
 
@@ -98,6 +100,7 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
+        Debug.Log("Interact with object called");
 
         if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
@@ -142,11 +145,15 @@ public class PlayerInteraction : MonoBehaviour
 
     void UseHotBarItem()
     {
+       
         InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
 
         //Is it a placeable item?
         PlaceableItem p_item = item as PlaceableItem;
-        if(p_item) p_item.PlaceStructure(mainCam.transform);
+        if (p_item)
+        {
+            p_item.PlaceStructure(mainCam.transform);
+        }
     }
     
 }

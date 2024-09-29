@@ -49,9 +49,25 @@ public class ItemPickup : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(SaveGameManager.data.activeItems.ContainsKey(id)) SaveGameManager.data.activeItems.Remove(id);
+        if (SaveGameManager.data == null)
+        {
+            Debug.LogError("SaveGameManager.data is null");
+        }
+        else if (SaveGameManager.data.activeItems == null)
+        {
+            Debug.LogError("SaveGameManager.data.activeItems is null");
+        }
+        else
+        {
+            if (SaveGameManager.data.activeItems.ContainsKey(id))
+            {
+                SaveGameManager.data.activeItems.Remove(id);
+            }
+        }
+
         SaveLoad.OnLoadGame -= LoadGame;
     }
+
 
 
     private void OnTriggerEnter(Collider other)
@@ -62,7 +78,9 @@ public class ItemPickup : MonoBehaviour
 
         if (inventory.AddToInventory(ItemData, 1))
         {
+           
             SaveGameManager.data.collectedItems.Add(id);
+            print(SaveGameManager.data.collectedItems[0]);
             Destroy(this.gameObject);
         }
 

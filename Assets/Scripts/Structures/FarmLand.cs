@@ -16,6 +16,8 @@ public class FarmLand : StructureBehaviorScript
     public bool rotted = false;
 
     private bool ignoreNextGrowthMoment = false; //tick this if crop was just planted
+
+    PlayerInventoryHolder playerInventoryHolder;
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,6 +28,7 @@ public class FarmLand : StructureBehaviorScript
     void Start()
     {
         if(!crop) ignoreNextGrowthMoment = true;
+        playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
     }
 
     // Update is called once per frame
@@ -43,6 +46,8 @@ public class FarmLand : StructureBehaviorScript
             growthStage = 1;
             SpriteChange();
             HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
+            playerInventoryHolder.UpdateInventory();
+
         }
     }
 
