@@ -41,14 +41,22 @@ public class PlayerInventoryHolder : InventoryHolder
     {
         if (primaryInventorySystem.AddToInventory(data, amount))
         {
+            OnPlayerInventoryChanged?.Invoke(primaryInventorySystem);
             return true;
         }
         else if (secondaryInventorySystem.AddToInventory(data, amount))
         {
+            OnPlayerInventoryChanged?.Invoke(secondaryInventorySystem);
             return true;
         }
 
         return false;
+    }
+
+    public void UpdateInventory()
+    {
+        OnPlayerInventoryChanged?.Invoke(primaryInventorySystem);
+        OnPlayerInventoryChanged?.Invoke(secondaryInventorySystem);
     }
 }
 

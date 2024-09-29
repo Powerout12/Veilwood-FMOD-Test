@@ -6,6 +6,10 @@ public class HotbarDisplay : MonoBehaviour
     public InventorySlot_UI[] hotbarSlots;   // Array of hotbar slots (InventorySlot_UI)
     public static InventorySlot_UI currentSlot;
 
+    private void Start()
+    {
+        currentSlot = hotbarSlots[0];
+    }
     private void OnEnable()
     {
         // Subscribe to the input manager's OnNumberPressed event
