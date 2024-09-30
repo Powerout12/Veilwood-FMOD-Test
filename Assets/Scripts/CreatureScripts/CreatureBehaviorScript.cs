@@ -9,6 +9,7 @@ public class CreatureBehaviorScript : MonoBehaviour
     public float maxHealth = 10;
 
     [HideInInspector] public StructureManager structManager;
+    [HideInInspector] public CreatureEffectsHandler effectsHandler;
     [HideInInspector] public Transform player;
 
     public Rigidbody rb;
@@ -20,6 +21,7 @@ public class CreatureBehaviorScript : MonoBehaviour
     public void Start()
     {
         structManager = FindObjectOfType<StructureManager>();
+        effectsHandler = FindObjectOfType<CreatureEffectsHandler>();
         player = FindObjectOfType<PlayerInteraction>().transform;
     }
 
