@@ -44,14 +44,18 @@ public class FeralHare : CreatureBehaviorScript
             playerInSightRange = false;
         }
 
-        if(foundFarmTile) distance = Vector3.Distance (foundFarmTile.transform.position, transform.position);
-        if(distance <= 1.5f && !isEating)
+        if(foundFarmTile)
         {
-            isEating = true;
-            StartCoroutine("EatCrop");
-            print("Eating crop");
-        }
-        if(distance > 2f) inEatingRange = false;
+            distance = Vector3.Distance (foundFarmTile.transform.position, transform.position);
+            if(distance <= 1.5f && !isEating)
+            {
+                isEating = true;
+                StartCoroutine("EatCrop");
+                print("Eating crop");
+            }
+            if(distance > 2f) inEatingRange = false;
+        } 
+        
 
         if(inEatingRange && eatingTimeLeft > 0)
         {
@@ -107,6 +111,8 @@ public class FeralHare : CreatureBehaviorScript
 
 
         SearchWanderPoint();
+
+        effectsHandler.OnMove(0.8f);
     }
 
     public void SearchWanderPoint()
