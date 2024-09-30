@@ -39,7 +39,7 @@ public class AmbientAudioManager : MonoBehaviour
     {
         while(gameObject.activeSelf)
         {
-            float musicCooldown = Random.Range(60, 90);
+            float musicCooldown = Random.Range(10, 30);
             yield return new WaitForSecondsRealtime(musicCooldown);
             musicSource.clip = musicAmbience[Random.Range(0, musicAmbience.Length)];
             float musicRuntime = musicSource.clip.length;

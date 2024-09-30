@@ -2888,10 +2888,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591459312}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dfa5647b366051843adbb79cc99d926e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 642cd19220282564bb9aed0b56c1eb57, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.275
   m_Pitch: 1
@@ -2902,7 +2902,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 4
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3285,13 +3285,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1402521240}
-  m_Layer: 0
+  - component: {fileID: 1402521242}
+  - component: {fileID: 1402521241}
+  m_Layer: 6
   m_Name: Wagon
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1402521240
 Transform:
   m_ObjectHideFlags: 0
@@ -3301,13 +3303,48 @@ Transform:
   m_GameObject: {fileID: 1402521239}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3280544, y: 6.5921555, z: -34.350506}
+  m_LocalPosition: {x: -3.82, y: 0.08, z: -21.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2033066084}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1402521241
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402521239}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.46, y: 6.85, z: 7.33}
+  m_Center: {x: 0, y: 2.79, z: 0}
+--- !u!114 &1402521242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402521239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3be9529627bd14a93ef645fe6cbcb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueText: {fileID: 11400000, guid: 7be7e3d76595f8545811159daea069dc, type: 2}
+  dialogueController: {fileID: 1573867780}
 --- !u!1001 &1424506211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9786,17 +9823,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c6d61da9b58227343a6100348c74901a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.1529136
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6d61da9b58227343a6100348c74901a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.592154
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6d61da9b58227343a6100348c74901a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.293688
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6d61da9b58227343a6100348c74901a,
         type: 3}
