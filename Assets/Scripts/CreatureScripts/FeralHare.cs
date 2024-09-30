@@ -57,7 +57,7 @@ public class FeralHare : CreatureBehaviorScript
         } 
         
 
-        if(inEatingRange && eatingTimeLeft > 0)
+        if(inEatingRange && eatingTimeLeft > 0 && foundFarmTile)
         {
             var lookPos = foundFarmTile.transform.position - transform.position;
             lookPos.y = 0;
