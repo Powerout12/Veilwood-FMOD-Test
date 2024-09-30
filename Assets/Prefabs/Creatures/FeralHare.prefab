@@ -189,7 +189,8 @@ PrefabInstance:
       value: FeralHareModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7552524770221952485, guid: ffaaeb45d0bb4a04fb0a3af9a046a8e5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffaaeb45d0bb4a04fb0a3af9a046a8e5,
