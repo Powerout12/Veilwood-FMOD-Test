@@ -28,4 +28,9 @@ public class FeralHare : CreatureBehaviorScript
     {
         //hare will jump toward a random direction using physics, using rb.addforce to a random vector3 position in addition to a vector3.up force
     }
+
+    public void SearchWanderPoint()
+    {
+        //
+    }
 }
