@@ -81,6 +81,7 @@ public class ItemPickup : MonoBehaviour
            
             SaveGameManager.data.collectedItems.Add(id);
             print(SaveGameManager.data.collectedItems[0]);
+            FindObjectOfType<PlayerEffectsHandler>().ItemCollectSFX();
             Destroy(this.gameObject);
         }
 

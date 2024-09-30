@@ -7,6 +7,7 @@ public class PlayerEffectsHandler : MonoBehaviour
     //HANDLES THE AUDIO AND EFFECTS THAT COME FROM THE PLAYER
     public float volume = 1f;
     public AudioSource source, footStepSource;
+    public AudioClip itemPickup;
     //public AudioClip footSteps;
     Rigidbody rb;
     void Start()
@@ -31,6 +32,11 @@ public class PlayerEffectsHandler : MonoBehaviour
             footStepSource.pitch = Random.Range(0.7f, 1.3f);
         }
         while(gameObject.activeSelf);
+    }
+
+    public void ItemCollectSFX()
+    {
+        source.PlayOneShot(itemPickup);
     }
 
 }
