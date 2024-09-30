@@ -110,4 +110,11 @@ public class FarmLand : StructureBehaviorScript
         if(crop) cropRenderer.sprite = crop.cropSprites[growthStage - 1];
         else cropRenderer.sprite = null;
     }
+
+    public void CropDestroyed()
+    {
+        crop = null;
+        harvestable = false;
+        SpriteChange();
+    }
 }
