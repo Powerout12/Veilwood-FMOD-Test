@@ -26,6 +26,12 @@ public class FeralHare : CreatureBehaviorScript
     // Update is called once per frame
     void Update()
     {
+        //GET RID OF THIS AFTER POC
+        if(Input.GetKeyDown("b"))
+        {
+            gameObject.SetActive(false);
+        }
+
         base.Update();
 
         if(!jumpCooldown && !isEating)

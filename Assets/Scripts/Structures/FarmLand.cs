@@ -39,6 +39,7 @@ public class FarmLand : StructureBehaviorScript
 
     public override void ItemInteraction(InventoryItemData item)
     {
+        if(crop) return;
         CropItem newCrop = item as CropItem;
         if(newCrop && newCrop.plantable)
         {
@@ -93,7 +94,7 @@ public class FarmLand : StructureBehaviorScript
                 
                 if(hoursSpent < crop.hoursPerStage * 3) return;
                 //plant rots
-                growthStage++;
+                //growthStage++;
                 rotted = true;
                 harvestable = true;
                 SpriteChange();
@@ -107,7 +108,8 @@ public class FarmLand : StructureBehaviorScript
 
     void SpriteChange()
     {
-        if(crop) cropRenderer.sprite = crop.cropSprites[growthStage - 1];
+        print(growthStage);
+        if(crop) cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
         else cropRenderer.sprite = null;
     }
 

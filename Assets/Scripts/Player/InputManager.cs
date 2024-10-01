@@ -23,6 +23,11 @@ public class InputManager : MonoBehaviour
             if (structGrid.color == activeColor) structGrid.color = hiddenColor;
             else structGrid.color = activeColor;
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void CheckForScrollInput()
