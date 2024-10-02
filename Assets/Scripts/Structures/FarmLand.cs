@@ -59,13 +59,18 @@ public class FarmLand : StructureBehaviorScript
             harvestable = false;
             if(rotted == false)
             {
+                GameObject droppedItem;
                 for(int i = 0; i < crop.cropYieldAmount; i++)
                 {
-                    Instantiate(crop.cropYield, itemDropTransform.position, Quaternion.identity);
+                    droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
+                    droppedItem.transform.position = itemDropTransform.position;
+                    //Instantiate(crop.cropYield, itemDropTransform.position, Quaternion.identity);
                 }
                 for(int i = 0; i < crop.seedYieldAmount; i++)
                 {
-                    Instantiate(crop.cropSeed, itemDropTransform.position, Quaternion.identity);
+                    droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
+                    droppedItem.transform.position = itemDropTransform.position;
+                    //Instantiate(crop.cropSeed, itemDropTransform.position, Quaternion.identity);
                 }
             }
 
