@@ -43,7 +43,7 @@ public class WaterBarrel : StructureBehaviorScript
         switch(waterLevel)
         {
             case 0:
-                waterTexture.position = new Vector3(waterTexture.position.x, 0, waterTexture.position.z);
+                waterTexture.position = new Vector3(waterTexture.position.x, 0.1f, waterTexture.position.z);
                 break;
             case 1:
                 waterTexture.position = new Vector3(waterTexture.position.x, 0.4f, waterTexture.position.z);

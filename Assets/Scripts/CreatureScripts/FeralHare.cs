@@ -52,12 +52,16 @@ public class FeralHare : CreatureBehaviorScript
 
         if(foundFarmTile)
         {
+            if(foundFarmTile.crop == null)
+            {
+                foundFarmTile = null;
+                return;
+            }
             distance = Vector3.Distance (foundFarmTile.transform.position, transform.position);
             if(distance <= 1.5f && !isEating)
             {
                 isEating = true;
                 StartCoroutine("EatCrop");
-                print("Eating crop");
             }
             if(distance > 2f) inEatingRange = false;
         } 
@@ -104,7 +108,6 @@ public class FeralHare : CreatureBehaviorScript
     public void Hop(Vector3 destination)
     {
         //hare will jump toward a random direction using physics, using rb.addforce to a random vector3 position in addition to a vector3.up force
-        print("Jump");
         Vector3 jumpDirection = (transform.position - destination).normalized;
         jumpDirection *= -1;
         //ad force yadadada

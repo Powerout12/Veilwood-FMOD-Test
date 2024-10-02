@@ -10,7 +10,6 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject testStructure;
     public InventoryItemData testItem;
 
-    StructureManager structManager;
     PlayerInventoryHolder playerInventoryHolder;
 
     public bool isInteracting { get; private set; }
@@ -19,7 +18,6 @@ public class PlayerInteraction : MonoBehaviour
     void Start()
     {
         if(!mainCam) mainCam = FindObjectOfType<Camera>();
-        structManager = FindObjectOfType<StructureManager>();
         playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
     }
 
@@ -31,7 +29,6 @@ public class PlayerInteraction : MonoBehaviour
         //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
-            //TestSpawnStruct();
             UseHotBarItem();
         }
 
@@ -131,17 +128,6 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    void TestSpawnStruct()
-    {
-        Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
-        RaycastHit hit;
-
-        if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 7))
-        {
-            Vector3 pos = structManager.CheckTile(hit.point);
-            if(pos != new Vector3(0,0,0)) structManager.SpawnStructure(testStructure, pos);
-        }
-    }
 
     void UseHotBarItem()
     {
