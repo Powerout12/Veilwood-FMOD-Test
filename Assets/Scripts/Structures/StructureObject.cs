@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+[CreateAssetMenu(fileName = "New Structure Object", menuName = "Structure")]
+public class StructureObject : ScriptableObject
+{
+    public GameObject objectPrefab;
+    public float health;
+
+    public float[] position = new float[3];
+
+    public Structure data = new Structure();
+
+    public int tileSpaces = 1; //How many tiles does this occupy?
+
+
+    public Structure CreateStructure()
+    {
+        Structure newStructure = new Structure(this);
+        return newStructure;
+    }
+
+}
+
+[System.Serializable]
+public class Structure
+{
+    [Header("Variables that need to be saved")]
+    public string Name;
+    public int Id = -1;
+    public float health;
+    public float[] position = new float[3];
+    //public List<Item> savedItemList1;
+    //public List<Item> savedItemList2;
+    public int savedInt1, savedInt2, savedInt3;
+    public float savedFloat1, savedFloat2, savedFloat3;
+    public string savedString1, savedString2, savedString3;
+
+    public Structure()
+    {
+        Name = "";
+        Id = -1;
+        position = new float[3];
+    }
+    public Structure(StructureObject structure)
+    {
+        Name = structure.name;
+        Id = structure.data.Id;
+    }
+}
