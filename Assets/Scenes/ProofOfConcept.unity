@@ -150,6 +150,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1191313917349309181, guid: 0cf3ef733806f9b4e8e8670e3d9c1481,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1819925339558861866, guid: 0cf3ef733806f9b4e8e8670e3d9c1481,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3632,7 +3637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3be9529627bd14a93ef645fe6cbcb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText: {fileID: 11400000, guid: 7be7e3d76595f8545811159daea069dc, type: 2}
+  dialogueText: {fileID: 11400000, guid: 153718bda3249f74f8329ced35b76c61, type: 2}
   dialogueController: {fileID: 1573867780}
   happy: {fileID: 8300000, guid: 8a481601b53baa84bac83b6f5ddf2671, type: 3}
   sad: {fileID: 8300000, guid: 2d40c0cc504cc0e44a585ffde498d57e, type: 3}

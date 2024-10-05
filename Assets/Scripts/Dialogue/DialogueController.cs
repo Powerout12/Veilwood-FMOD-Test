@@ -21,7 +21,7 @@ public class DialogueController : MonoBehaviour
     public AudioSource source;
 
     //CHANGE THIS LATER, ITS MESSY
-    public TestNPC currentTalker;
+    public NPC currentTalker;
 
     public void DisplayNextParagraph(DialogueText dialogueText)
     {
@@ -89,10 +89,10 @@ public class DialogueController : MonoBehaviour
         NPCNameText.text = dialogueText.speakerName;
 
         // Add dialogue text to queue
-        for(int i = 0; i < dialogueText.paragraphs.Length; i++)
+        for(int i = 0; i < dialogueText.defaultPath.paragraphs.Length; i++)
         {
-            paragraphs.Enqueue(dialogueText.paragraphs[i]);
-            emotions.Enqueue(dialogueText.emotions[i]);
+            paragraphs.Enqueue(dialogueText.defaultPath.paragraphs[i]);
+            emotions.Enqueue(dialogueText.defaultPath.emotions[i]);
         }
     }
 

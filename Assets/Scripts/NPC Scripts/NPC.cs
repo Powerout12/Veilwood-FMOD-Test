@@ -9,6 +9,10 @@ public abstract class NPC : MonoBehaviour, IInteractable
     //[SerializeField] private GameObject interactObject;
     public UnityAction<IInteractable> OnInteractionComplete { get; set; }
 
+    public DialogueText dialogueText;
+    public DialogueController dialogueController;
+    public AudioClip happy, sad, neutral, angry, confused, shocked;
+
     public void EndInteraction()
     {
         throw new System.NotImplementedException();
