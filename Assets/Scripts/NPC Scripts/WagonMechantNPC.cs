@@ -4,19 +4,34 @@ using UnityEngine;
 
 public class WagonMerchantNPC : NPC, ITalkable
 {
-    //[SerializeField] private DialogueText dialogueText;
-    //[SerializeField] private DialogueController dialogueController;
-    //public AudioClip happy, sad, neutral, angry, confused, shocked;
+
     public override void Interact(PlayerInteraction interactor, out bool interactSuccessful)
     {
-        Talk(dialogueText);
-        interactSuccessful = true;
+        Talk();
+        interactSuccessful = false;
         Debug.Log("NPC Interact Successful");
     }
 
-    public void Talk(DialogueText dialogueText)
+    public void Talk()
     {
         dialogueController.currentTalker = this;
-        dialogueController.DisplayNextParagraph(dialogueText);
+        dialogueController.DisplayNextParagraph(dialogueText, currentPath);
+    }
+
+    public override void InteractWithItem(PlayerInteraction interactor, out bool interactSuccessful, InventoryItemData item)
+    {
+        if(item.sellValueMultiplier == 0 || item.value == 0)
+        {
+            //Cannot Buy
+            currentPath = 1;
+            Talk();
+        }
+        else
+        {
+            //Can Buy
+            currentPath = 0;
+            Talk();
+        }
+        interactSuccessful = true;
     }
 }

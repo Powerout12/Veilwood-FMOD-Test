@@ -13,10 +13,15 @@ public abstract class NPC : MonoBehaviour, IInteractable
     public DialogueController dialogueController;
     public AudioClip happy, sad, neutral, angry, confused, shocked;
 
+    [HideInInspector] public int currentPath = -1; //-1 means default path
+
+
     public void EndInteraction()
     {
         throw new System.NotImplementedException();
     }
 
     public abstract void Interact(PlayerInteraction interactor, out bool interactSuccessful);
+
+    public abstract void InteractWithItem(PlayerInteraction interactor, out bool interactSuccessful, InventoryItemData item);
 }

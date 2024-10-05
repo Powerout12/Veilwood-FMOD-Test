@@ -7,9 +7,6 @@ public class PlayerInteraction : MonoBehaviour
 {
     public Camera mainCam;
 
-    public GameObject testStructure;
-    public InventoryItemData testItem;
-
     PlayerInventoryHolder playerInventoryHolder;
 
     public bool isInteracting { get; private set; }
@@ -54,8 +51,17 @@ public class PlayerInteraction : MonoBehaviour
 
     void StartInteraction(IInteractable interactable)
     {
+        //For NPC's and the Chest
         interactable.Interact(this, out bool interactSuccessful);
-        isInteracting = true;
+        isInteracting = false;
+    }
+
+    void StartInteractionWithItem(IInteractable interactable)
+    {
+        //For showing/giving NPC's items
+        if(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData != null) interactable.InteractWithItem(this, out bool interactSuccessful, HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
+        else return;
+        isInteracting = false;
     }
 
     void EndInteraction()
@@ -82,6 +88,13 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
+            var interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                StartInteractionWithItem(interactable); //Interacts with chest and npc's. I should eventually make this compatable with the structures I made - Cam
+                return;
+            }
+
             var structure = hit.collider.GetComponent<StructureBehaviorScript>();
             if (structure != null)
             {
@@ -97,24 +110,15 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        Debug.Log("Interact with object called");
-
         if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
-            GameObject hitObject = hit.collider.gameObject;
             if (interactable != null)
             {
                 StartInteraction(interactable);
-                
-                if (hitObject.tag ==  "NPC") // Also this teehee!!! //Lauren?????
-                {
-                    Debug.Log("NPC Interacted");
-                    return;
-                }  
 
 
-                PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
+                PlayerMovement.accessingInventory = true;  // Needs to check if opening a chest, else this should not be called
                 Debug.Log("Opened Inventory of Interactable Object");
                 return;
             }

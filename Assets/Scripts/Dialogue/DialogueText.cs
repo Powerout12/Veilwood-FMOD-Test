@@ -8,7 +8,6 @@ public class DialogueText : ScriptableObject
     public string speakerName;
     public DialoguePath defaultPath;
     public DialoguePath[] paths;
-    public int currentPath = -1; //-1 means default path
 
 }
 
