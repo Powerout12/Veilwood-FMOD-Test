@@ -20,12 +20,20 @@ public class DialogueController : MonoBehaviour
 
     public AudioSource source;
 
-    //CHANGE THIS LATER, ITS MESSY
-    public TestNPC currentTalker;
+    
+    public NPC currentTalker;
+    int currentPath = -1;
 
-    public void DisplayNextParagraph(DialogueText dialogueText)
+    public void DisplayNextParagraph(DialogueText dialogueText, int path)
     {
         // If nothing left in queue
+        if(path != currentPath)
+        {
+            currentPath = path;
+            EndConversation();
+            StartConversation(dialogueText);
+            
+        }
         if (paragraphs.Count == 0)
         {
             if(!conversationEnded)
@@ -89,17 +97,30 @@ public class DialogueController : MonoBehaviour
         NPCNameText.text = dialogueText.speakerName;
 
         // Add dialogue text to queue
-        for(int i = 0; i < dialogueText.paragraphs.Length; i++)
+        if(currentTalker.currentPath == -1)
         {
-            paragraphs.Enqueue(dialogueText.paragraphs[i]);
-            emotions.Enqueue(dialogueText.emotions[i]);
+            for(int i = 0; i < dialogueText.defaultPath.paragraphs.Length; i++)
+            {
+                paragraphs.Enqueue(dialogueText.defaultPath.paragraphs[i]);
+                emotions.Enqueue(dialogueText.defaultPath.emotions[i]);
+            }
         }
+        else
+        {
+            for(int i = 0; i < dialogueText.paths[currentTalker.currentPath].paragraphs.Length; i++)
+            {
+                paragraphs.Enqueue(dialogueText.paths[currentTalker.currentPath].paragraphs[i]);
+                emotions.Enqueue(dialogueText.paths[currentTalker.currentPath].emotions[i]);
+            }
+        }
+        
     }
 
     public void EndConversation()
     {
         // Clear queue
         paragraphs.Clear();
+        emotions.Clear();
 
         conversationEnded = false;
 
