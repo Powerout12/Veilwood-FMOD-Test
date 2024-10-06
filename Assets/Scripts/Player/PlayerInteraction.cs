@@ -118,7 +118,7 @@ public class PlayerInteraction : MonoBehaviour
                 StartInteraction(interactable);
 
 
-                PlayerMovement.accessingInventory = true;  // Needs to check if opening a chest, else this should not be called
+                if(hit.collider.GetComponent<ChestInventory>() != null) PlayerMovement.accessingInventory = true;  // Needs to check if opening a chest, else this should not be called
                 Debug.Log("Opened Inventory of Interactable Object");
                 return;
             }

@@ -120,6 +120,7 @@ public class DialogueController : MonoBehaviour
     {
         // Clear queue
         paragraphs.Clear();
+        emotions.Clear();
 
         conversationEnded = false;
 
@@ -127,9 +128,5 @@ public class DialogueController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        print(PlayerMovement.accessingInventory);
-        PlayerMovement.accessingInventory = false;
-        print(PlayerMovement.accessingInventory);
-        //SOMEWHERE, THIS VARIABLE IS GETTING CHANGED AFTER THIS CODE IS CALLED, MAKING A SOFTLOCK
     }
 }

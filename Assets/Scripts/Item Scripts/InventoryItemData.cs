@@ -17,7 +17,8 @@ public class InventoryItemData : ScriptableObject
     public string description;
     public Sprite icon;
     public int maxStackSize = 1;
-    public float value, sellValueMultiplier; //if value or sellValueMultipier == 0, cannot be sold
+    public float value = 0;
+    public float sellValueMultiplier = 1; //if value or sellValueMultipier == 0, cannot be sold
    
     public void UseItem()
     {

@@ -23,9 +23,8 @@ MonoBehaviour:
     - For that? I can offer [Insert Value] Schmeckles.
     emotions: 00000000
   - paragraphs:
-    - Pleasure doing business.
-    emotions: 01000000
-  - paragraphs:
     - I have no need for that.
     emotions: 03000000
-  currentPath: -1
+  - paragraphs:
+    - Pleasure doing business
+    emotions: 01000000

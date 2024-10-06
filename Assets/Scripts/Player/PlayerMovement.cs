@@ -61,10 +61,9 @@ public class PlayerMovement : MonoBehaviour
     private void MyInput()
     {
 
-        if (accessingInventory)
+        if (accessingInventory )
         {
             isStalled = true;
-            accessingInventory = false; //DEBUGGING. WITH THIS CODE, INVENTORY IS BUGGED. WITHOUT THIS CODE, SOFTLOCK ON DIALOGUE.
         }
         else if (!accessingInventory)
         {
