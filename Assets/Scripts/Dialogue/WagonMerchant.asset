@@ -20,7 +20,9 @@ MonoBehaviour:
     emotions: 0000000003000000
   paths:
   - paragraphs:
-    - For that? I can offer [Insert Value] Schmeckles.
+    - 'For that? I can offer {myNumber} Schmeckles.
+
+      Do we have a deal?'
     emotions: 00000000
   - paragraphs:
     - I have no need for that.

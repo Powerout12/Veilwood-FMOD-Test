@@ -77,7 +77,8 @@ public class DialogueController : MonoBehaviour
         }
 
         // Update convo text
-        NPCDialogueText.text = p;
+        //p.Replace("{myNumber}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value}");
+        NPCDialogueText.text = p.Replace("{myNumber}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value}");
 
         if (paragraphs.Count == 0)
         {

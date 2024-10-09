@@ -139,6 +139,7 @@ public class FeralHare : CreatureBehaviorScript
 
         
     }
+    
 
     IEnumerator JumpCooldownTimer()
     {
