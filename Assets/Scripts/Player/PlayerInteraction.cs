@@ -11,12 +11,29 @@ public class PlayerInteraction : MonoBehaviour
 
     public bool isInteracting { get; private set; }
 
+    public static PlayerInteraction Instance;
+
     public int currentMoney;
 
     public int health = 3;
     int maxHealth = 3;
 
-    // Start is called before the first frame update
+    public int waterHeld = 0; //for watering can
+    int maxWaterHeld = 10;
+
+    void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    
     void Start()
     {
         if(!mainCam) mainCam = FindObjectOfType<Camera>();

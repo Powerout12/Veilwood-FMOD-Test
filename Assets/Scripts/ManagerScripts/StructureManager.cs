@@ -27,6 +27,7 @@ public class StructureManager : MonoBehaviour
         {
             Instance = this;
         }
+        //load in all the saved data, such as the nutrient storages and alltiles list
     }
 
     public void HourUpdate()
@@ -78,13 +79,44 @@ public class StructureManager : MonoBehaviour
         print(tileMap.GetTile(gridPos));
         tileMap.SetTile(gridPos, freeTile);
     }
+
+    public NutrientStorage FetchNutrient(Vector3 pos)
+    {
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        for(int i = 0; i < allTiles.Count; i++)
+        {
+            if(allTiles[i] == gridPos) return storage[i];
+        }
+        //if its not in the list
+        allTiles.Add(gridPos);
+        NutrientStorage newStorage = new NutrientStorage();
+        storage.Add(newStorage);
+        return newStorage;
+    }
+
+    public void UpdateStorage(Vector3 pos, NutrientStorage s)
+    {
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        for(int i = 0; i < allTiles.Count; i++)
+        {
+            if(allTiles[i] == gridPos) storage[i].LoadStorage(storage[i], s.ichorLevel, s.terraLevel, s.gloamLevel);
+        }
+    }
 }
 
+[System.Serializable]
 public class NutrientStorage
 {
     public float ichorLevel = 10; //max is 10
     public float terraLevel = 10; //max is 10
     public float gloamLevel = 10; //max is 10
+
+    public NutrientStorage()
+    {
+        ichorLevel = 10; 
+        terraLevel = 10; 
+        gloamLevel = 10; 
+    }
 
     public void ResetStorage(NutrientStorage s)
     {

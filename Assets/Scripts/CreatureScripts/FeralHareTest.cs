@@ -230,8 +230,8 @@ public class FeralHareTest : CreatureBehaviorScript
     IEnumerator JumpCooldownTimer()
     {
         jumpCooldown = true;
-        float time = Random.Range(1.3f, 1.6f);
-        yield return new WaitForSeconds(playerInSightRange ? time / 4 : time);
+        float time = Random.Range(0.9f, 1.6f);
+        yield return new WaitForSeconds(playerInSightRange ? time / 3 : time);
         jumpCooldown = false;
     }
 
