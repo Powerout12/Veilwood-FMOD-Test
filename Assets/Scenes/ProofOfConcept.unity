@@ -9059,6 +9059,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FeralHare (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9166839635689281199, guid: af761a1af58b43c43b4bc2218121411d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10511,6 +10516,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2134624155}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &65795907209846123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.059999943
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -38.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6623111765486677896, guid: 29856514ebb1bf546aec234b149d0a50,
+        type: 3}
+      propertyPath: m_Name
+      value: ReworkHare
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 29856514ebb1bf546aec234b149d0a50, type: 3}
 --- !u!1001 &667015124511548721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10863,6 +10936,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FeralHare
       objectReference: {fileID: 0}
+    - target: {fileID: 9166839635689281199, guid: af761a1af58b43c43b4bc2218121411d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11144,3 +11222,4 @@ SceneRoots:
   - {fileID: 1666852558}
   - {fileID: 94218663}
   - {fileID: 89937843}
+  - {fileID: 65795907209846123}
