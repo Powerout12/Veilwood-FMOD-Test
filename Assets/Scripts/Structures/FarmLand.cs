@@ -109,6 +109,11 @@ public class FarmLand : StructureBehaviorScript
             if(growthStage == crop.growthStages - 1) harvestable = true;
             SpriteChange();
         }
+        if(!rotted)
+        {
+            //update the struct manager after reducing the nutrition values from the tile
+            //structManager.Instance.UpdateNutrientValues(transform.position)
+        }
     }
 
     void SpriteChange()

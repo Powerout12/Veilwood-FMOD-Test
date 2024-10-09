@@ -12,6 +12,10 @@ public class StructureManager : MonoBehaviour
 
     public List<StructureBehaviorScript> allStructs;
 
+    //Game will compare the two to find out which tile position correlates with the nutrients associated with it.
+    List<Vector3Int> allTiles;
+    List<NutrientStorage> storage;
+
     void Awake()
     {
         if(Instance != null && Instance != this)
@@ -23,12 +27,6 @@ public class StructureManager : MonoBehaviour
         {
             Instance = this;
         }
-    }
-
-
-    void Start()
-    {
-        
     }
 
     public void HourUpdate()
@@ -79,5 +77,25 @@ public class StructureManager : MonoBehaviour
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         print(tileMap.GetTile(gridPos));
         tileMap.SetTile(gridPos, freeTile);
+    }
+}
+
+public class NutrientStorage
+{
+    public float ichorLevel = 10; //max is 10
+    public float terraLevel = 10; //max is 10
+    public float gloamLevel = 10; //max is 10
+
+    public void ResetStorage(NutrientStorage s)
+    {
+        s.ichorLevel = 10;
+        s.terraLevel = 10;
+        s.gloamLevel = 10;
+    }
+    public void LoadStorage(NutrientStorage s, float i, float t, float g)
+    {
+        s.ichorLevel = i;
+        s.terraLevel = t;
+        s.gloamLevel = g;
     }
 }

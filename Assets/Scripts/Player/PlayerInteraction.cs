@@ -11,6 +11,11 @@ public class PlayerInteraction : MonoBehaviour
 
     public bool isInteracting { get; private set; }
 
+    public int currentMoney;
+
+    public int health = 3;
+    int maxHealth = 3;
+
     // Start is called before the first frame update
     void Start()
     {
