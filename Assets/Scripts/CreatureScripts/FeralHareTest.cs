@@ -41,8 +41,11 @@ public class FeralHareTest : CreatureBehaviorScript
         base.Update();
 
         // Check distance from the player
-        float distance = Vector3.Distance(player.position, transform.position);
-        playerInSightRange = distance <= sightRange;
+        if(currentState != HareStates.FleeFromPlayer)
+        {
+            float distance = Vector3.Distance(player.position, transform.position);
+            playerInSightRange = distance <= sightRange;
+        } 
 
         // If the player is in sight, switch to flee state
         if (playerInSightRange)
@@ -141,9 +144,13 @@ public class FeralHareTest : CreatureBehaviorScript
             {
                 StartCoroutine(JumpCooldownTimer());
                 Hop(jumpPos);
+                if(foundFarmTile) foundFarmTile = null;
             }
-            currentState = HareStates.Wander;
         }
+        float distance = Vector3.Distance(player.position, transform.position);
+        playerInSightRange = distance <= (sightRange + 6);
+
+        if(!playerInSightRange) currentState = HareStates.Wander;
     }
 
     private void Stunned()
@@ -223,7 +230,7 @@ public class FeralHareTest : CreatureBehaviorScript
     IEnumerator JumpCooldownTimer()
     {
         jumpCooldown = true;
-        float time = Random.Range(1.3f, 2f);
+        float time = Random.Range(1.3f, 1.6f);
         yield return new WaitForSeconds(playerInSightRange ? time / 4 : time);
         jumpCooldown = false;
     }
@@ -242,8 +249,8 @@ public class FeralHareTest : CreatureBehaviorScript
         anim.SetBool("IsDigging", true);
         eatingTimeLeft = 5f;
         transform.LookAt(foundFarmTile.transform.position);
-        yield return new WaitUntil(() => !inEatingRange || eatingTimeLeft <= 0 || foundFarmTile.crop == null);
-        if (inEatingRange && foundFarmTile.crop != null)
+        yield return new WaitUntil(() => !inEatingRange || eatingTimeLeft <= 0 || foundFarmTile.crop == null || currentState != HareStates.Eat);
+        if (inEatingRange && foundFarmTile.crop != null && currentState == HareStates.Eat)
         {
             foundFarmTile.CropDestroyed();
             foundFarmTile = null;
