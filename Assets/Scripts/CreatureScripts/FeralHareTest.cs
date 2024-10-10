@@ -7,6 +7,7 @@ public class FeralHareTest : CreatureBehaviorScript
     public List<CropData> desiredCrops; // what crops does this creature want to eat
 
     FarmLand foundFarmTile;
+
     Vector3 jumpPos;
     bool isFleeing = false;
     bool jumpCooldown = false;
