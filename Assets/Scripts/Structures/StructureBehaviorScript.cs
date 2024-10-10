@@ -28,7 +28,7 @@ public class StructureBehaviorScript : MonoBehaviour
     public virtual void ItemInteraction(InventoryItemData item){}
     public virtual void HourPassed(){}
 
-    void OnDestroy()
+    public void OnDestroy()
     {
         if(!gameObject.scene.isLoaded) return;
         print("Destroyed");

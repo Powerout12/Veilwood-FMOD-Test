@@ -11,7 +11,7 @@ public class FarmLand : StructureBehaviorScript
     public MeshRenderer meshRenderer;
     public Material dry, wet, barren, barrenWet;
 
-    public float waterLevel; //How much has this crop been watered
+    //public float nutrients.waterLevel; //How much has this crop been watered
     public int growthStage = -1; //-1 means there is no crop
     public int hoursSpent = 0; //how long has the plant been in this growth stage for?
 
@@ -28,6 +28,7 @@ public class FarmLand : StructureBehaviorScript
     {
         base.Awake();
         SpriteChange();
+        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
     }
 
     void Start()
@@ -55,6 +56,7 @@ public class FarmLand : StructureBehaviorScript
             SpriteChange();
             HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
             playerInventoryHolder.UpdateInventory();
+            ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
 
         }
     }
@@ -133,10 +135,10 @@ public class FarmLand : StructureBehaviorScript
                 nutrients.gloamLevel = 0;
                 plantDied = true;
             }
-            waterLevel -= crop.waterIntake;
-            if(waterLevel < 0)
+            nutrients.waterLevel -= crop.waterIntake;
+            if(nutrients.waterLevel < 0)
             {
-                waterLevel = 0;
+                nutrients.waterLevel = 0;
                 plantDied = true;
             }
             StructureManager.Instance.UpdateStorage(transform.position, nutrients);
@@ -153,6 +155,18 @@ public class FarmLand : StructureBehaviorScript
         print(growthStage);
         if(crop) cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
         else cropRenderer.sprite = null;
+
+        if(nutrients.ichorLevel <= 1 || nutrients.terraLevel <= 1 || nutrients.gloamLevel <= 1)
+        {
+            meshRenderer.material = barren;
+        }
+        else meshRenderer.material = dry;
+
+        if(nutrients.waterLevel > 5)
+        {
+            if(meshRenderer.material == barren) meshRenderer.material = barrenWet;
+            else meshRenderer.material = wet;
+        }
     }
 
     public void CropDied()
@@ -168,5 +182,13 @@ public class FarmLand : StructureBehaviorScript
         crop = null;
         harvestable = false;
         SpriteChange();
+        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+    }
+
+    void OnDestroy()
+    {
+        if(!gameObject.scene.isLoaded) return;
+        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+        base.OnDestroy();
     }
 }

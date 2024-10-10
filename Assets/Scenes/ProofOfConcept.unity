@@ -2081,6 +2081,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManagers
       objectReference: {fileID: 0}
+    - target: {fileID: 8615720576453728053, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.a
+      value: 0.75686276
+      objectReference: {fileID: 0}
+    - target: {fileID: 8615720576453728053, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0.61960787
+      objectReference: {fileID: 0}
     - target: {fileID: 8883901233060397173, guid: 8eafeddf8fe5cec4d87507a7231cf339,
         type: 3}
       propertyPath: m_LocalPosition.x

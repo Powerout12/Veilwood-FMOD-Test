@@ -5,8 +5,8 @@ using UnityEngine;
 public class CreatureBehaviorScript : MonoBehaviour
 {
     //This is the base class that ALL creatures should derive from
-    public float health = 10;
-    public float maxHealth = 10;
+    public float health = 100;
+    public float maxHealth = 100;
 
     [HideInInspector] public StructureManager structManager;
     [HideInInspector] public CreatureEffectsHandler effectsHandler;
@@ -17,6 +17,7 @@ public class CreatureBehaviorScript : MonoBehaviour
 
     public float sightRange = 4; //how far can it see the player
     public bool playerInSightRange = false;
+    public bool shovelVulnerable = true;
 
     public void Start()
     {
@@ -30,6 +31,21 @@ public class CreatureBehaviorScript : MonoBehaviour
     {
         
     }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if(health < 0)
+        {
+            effectsHandler.OnDeath();
+        }
+        else
+        {
+            effectsHandler.OnHit();
+        }
+    }
+
+    public virtual void OnDamage(){} //Triggers creature specific effects
 
 
     

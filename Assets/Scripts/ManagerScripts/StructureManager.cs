@@ -13,8 +13,8 @@ public class StructureManager : MonoBehaviour
     public List<StructureBehaviorScript> allStructs;
 
     //Game will compare the two to find out which tile position correlates with the nutrients associated with it.
-    List<Vector3Int> allTiles;
-    List<NutrientStorage> storage;
+    List<Vector3Int> allTiles = new List<Vector3Int>();
+    List<NutrientStorage> storage = new List<NutrientStorage>();
 
     void Awake()
     {
@@ -99,7 +99,7 @@ public class StructureManager : MonoBehaviour
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         for(int i = 0; i < allTiles.Count; i++)
         {
-            if(allTiles[i] == gridPos) storage[i].LoadStorage(storage[i], s.ichorLevel, s.terraLevel, s.gloamLevel);
+            if(allTiles[i] == gridPos) storage[i].LoadStorage(storage[i], s.ichorLevel, s.terraLevel, s.gloamLevel, s.waterLevel);
         }
     }
 }
@@ -111,11 +111,14 @@ public class NutrientStorage
     public float terraLevel = 10; //max is 10
     public float gloamLevel = 10; //max is 10
 
+    public float waterLevel = 5; //max is 5
+
     public NutrientStorage()
     {
         ichorLevel = 10; 
         terraLevel = 10; 
         gloamLevel = 10; 
+        waterLevel = 5;
     }
 
     public void ResetStorage(NutrientStorage s)
@@ -123,11 +126,13 @@ public class NutrientStorage
         s.ichorLevel = 10;
         s.terraLevel = 10;
         s.gloamLevel = 10;
+        s.waterLevel = 5;
     }
-    public void LoadStorage(NutrientStorage s, float i, float t, float g)
+    public void LoadStorage(NutrientStorage s, float i, float t, float g, float w)
     {
         s.ichorLevel = i;
         s.terraLevel = t;
         s.gloamLevel = g;
+        s.waterLevel = w;
     }
 }
