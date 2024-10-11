@@ -7,10 +7,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     public Camera mainCam;
 
-    public GameObject testStructure;
-    public InventoryItemData testItem;
-
-    StructureManager structManager;
+    PlayerInventoryHolder playerInventoryHolder;
 
     public bool isInteracting { get; private set; }
 
@@ -18,7 +15,7 @@ public class PlayerInteraction : MonoBehaviour
     void Start()
     {
         if(!mainCam) mainCam = FindObjectOfType<Camera>();
-        structManager = FindObjectOfType<StructureManager>();
+        playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
     }
 
 
@@ -26,50 +23,45 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ITEM INTERACTION
+        //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
-            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
-            RaycastHit hit;
-
-            if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 7))
-            {
-                Vector3 pos = structManager.CheckTile(hit.point);
-                if(pos != new Vector3(0,0,0)) structManager.SpawnStructure(testStructure, pos);
-            }
+            UseHotBarItem();
         }
 
-        //STRUCT INTERACTION
+        //RIGHT CLICK USES AN ITEM ON A STRUCTURE, EX: PLANTING A SEED IN FARMLAND
         if(Input.GetMouseButtonDown(1) && !PlayerMovement.accessingInventory)
         {
-            StructureInteraction();
-            //TO TEST CLEARING A STRUCTURE
-            //DestroyStruct();
+            StructureInteractionWithItem();
+        }
+
+        //SPACE INTERACTS WITH A STRUCTURE WITHOUT USING AN ITEM, EX: HARVESTING A CROP
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            InteractWithObject();
         }
 
         if(Input.GetKeyDown("f"))
         {
-            Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
-            RaycastHit hit;
-
-
-            if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
-            {
-                var structure = hit.collider.GetComponent<StructureBehaviorScript>();
-                if (structure != null)
-                {
-                    structure.StructureInteraction();
-                    Debug.Log("Tried to harvest plant");
-                }
-            }
+            //TO TEST CLEARING A STRUCTURE
+            DestroyStruct();
         }
 
     }
 
     void StartInteraction(IInteractable interactable)
     {
+        //For NPC's and the Chest
         interactable.Interact(this, out bool interactSuccessful);
-        isInteracting = true;
+        isInteracting = false;
+    }
+
+    void StartInteractionWithItem(IInteractable interactable)
+    {
+        //For showing/giving NPC's items
+        if(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData != null) interactable.InteractWithItem(this, out bool interactSuccessful, HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
+        else return;
+        isInteracting = false;
     }
 
     void EndInteraction()
@@ -88,7 +80,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    void StructureInteraction()
+    void StructureInteractionWithItem()
     {
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
@@ -97,20 +89,9 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
-            GameObject hitObject = hit.collider.gameObject;
             if (interactable != null)
             {
-                StartInteraction(interactable);
-                
-                if (hitObject.tag ==  "NPC") // Also this teehee!!!
-                {
-                    Debug.Log("NPC Interacted");
-                    return;
-                }  
-
-
-                PlayerMovement.accessingInventory = true;  // Assuming this controls the inventory UI
-                Debug.Log("Opened Inventory of Interactable Object");
+                StartInteractionWithItem(interactable); //Interacts with chest and npc's. I should eventually make this compatable with the structures I made - Cam
                 return;
             }
 
@@ -118,11 +99,51 @@ public class PlayerInteraction : MonoBehaviour
             if (structure != null)
             {
                 structure.ItemInteraction(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
-                Debug.Log("Added crop to farmland");
+                Debug.Log("Interacted with item");
                 return;
             }
         }
     }
 
+    void InteractWithObject()
+    {
+        Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+        {
+            var interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                StartInteraction(interactable);
+
+
+                if(hit.collider.GetComponent<ChestInventory>() != null) PlayerMovement.accessingInventory = true;  // Needs to check if opening a chest, else this should not be called
+                Debug.Log("Opened Inventory of Interactable Object");
+                return;
+            }
+
+            var structure = hit.collider.GetComponent<StructureBehaviorScript>();
+            if (structure != null)
+            {
+                structure.StructureInteraction();
+                Debug.Log("Interacting with a structure");
+            }
+        }
+    }
+
+
+    void UseHotBarItem()
+    {
+       
+        InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+
+        //Is it a placeable item?
+        PlaceableItem p_item = item as PlaceableItem;
+        if (p_item)
+        {
+            p_item.PlaceStructure(mainCam.transform);
+        }
+    }
     
 }

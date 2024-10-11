@@ -11,13 +11,29 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NPCDialogueText;
 
     private Queue<string> paragraphs = new Queue<string>();
+    private Queue<Emotion> emotions = new Queue<Emotion>();
 
     private bool conversationEnded;
     private string p;
 
-    public void DisplayNextParagraph(DialogueText dialogueText)
+    private Emotion e;
+
+    public AudioSource source;
+
+    
+    public NPC currentTalker;
+    int currentPath = -1;
+
+    public void DisplayNextParagraph(DialogueText dialogueText, int path)
     {
         // If nothing left in queue
+        if(path != currentPath)
+        {
+            currentPath = path;
+            EndConversation();
+            StartConversation(dialogueText);
+            
+        }
         if (paragraphs.Count == 0)
         {
             if(!conversationEnded)
@@ -34,8 +50,35 @@ public class DialogueController : MonoBehaviour
         // If something in queue
         p = paragraphs.Dequeue();
 
+        e = emotions.Dequeue();
+
+        switch(e)
+        {
+            case Emotion.Neutral:
+                source.PlayOneShot(currentTalker.neutral);
+                break;
+            case Emotion.Happy:
+                source.PlayOneShot(currentTalker.happy);
+                break;
+            case Emotion.Sad:
+                source.PlayOneShot(currentTalker.sad);
+                break;
+            case Emotion.Angry:
+                source.PlayOneShot(currentTalker.angry);
+                break;
+            case Emotion.Shocked:
+                source.PlayOneShot(currentTalker.shocked);
+                break;
+            case Emotion.Confused:
+                source.PlayOneShot(currentTalker.confused);
+                break;
+            default:
+                break;
+        }
+
         // Update convo text
-        NPCDialogueText.text = p;
+        //p.Replace("{myNumber}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value}");
+        NPCDialogueText.text = p.Replace("{myNumber}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value}");
 
         if (paragraphs.Count == 0)
         {
@@ -55,16 +98,30 @@ public class DialogueController : MonoBehaviour
         NPCNameText.text = dialogueText.speakerName;
 
         // Add dialogue text to queue
-        for(int i = 0; i < dialogueText.paragraphs.Length; i++)
+        if(currentTalker.currentPath == -1)
         {
-            paragraphs.Enqueue(dialogueText.paragraphs[i]);
+            for(int i = 0; i < dialogueText.defaultPath.paragraphs.Length; i++)
+            {
+                paragraphs.Enqueue(dialogueText.defaultPath.paragraphs[i]);
+                emotions.Enqueue(dialogueText.defaultPath.emotions[i]);
+            }
         }
+        else
+        {
+            for(int i = 0; i < dialogueText.paths[currentTalker.currentPath].paragraphs.Length; i++)
+            {
+                paragraphs.Enqueue(dialogueText.paths[currentTalker.currentPath].paragraphs[i]);
+                emotions.Enqueue(dialogueText.paths[currentTalker.currentPath].emotions[i]);
+            }
+        }
+        
     }
 
     public void EndConversation()
     {
         // Clear queue
         paragraphs.Clear();
+        emotions.Clear();
 
         conversationEnded = false;
 

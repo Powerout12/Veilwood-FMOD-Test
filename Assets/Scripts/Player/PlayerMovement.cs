@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private void MyInput()
     {
 
-        if (accessingInventory)
+        if (accessingInventory )
         {
             isStalled = true;
         }
