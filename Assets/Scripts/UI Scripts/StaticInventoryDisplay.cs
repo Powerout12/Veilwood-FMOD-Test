@@ -7,7 +7,7 @@ public class StaticInventoryDisplay : InventoryDisplay
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
 
-    /*protected virtual void OnEnable()
+    protected virtual void OnEnable()
     {
         PlayerInventoryHolder.OnPlayerInventoryChanged += RefreshStaticDisplay;
     }
@@ -15,12 +15,17 @@ public class StaticInventoryDisplay : InventoryDisplay
     protected virtual void OnDisable()
     {
         PlayerInventoryHolder.OnPlayerInventoryChanged -= RefreshStaticDisplay;
-    }*/ //TODO: Incorperate hotbar
+    } //TODO: Incorperate hotbar
 
     protected override void Start()
     {
         base.Start();
 
+        
+    }
+
+    public void RefreshStaticDisplay(InventorySystem invToDisplay)
+    {
         if (inventoryHolder != null)
         {
             inventorySystem = inventoryHolder.PrimaryInventorySystem;
@@ -32,20 +37,29 @@ public class StaticInventoryDisplay : InventoryDisplay
     }
     public override void AssignSlot(InventorySystem invToDisplay)
     {
+        // Clear the dictionary to avoid duplicate entries if the method is called again
         slotDictionary = new Dictionary<InventorySlot_UI, InventorySlot>();
 
-        if (slots.Length != inventorySystem.InventorySize)
+        // Check if the length of slots and the inventory size are in sync
+        if (slots.Length != invToDisplay.InventorySize)
         {
-            Debug.Log($"Inventory slots out of sync on {this.gameObject}");
+            Debug.LogError($"Inventory slots out of sync on {this.gameObject}. Slots length: {slots.Length}, Inventory size: {invToDisplay.InventorySize}");
+            return; // Exit early if they're out of sync
         }
 
-        for (int i = 0; i < inventorySystem.InventorySize; i++)
+        // Loop through the inventory size and assign slots
+        for (int i = 0; i < invToDisplay.InventorySize; i++)
         {
-            slotDictionary.Add(slots[i], inventorySystem.InventorySlots[i]);
-            slots[i].Init(inventorySystem.InventorySlots[i]);
+            if (!slotDictionary.ContainsKey(slots[i])) // Check for duplicate keys
+            {
+                slotDictionary.Add(slots[i], invToDisplay.InventorySlots[i]);
+                slots[i].Init(invToDisplay.InventorySlots[i]);
+            }
+            else
+            {
+                Debug.LogError($"Duplicate slot found at index {i}: {slots[i]}");
+            }
         }
-        
-
-
     }
+
 }

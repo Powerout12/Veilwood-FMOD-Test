@@ -1,19 +1,79 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class HotbarDisplay : StaticInventoryDisplay
+public class HotbarDisplay : MonoBehaviour
 {
-    private int _maxIndexSize = 8;
-    private int _currentIndex = 0;
-    protected override void Start()
+    public InputManager inputManager;  // Reference to the InputManager
+    public InventorySlot_UI[] hotbarSlots;   // Array of hotbar slots (InventorySlot_UI)
+    public static InventorySlot_UI currentSlot;
+    private int currentIndex;
+
+    private void Start()
     {
-        
+        currentIndex = 0;
+        currentSlot = hotbarSlots[currentIndex];
+        currentSlot.ToggleHighlight(); // Highlight the initial slot
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        if (inputManager != null)
+        {
+            inputManager.OnNumberPressed += HandleNumberPressed;
+            inputManager.OnScrollInput += HandleScrollInput;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (inputManager != null)
+        {
+            inputManager.OnNumberPressed -= HandleNumberPressed;
+            inputManager.OnScrollInput -= HandleScrollInput;
+        }
+    }
+
+    private void HandleScrollInput(int direction)
+    {
+        currentIndex += direction;
+
+        if (currentIndex > (hotbarSlots.Length - 1)) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = hotbarSlots.Length - 1;
+
+        SelectHotbarSlot(currentIndex);
+    }
+
+    private void HandleNumberPressed(int number)
+    {
+        if (number > 0 && number <= hotbarSlots.Length)
+        {
+            SelectHotbarSlot(number - 1);  // Hotbar slots are 0-indexed
+        }
+    }
+
+    private void SelectHotbarSlot(int slotIndex)
+    {
+        // Turn off highlight on the current slot
+        if (currentSlot != null)
+        {
+            currentSlot.ToggleHighlight();
+        }
+
+        // Set the new slot
+        currentIndex = slotIndex;
+        currentSlot = hotbarSlots[slotIndex];
+
+        // Turn on highlight for the newly selected slot
+        currentSlot.ToggleHighlight();
+
+        // Optionally, use the item in the selected slot
+        if (currentSlot.AssignedInventorySlot != null && currentSlot.AssignedInventorySlot.ItemData != null)
+        {
+            currentSlot.AssignedInventorySlot.ItemData.UseItem();
+        }
+        else
+        {
+            Debug.Log($"No item in hotbar slot {slotIndex + 1}");
+        }
     }
 }

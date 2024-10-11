@@ -5,14 +5,38 @@ using UnityEngine.Tilemaps;
 
 public class StructureManager : MonoBehaviour
 {
+    public static StructureManager Instance;
     [Header("Tiles")]
     public Tilemap tileMap;
     public TileBase freeTile, occupiedTile;
+
+    public List<StructureBehaviorScript> allStructs;
+
+    void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
 
     void Start()
     {
         
+    }
+
+    public void HourUpdate()
+    {
+        foreach (StructureBehaviorScript structure in allStructs)
+        {
+            structure.HourPassed();
+        }
     }
 
 
