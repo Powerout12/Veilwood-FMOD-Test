@@ -38,11 +38,13 @@ public class CreatureBehaviorScript : MonoBehaviour
         if(health < 0)
         {
             effectsHandler.OnDeath();
+            //turns into a corpse, and fertalizes nearby crops
         }
         else
         {
             effectsHandler.OnHit();
         }
+        
     }
 
     public virtual void OnDamage(){} //Triggers creature specific effects

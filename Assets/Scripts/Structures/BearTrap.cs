@@ -18,4 +18,9 @@ public class BearTrap : StructureBehaviorScript
     {
         base.Update();
     }
+
+    void SpringTrap()
+    {
+        //stuns an enemy with over 50 hp, otherwise insta kills
+    }
 }
