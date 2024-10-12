@@ -66,40 +66,49 @@ public class BearTrap : StructureBehaviorScript
 
     IEnumerator SpringTrap(Collider victim)
     {
-        //stuns an enemy with over 50 hp, otherwise insta kills
         animationTimeLeft = 0.5f;
         yield return new WaitForSeconds(0.5f);
         topClamp.rotation = Quaternion.Euler(-161, 90, -90);
         bottomClamp.rotation = Quaternion.Euler(-20, 90, -90);
         source.PlayOneShot(triggeredSFX);
-        //does the damage
-        if(victim.GetComponent<PlayerInteraction>())
-        {
-            PlayerInteraction player = victim.GetComponent<PlayerInteraction>();
-            player.PlayerTakeDamage();
 
-            //restrictplayermovement
-            PlayerMovement.restrictMovement = true;
-            
-            yield return new WaitForSeconds(1);
-            StartCoroutine(Rearm());
-
-            yield return new WaitForSeconds(0.5f);
-            PlayerMovement.restrictMovement = false;
-            //enable player movement
-        } 
-        else
+        float distance = Vector3.Distance(victim.transform.position, transform.position);
+        if(distance < 1.2f)
         {
-            CreatureBehaviorScript creature = victim.GetComponent<CreatureBehaviorScript>();
-            if(creature.health > 50)
+            print(distance);
+
+            //does the damage
+            if(victim.GetComponent<PlayerInteraction>())
             {
-                //stun and damage
-            }
+                PlayerInteraction player = victim.GetComponent<PlayerInteraction>();
+                player.PlayerTakeDamage();
+
+                //restrictplayermovement
+                PlayerMovement.restrictMovement = true;
+                
+                yield return new WaitForSeconds(1);
+                StartCoroutine(Rearm());
+
+                yield return new WaitForSeconds(0.5f);
+                PlayerMovement.restrictMovement = false;
+                //enable player movement
+            } 
             else
             {
-                //kill
+                CreatureBehaviorScript creature = victim.GetComponent<CreatureBehaviorScript>();
+                if(creature.health > 50)
+                {
+                    //stun and damage
+                    creature.TakeDamage(25);
+                }
+                else
+                {
+                    //kill
+                    creature.TakeDamage(999);
+                }
             }
         }
+        
     }
 
     IEnumerator Rearm()
@@ -118,7 +127,7 @@ public class BearTrap : StructureBehaviorScript
             bottomClamp.eulerAngles = currentAngleBottom;
             yield return new WaitForSeconds(0.1f);
         }
-        while(lerp < 10);
+        while(lerp < 1);
         topClamp.eulerAngles = startingAngleTop;
         bottomClamp.eulerAngles = startingAngleBottom;
         isTriggered = false;

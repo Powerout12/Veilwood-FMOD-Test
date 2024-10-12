@@ -35,10 +35,13 @@ public class CreatureBehaviorScript : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        print("Ouch");
         health -= damage;
         if(health < 0)
         {
             effectsHandler.OnDeath();
+            OnDeath();
+            isDead = true;
             //turns into a corpse, and fertalizes nearby crops
         }
         else
