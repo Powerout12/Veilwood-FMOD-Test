@@ -12,10 +12,13 @@ public class StructureBehaviorScript : MonoBehaviour
     public float health = 5;
     public float maxHealth = 5;
 
+    [HideInInspector] public AudioSource source;
+
 
     public void Awake()
     {
         StructureManager.Instance.allStructs.Add(this);
+        source = GetComponent<AudioSource>();
     }
 
 
@@ -28,7 +31,7 @@ public class StructureBehaviorScript : MonoBehaviour
     public virtual void ItemInteraction(InventoryItemData item){}
     public virtual void HourPassed(){}
 
-    void OnDestroy()
+    public void OnDestroy()
     {
         if(!gameObject.scene.isLoaded) return;
         print("Destroyed");

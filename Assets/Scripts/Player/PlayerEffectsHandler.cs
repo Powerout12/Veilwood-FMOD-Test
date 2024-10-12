@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerEffectsHandler : MonoBehaviour
 {
@@ -9,11 +11,16 @@ public class PlayerEffectsHandler : MonoBehaviour
     public AudioSource source, footStepSource;
     public AudioClip itemPickup;
     //public AudioClip footSteps;
+
+    Volume globalVolume;
+
     Rigidbody rb;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         StartCoroutine("FootStepsPitchChanger");
+
+        globalVolume = FindObjectOfType<Volume>();
     }
 
     // Update is called once per frame
@@ -37,6 +44,36 @@ public class PlayerEffectsHandler : MonoBehaviour
     public void ItemCollectSFX()
     {
         source.PlayOneShot(itemPickup);
+    }
+
+    public void PlayerDamage()
+    {
+        StopCoroutine(DamageFlash());
+        StartCoroutine(DamageFlash());
+            
+        
+    }
+
+    IEnumerator DamageFlash()
+    {
+        if(globalVolume.profile.TryGet(out Vignette vignette))
+        {
+            vignette.intensity.value = 0;
+            do
+            {
+                yield return new WaitForSeconds(0.1f);
+                vignette.intensity.value += 0.25f;
+            }
+            while(vignette.intensity.value < 0.5f);
+            yield return new WaitForSeconds(1);
+            do
+            {
+                yield return new WaitForSeconds(0.1f);
+                vignette.intensity.value -= 0.05f;
+            }
+            while(vignette.intensity.value > 0);
+        }
+        
     }
 
 }

@@ -77,8 +77,14 @@ public class DialogueController : MonoBehaviour
         }
 
         // Update convo text
-        //p.Replace("{myNumber}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value}");
-        NPCDialogueText.text = p.Replace("{myNumber}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value}");
+        p = p.Replace("{itemValue}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value * HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.sellValueMultiplier}");
+        if(p.Contains("{itemSold}"))
+        {
+            p = p.Replace("{itemSold}", $"{""}");
+            PlayerSoldItem();
+        }
+
+        NPCDialogueText.text = p;
 
         if (paragraphs.Count == 0)
         {
@@ -129,5 +135,16 @@ public class DialogueController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void PlayerSoldItem()
+    {
+        InventoryItemData soldItem = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+        if(!soldItem) return;
+        float moneyGained = soldItem.value * soldItem.sellValueMultiplier;
+        int moneyGainedInt = (int) moneyGained;
+        PlayerInteraction.Instance.currentMoney += moneyGainedInt;
+        HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
+        PlayerInventoryHolder.Instance.UpdateInventory();
     }
 }
