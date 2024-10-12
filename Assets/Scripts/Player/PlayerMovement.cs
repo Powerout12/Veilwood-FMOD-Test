@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
   
 
     public static bool isStalled;
-    public static bool accessingInventory;
+    public static bool accessingInventory, restrictMovement;
 
     float horizontalInput;
     float verticalInput;
@@ -61,11 +61,11 @@ public class PlayerMovement : MonoBehaviour
     private void MyInput()
     {
 
-        if (accessingInventory )
+        if (accessingInventory || restrictMovement)
         {
             isStalled = true;
         }
-        else if (!accessingInventory)
+        else
         {
             isStalled = false;
         }

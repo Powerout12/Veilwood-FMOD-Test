@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public Camera mainCam;
 
     PlayerInventoryHolder playerInventoryHolder;
+    PlayerEffectsHandler playerEffects;
 
     public bool isInteracting { get; private set; }
 
@@ -38,6 +39,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if(!mainCam) mainCam = FindObjectOfType<Camera>();
         playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
+        playerEffects = FindObjectOfType<PlayerEffectsHandler>();
     }
 
 
@@ -96,7 +98,7 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+        if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 4, 1 << 6))
         {
             Destroy(hit.collider.gameObject);
         }
@@ -108,7 +110,7 @@ public class PlayerInteraction : MonoBehaviour
         RaycastHit hit;
 
 
-        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 4, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null)
@@ -132,7 +134,7 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 10, 1 << 6))
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 4, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null)
@@ -166,6 +168,11 @@ public class PlayerInteraction : MonoBehaviour
         {
             p_item.PlaceStructure(mainCam.transform);
         }
+    }
+
+    public void PlayerTakeDamage()
+    {
+        playerEffects.PlayerDamage();
     }
     
 }

@@ -18,6 +18,7 @@ public class CreatureBehaviorScript : MonoBehaviour
     public float sightRange = 4; //how far can it see the player
     public bool playerInSightRange = false;
     public bool shovelVulnerable = true;
+    public bool isDead = false;
 
     public void Start()
     {
@@ -43,11 +44,13 @@ public class CreatureBehaviorScript : MonoBehaviour
         else
         {
             effectsHandler.OnHit();
+            OnDamage();
         }
         
     }
 
     public virtual void OnDamage(){} //Triggers creature specific effects
+    public virtual void OnDeath(){} //Triggers creature specific effects
 
 
     

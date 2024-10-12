@@ -40,6 +40,7 @@ public class FeralHareTest : CreatureBehaviorScript
     void Update()
     {
         base.Update();
+        if(isDead) return;
 
         // Check distance from the player
         if(currentState != HareStates.FleeFromPlayer)
@@ -79,7 +80,7 @@ public class FeralHareTest : CreatureBehaviorScript
                 Stunned();
                 break;
             case HareStates.Dead:
-                Dead();
+                //Dead();
                 break;
         }
     }
@@ -159,9 +160,9 @@ public class FeralHareTest : CreatureBehaviorScript
         StartCoroutine(Stun(3));
     }
 
-    private void Dead()
+    public override void OnDeath()
     {
-      
+        anim.SetTrigger("IsDead");
     }
 
     // CropCheck Coroutine to search for crops periodically
