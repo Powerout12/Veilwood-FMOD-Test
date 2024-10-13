@@ -5287,6 +5287,8 @@ MonoBehaviour:
   freeTile: {fileID: 11400000, guid: fb09f6225d3c7794f97e6f296c9e5a0d, type: 2}
   occupiedTile: {fileID: 11400000, guid: 147fc03a3d7579845993f41d1f7b4ecc, type: 2}
   allStructs: []
+  weedTile: {fileID: 5689272689766288214, guid: 795d947421894ad42b9aafb1b92eeea0,
+    type: 3}
 --- !u!114 &1570504167119801372
 MonoBehaviour:
   m_ObjectHideFlags: 0

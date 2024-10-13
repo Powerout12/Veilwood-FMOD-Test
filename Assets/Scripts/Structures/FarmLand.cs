@@ -17,6 +17,7 @@ public class FarmLand : StructureBehaviorScript
 
     public bool harvestable = false; //true if growth stage matches crop data growth stages
     public bool rotted = false;
+    public bool isWeed = false;
 
     private bool ignoreNextGrowthMoment = false; //tick this if crop was just planted
 
@@ -36,6 +37,15 @@ public class FarmLand : StructureBehaviorScript
         playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
 
         nutrients = StructureManager.Instance.FetchNutrient(transform.position);
+
+        if(isWeed)
+        {
+            growthStage = Random.Range(0, crop.growthStages);
+            growthStage++;
+        }
+        if(crop.harvestableGrowthStages.Contains(growthStage)) harvestable = true;
+        else harvestable = false;
+
         SpriteChange();
     }
 
@@ -74,7 +84,8 @@ public class FarmLand : StructureBehaviorScript
                     droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
                     droppedItem.transform.position = transform.position;
                 }
-                for(int i = 0; i < crop.seedYieldAmount; i++)
+                int r = Random.Range(crop.seedYieldAmount - crop.seedYieldVariance, crop.seedYieldAmount + crop.seedYieldVariance + 1);
+                for(int i = 0; i < r; i++)
                 {
                     droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
                     droppedItem.transform.position = transform.position;
@@ -110,7 +121,8 @@ public class FarmLand : StructureBehaviorScript
             }
             hoursSpent = 0;
             growthStage++;
-            if(growthStage == crop.growthStages - 1) harvestable = true;
+            if(crop.harvestableGrowthStages.Contains(growthStage)) harvestable = true;
+            else harvestable = false;
             SpriteChange();
         }
         if(!rotted)
@@ -143,7 +155,7 @@ public class FarmLand : StructureBehaviorScript
             }
             StructureManager.Instance.UpdateStorage(transform.position, nutrients);
 
-            if(plantDied)
+            if(plantDied && !isWeed)
             {
                 CropDied();
             }
@@ -151,7 +163,7 @@ public class FarmLand : StructureBehaviorScript
         }
     }
 
-    void SpriteChange()
+    public void SpriteChange()
     {
         print(growthStage);
         if(crop) cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
