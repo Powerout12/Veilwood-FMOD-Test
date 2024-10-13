@@ -16,7 +16,11 @@ public class CropData : ScriptableObject
     public int seedYieldAmount = 2;
     
     public float waterIntake = 1; //how many units of water does it consume per [hour?]
-    //light requirement
+    //Nutrients, if the variable is negative, it gives it to the soil instead
+    public float ichorIntake;
+    public float terraIntake;
+    public float gloamIntake;
+
 
 
 }
