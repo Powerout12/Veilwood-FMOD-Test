@@ -27,7 +27,6 @@ public class FarmLand : StructureBehaviorScript
     void Awake()
     {
         base.Awake();
-        SpriteChange();
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
     }
 
@@ -37,6 +36,7 @@ public class FarmLand : StructureBehaviorScript
         playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
 
         nutrients = StructureManager.Instance.FetchNutrient(transform.position);
+        SpriteChange();
     }
 
     // Update is called once per frame
@@ -72,12 +72,12 @@ public class FarmLand : StructureBehaviorScript
                 for(int i = 0; i < crop.cropYieldAmount; i++)
                 {
                     droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
-                    droppedItem.transform.position = itemDropTransform.position;
+                    droppedItem.transform.position = transform.position;
                 }
                 for(int i = 0; i < crop.seedYieldAmount; i++)
                 {
                     droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
-                    droppedItem.transform.position = itemDropTransform.position;
+                    droppedItem.transform.position = transform.position;
                 }
             }
 
@@ -147,6 +147,7 @@ public class FarmLand : StructureBehaviorScript
             {
                 CropDied();
             }
+            else SpriteChange();
         }
     }
 

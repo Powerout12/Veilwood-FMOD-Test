@@ -6,7 +6,14 @@ using UnityEngine;
 public class ToolItem : InventoryItemData
 {
     public float durability;
-    public GameObject handPrefab; //the model that goes in the players hand
     public ToolBehavior behavior;
+    public ToolType tool;
+}
 
+public enum ToolType
+{
+    Null,
+    Hoe,
+    Shovel,
+    WateringCan
 }

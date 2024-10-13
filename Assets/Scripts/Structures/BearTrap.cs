@@ -72,10 +72,13 @@ public class BearTrap : StructureBehaviorScript
         bottomClamp.rotation = Quaternion.Euler(-20, 90, -90);
         source.PlayOneShot(triggeredSFX);
 
-        float distance = Vector3.Distance(victim.transform.position, transform.position);
-        if(distance < 1.2f)
+        if(victim.gameObject.layer == 9) victim.transform.position = transform.position;
+        Vector3 victimPos = new Vector3(victim.transform.position.x, transform.position.y, victim.transform.position.z);
+
+        float distance = Vector3.Distance(victimPos, transform.position);
+        print(distance);
+        if(distance < 1.5f)
         {
-            print(distance);
 
             //does the damage
             if(victim.GetComponent<PlayerInteraction>())
@@ -84,13 +87,13 @@ public class BearTrap : StructureBehaviorScript
                 player.PlayerTakeDamage();
 
                 //restrictplayermovement
-                PlayerMovement.restrictMovement = true;
+                PlayerMovement.restrictMovementTokens += 1;
                 
                 yield return new WaitForSeconds(1);
                 StartCoroutine(Rearm());
 
                 yield return new WaitForSeconds(0.5f);
-                PlayerMovement.restrictMovement = false;
+                PlayerMovement.restrictMovementTokens -= 1;
                 //enable player movement
             } 
             else

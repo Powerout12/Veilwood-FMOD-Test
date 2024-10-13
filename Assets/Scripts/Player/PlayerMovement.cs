@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
   
 
     public static bool isStalled;
-    public static bool accessingInventory, restrictMovement;
+    public static bool accessingInventory;
+    public static int restrictMovementTokens = 0; //if 0, player can move, else, they cant. This keeps track if multiple sources are stopping player movement
 
     float horizontalInput;
     float verticalInput;
@@ -61,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     private void MyInput()
     {
 
-        if (accessingInventory || restrictMovement)
+        if (accessingInventory || restrictMovementTokens > 0)
         {
             isStalled = true;
         }

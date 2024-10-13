@@ -85,7 +85,15 @@ public class StructureManager : MonoBehaviour
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         for(int i = 0; i < allTiles.Count; i++)
         {
-            if(allTiles[i] == gridPos) return storage[i];
+            if(allTiles[i] == gridPos)
+            {
+                if(storage[i] != null) return storage[i];
+                else
+                {
+                    storage[i] = new NutrientStorage();
+                    return storage[i];
+                }
+            } 
         }
         //if its not in the list
         allTiles.Add(gridPos);

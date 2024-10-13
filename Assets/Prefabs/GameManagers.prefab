@@ -5246,6 +5246,7 @@ GameObject:
   - component: {fileID: 1570504167119801372}
   - component: {fileID: 4750952263133987452}
   - component: {fileID: 3406670050517197411}
+  - component: {fileID: 6358613473889610095}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -5331,3 +5332,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 0}
+--- !u!114 &6358613473889610095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905684624903694689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1f3fb90d70b65408b062340ada8658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoe: {fileID: 0}
+  shovel: {fileID: 0}
+  wateringCan: {fileID: 0}
