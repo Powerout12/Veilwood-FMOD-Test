@@ -29,7 +29,12 @@ public class StructureBehaviorScript : MonoBehaviour
 
     public virtual void StructureInteraction(){}
     public virtual void ItemInteraction(InventoryItemData item){}
+    public virtual void ToolInteraction(ToolType tool, out bool success)
+    {
+        success = false;
+    }
     public virtual void HourPassed(){}
+    public virtual void OnLook(){} //populate the ui if it has things to show
 
     public void OnDestroy()
     {

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ToolBehavior : ScriptableObject
 {
-    public virtual void PrimaryUse()
+    public virtual void PrimaryUse(Transform player, ToolType tool)
     {
 
     }
 
-    public virtual void SecondaryUse()
+    public virtual void SecondaryUse(Transform player, ToolType tool)
     {
 
     }

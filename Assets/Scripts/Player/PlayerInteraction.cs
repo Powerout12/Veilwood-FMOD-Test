@@ -17,10 +17,15 @@ public class PlayerInteraction : MonoBehaviour
     public int currentMoney;
 
     public int health = 3;
-    int maxHealth = 3;
+    [HideInInspector] public readonly int maxHealth = 3;
+
+    public int stamina = 100;
+    [HideInInspector] public readonly int maxStamina = 100;
 
     public int waterHeld = 0; //for watering can
-    int maxWaterHeld = 10;
+    [HideInInspector] public readonly int maxWaterHeld = 10;
+
+    private float reach = 5;
 
     void Awake()
     {
@@ -71,6 +76,10 @@ public class PlayerInteraction : MonoBehaviour
             DestroyStruct();
         }
 
+        if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
+        if(health > maxHealth) health = maxHealth;
+        if(stamina > maxStamina) stamina = maxStamina;
+
     }
 
     void StartInteraction(IInteractable interactable)
@@ -98,7 +107,7 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if(Physics.Raycast(mainCam.transform.position, fwd, out hit, 4, 1 << 6))
+        if(Physics.Raycast(mainCam.transform.position, fwd, out hit, reach, 1 << 6))
         {
             Destroy(hit.collider.gameObject);
         }
@@ -110,7 +119,7 @@ public class PlayerInteraction : MonoBehaviour
         RaycastHit hit;
 
 
-        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 4, 1 << 6))
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, reach, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null)
@@ -134,7 +143,7 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, 4, 1 << 6))
+        if (Physics.Raycast(mainCam.transform.position, fwd, out hit, reach, 1 << 6))
         {
             var interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null)
@@ -161,6 +170,13 @@ public class PlayerInteraction : MonoBehaviour
     {
        
         InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+
+        //Is it a Tool item?
+        ToolItem t_item = item as ToolItem;
+        if (t_item)
+        {
+            t_item.PrimaryUse(mainCam.transform);
+        }
 
         //Is it a placeable item?
         PlaceableItem p_item = item as PlaceableItem;

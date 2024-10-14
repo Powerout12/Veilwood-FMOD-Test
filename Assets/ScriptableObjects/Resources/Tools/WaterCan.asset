@@ -21,5 +21,5 @@ MonoBehaviour:
   sellValueMultiplier: 1
   isKeyItem: 1
   durability: 100
-  handPrefab: {fileID: 0}
   behavior: {fileID: 11400000, guid: a14397d01a318ea469bfd45b59737143, type: 2}
+  tool: 3

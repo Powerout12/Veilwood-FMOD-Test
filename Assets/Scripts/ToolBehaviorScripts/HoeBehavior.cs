@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Tool Behavior", menuName = "Tool Behavior/Hoe")]
 public class HoeBehavior : ToolBehavior
 {
-    public override void PrimaryUse()
+    public override void PrimaryUse(Transform player, ToolType tool)
     {
         //swing
     }
 
-    public override void SecondaryUse()
+    public override void SecondaryUse(Transform player, ToolType tool)
     {
         //till ground
     }

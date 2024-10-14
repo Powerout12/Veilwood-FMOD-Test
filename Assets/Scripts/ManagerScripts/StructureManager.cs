@@ -12,6 +12,8 @@ public class StructureManager : MonoBehaviour
 
     public List<StructureBehaviorScript> allStructs;
 
+    public GameObject weedTile;
+
     //Game will compare the two to find out which tile position correlates with the nutrients associated with it.
     List<Vector3Int> allTiles = new List<Vector3Int>();
     List<NutrientStorage> storage = new List<NutrientStorage>();
@@ -28,6 +30,7 @@ public class StructureManager : MonoBehaviour
             Instance = this;
         }
         //load in all the saved data, such as the nutrient storages and alltiles list
+        PopulateWeeds(); //Only do this when a new game has started. Implement weeds spawning in overtime
     }
 
     public void HourUpdate()
@@ -85,7 +88,15 @@ public class StructureManager : MonoBehaviour
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         for(int i = 0; i < allTiles.Count; i++)
         {
-            if(allTiles[i] == gridPos) return storage[i];
+            if(allTiles[i] == gridPos)
+            {
+                if(storage[i] != null) return storage[i];
+                else
+                {
+                    storage[i] = new NutrientStorage();
+                    return storage[i];
+                }
+            } 
         }
         //if its not in the list
         allTiles.Add(gridPos);
@@ -100,6 +111,33 @@ public class StructureManager : MonoBehaviour
         for(int i = 0; i < allTiles.Count; i++)
         {
             if(allTiles[i] == gridPos) storage[i].LoadStorage(storage[i], s.ichorLevel, s.terraLevel, s.gloamLevel, s.waterLevel);
+        }
+    }
+
+    void PopulateWeeds()
+    {
+        List<Vector3Int> spawnablePositions = new List<Vector3Int>();
+
+        Vector3 spawnPos = new Vector3 (0,0,0);
+        foreach (Vector3Int position in tileMap.cellBounds.allPositionsWithin)
+        {
+            spawnablePositions.Add(position);
+        }
+
+        int r = Random.Range(5,20);
+        print(r);
+        for(int i = 0; i < r; i++)
+        {
+            if(spawnablePositions.Count != 0)
+            {
+                int randomIndex = Random.Range(0, spawnablePositions.Count);
+                spawnPos = tileMap.GetCellCenterWorld(spawnablePositions[randomIndex]);
+
+                if(tileMap.GetTile(spawnablePositions[randomIndex]) != null)
+                {
+                    SpawnStructure(weedTile, spawnPos);
+                }
+            }
         }
     }
 }

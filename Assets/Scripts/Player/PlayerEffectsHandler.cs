@@ -26,7 +26,7 @@ public class PlayerEffectsHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rb.velocity.magnitude > 0.2f) footStepSource.volume = 0.1f;
+        if(rb.velocity.magnitude > 0.2f) footStepSource.volume = 0.025f;
         else footStepSource.volume = 0f;
         
     }

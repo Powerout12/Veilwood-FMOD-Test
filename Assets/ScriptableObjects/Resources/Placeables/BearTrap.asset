@@ -22,4 +22,4 @@ MonoBehaviour:
   isKeyItem: 0
   placedPrefab: {fileID: 7908821675133766751, guid: e8cbb6b694c46264aac1da525c3ffe2e,
     type: 3}
-  removeAfterUse: 0
+  removeAfterUse: 1
