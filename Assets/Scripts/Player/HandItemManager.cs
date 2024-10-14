@@ -7,8 +7,11 @@ public class HandItemManager : MonoBehaviour
     public GameObject hoe, shovel, wateringCan;
 
     GameObject currentHandObject;
+    Animator currentAnim;
 
     public static HandItemManager Instance;
+
+    public AudioSource toolSource;
 
     void Awake()
     {
@@ -51,6 +54,12 @@ public class HandItemManager : MonoBehaviour
             currentHandObject = null;
                 break;
         }
+        if(currentHandObject) currentAnim = currentHandObject.GetComponent<Animator>();
+    }
+
+    public void PlayPrimaryAnimation()
+    {
+        if(currentAnim) currentAnim.SetTrigger("PrimaryTrigger");
     }
 
     public void ClearHandModel()

@@ -75,6 +75,7 @@ public class HotbarDisplay : MonoBehaviour
             {
                 HandItemManager.Instance.SwapHandModel(t_item.tool);
             }
+            else HandItemManager.Instance.SwapHandModel(ToolType.Null);
         }
         else
         {

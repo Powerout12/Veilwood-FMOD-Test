@@ -17,10 +17,13 @@ public class PlayerInteraction : MonoBehaviour
     public int currentMoney;
 
     public int health = 3;
-    int maxHealth = 3;
+    [HideInInspector] public readonly int maxHealth = 3;
+
+    public int stamina = 100;
+    [HideInInspector] public readonly int maxStamina = 100;
 
     public int waterHeld = 0; //for watering can
-    int maxWaterHeld = 10;
+    [HideInInspector] public readonly int maxWaterHeld = 10;
 
     private float reach = 5;
 
@@ -72,6 +75,10 @@ public class PlayerInteraction : MonoBehaviour
             //TO TEST CLEARING A STRUCTURE
             DestroyStruct();
         }
+
+        if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
+        if(health > maxHealth) health = maxHealth;
+        if(stamina > maxStamina) stamina = maxStamina;
 
     }
 
@@ -163,6 +170,13 @@ public class PlayerInteraction : MonoBehaviour
     {
        
         InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+
+        //Is it a Tool item?
+        ToolItem t_item = item as ToolItem;
+        if (t_item)
+        {
+            t_item.PrimaryUse(mainCam.transform);
+        }
 
         //Is it a placeable item?
         PlaceableItem p_item = item as PlaceableItem;

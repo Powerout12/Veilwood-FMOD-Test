@@ -34,6 +34,10 @@ public class FarmLand : StructureBehaviorScript
     void Start()
     {
         if(!crop) ignoreNextGrowthMoment = true;
+        else if(crop.harvestableGrowthStages.Contains(growthStage))
+        {
+            harvestable = true;
+        }
         playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
 
         nutrients = StructureManager.Instance.FetchNutrient(transform.position);
@@ -43,8 +47,6 @@ public class FarmLand : StructureBehaviorScript
             growthStage = Random.Range(0, crop.growthStages);
             growthStage++;
         }
-        if(crop.harvestableGrowthStages.Contains(growthStage)) harvestable = true;
-        else harvestable = false;
 
         SpriteChange();
     }
@@ -94,6 +96,22 @@ public class FarmLand : StructureBehaviorScript
 
             crop = null;
             SpriteChange();
+        }
+    }
+
+    public override void ToolInteraction(ToolType type, out bool success)
+    {
+        success = false;
+        if(type == ToolType.Shovel)
+        {
+            //Harvest
+        }
+        if(type == ToolType.WateringCan && PlayerInteraction.Instance.waterHeld > 0 && nutrients.waterLevel < 10)
+        {
+            PlayerInteraction.Instance.waterHeld--;
+            nutrients.waterLevel = 10;
+            SpriteChange();
+            success = true;
         }
     }
 

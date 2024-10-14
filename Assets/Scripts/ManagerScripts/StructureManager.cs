@@ -30,7 +30,7 @@ public class StructureManager : MonoBehaviour
             Instance = this;
         }
         //load in all the saved data, such as the nutrient storages and alltiles list
-        PopulateWeeds();
+        PopulateWeeds(); //Only do this when a new game has started. Implement weeds spawning in overtime
     }
 
     public void HourUpdate()
