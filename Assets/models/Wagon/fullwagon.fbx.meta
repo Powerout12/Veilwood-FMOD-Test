@@ -1,23 +1,9 @@
 fileFormatVersion: 2
-guid: 0a02271c101998b4b8f067bbb0dc3763
+guid: 9f86ef887fe0e9e4db59d7612dfdd3a6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-<<<<<<<< HEAD:Assets/Prefabs/Ambient-Occlusion/treecombined 1.fbx.meta
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert5
-    second: {fileID: 2100000, guid: d6e67317a00964f43b2f765a3201078d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: leaves1
-    second: {fileID: 2100000, guid: 79b634505d5a0a64ca8018a5f2ae9db7, type: 2}
-========
   externalObjects: {}
->>>>>>>> main:Assets/models/Tools/Hoe/hoe.fbx.meta
   materials:
     materialImportMode: 2
     materialName: 0
