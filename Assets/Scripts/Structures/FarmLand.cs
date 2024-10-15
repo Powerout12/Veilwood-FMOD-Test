@@ -143,9 +143,11 @@ public class FarmLand : StructureBehaviorScript
             else harvestable = false;
             SpriteChange();
         }
+        else if(!isWeed) return;
         if(!rotted)
         {
-            //update the struct manager after reducing the nutrition values from the tile
+            //BALANCE THIS, IF IT DRAINS EACH HOUR AND NOT GROWTH STAGE, MAKE IT COST ALOT LESS RESOURCES PER HOUR AND INCREASE THE CAP. THE PLAYER SHOULD NOT HAVE TO REWATER AFTER 5 - 10 HOURS
+            //THATS WHY PLANTS DRAIN PER GROWTH STAGE, AND THE PLAYER SHOULD HAVE TO WATER ROUGHLY EVERY STAGE/EVERY OTHER STAGE
             bool plantDied = false;
             nutrients.ichorLevel -= crop.ichorIntake;
             if(nutrients.ichorLevel < 0)
