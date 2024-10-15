@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StructureBehaviorScript : MonoBehaviour
 {
     //This is the base class that ALL structures should derive from
 
+    public delegate void StructuresUpdated();
+    public static event StructuresUpdated OnStructuresUpdated; //Unity Event that will notify enemies when structures are updated
 
     public StructureObject structData;
 
@@ -18,6 +21,7 @@ public class StructureBehaviorScript : MonoBehaviour
     public void Awake()
     {
         StructureManager.Instance.allStructs.Add(this);
+        OnStructuresUpdated?.Invoke();
         source = GetComponent<AudioSource>();
     }
 
@@ -42,5 +46,7 @@ public class StructureBehaviorScript : MonoBehaviour
         print("Destroyed");
         StructureManager.Instance.ClearTile(transform.position);
         StructureManager.Instance.allStructs.Remove(this);
+        OnStructuresUpdated?.Invoke();
+
     }
 }
