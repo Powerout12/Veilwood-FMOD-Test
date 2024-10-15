@@ -6,8 +6,11 @@ using UnityEngine;
 public class WaterCanBehavior : ToolBehavior
 {
     public AudioClip refill, pour;
-    public override void PrimaryUse(Transform player, ToolType tool)
+    public override void PrimaryUse(Transform _player, ToolType _tool)
     {
+        if (usingPrimary || usingSecondary) return;
+        if (!player) player = _player;
+        tool = _tool;
         //water
         Vector3 fwd = player.TransformDirection(Vector3.forward);
         RaycastHit hit;
@@ -28,10 +31,12 @@ public class WaterCanBehavior : ToolBehavior
         }
     }
 
-    public override void SecondaryUse(Transform player, ToolType tool)
+    public override void SecondaryUse(Transform _player, ToolType _tool)
     {
         //nothing
     }
+
+    public override void ItemUsed() { }
 
 
 }

@@ -190,5 +190,13 @@ public class PlayerInteraction : MonoBehaviour
     {
         playerEffects.PlayerDamage();
     }
+
+    public IEnumerator ToolUse(ToolBehavior tool, float time, float coolDown)
+    {
+        yield return new WaitForSeconds(time);
+        tool.ItemUsed();
+        yield return new WaitForSeconds(coolDown - time);
+        //use a bool that says i am done swinging to avoid tool overlap
+    }
     
 }
