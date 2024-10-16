@@ -67,6 +67,14 @@ public class StructureManager : MonoBehaviour
         tileMap.SetTile(gridPos, occupiedTile);
     }
 
+    public GameObject SpawnStructureWithInstance(GameObject obj, Vector3 pos)
+    {
+        GameObject instance = Instantiate(obj, pos, Quaternion.identity);
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        tileMap.SetTile(gridPos, occupiedTile);
+        return instance;
+    }
+
     public void SetTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);

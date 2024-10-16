@@ -7,6 +7,7 @@ public class FarmLand : StructureBehaviorScript
     public CropData crop; //The current crop planted here
     public SpriteRenderer cropRenderer;
     public Transform itemDropTransform;
+    public GameObject livingCreature;
 
     public MeshRenderer meshRenderer;
     public Material dry, wet, barren, barrenWet;
@@ -18,6 +19,7 @@ public class FarmLand : StructureBehaviorScript
     public bool harvestable = false; //true if growth stage matches crop data growth stages
     public bool rotted = false;
     public bool isWeed = false;
+    public bool isLivingCreature = false;
 
     private bool ignoreNextGrowthMoment = false; //tick this if crop was just planted
 
@@ -80,17 +82,24 @@ public class FarmLand : StructureBehaviorScript
             harvestable = false;
             if(rotted == false)
             {
-                GameObject droppedItem;
-                for(int i = 0; i < crop.cropYieldAmount; i++)
+                if (isLivingCreature)
                 {
-                    droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
-                    droppedItem.transform.position = transform.position;
+                    Instantiate(livingCreature, itemDropTransform); //Code needs work once mandrake crop is added
                 }
-                int r = Random.Range(crop.seedYieldAmount - crop.seedYieldVariance, crop.seedYieldAmount + crop.seedYieldVariance + 1);
-                for(int i = 0; i < r; i++)
+                else
                 {
-                    droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
-                    droppedItem.transform.position = transform.position;
+                    GameObject droppedItem;
+                    for (int i = 0; i < crop.cropYieldAmount; i++)
+                    {
+                        droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
+                        droppedItem.transform.position = transform.position;
+                    }
+                    int r = Random.Range(crop.seedYieldAmount - crop.seedYieldVariance, crop.seedYieldAmount + crop.seedYieldVariance + 1);
+                    for (int i = 0; i < r; i++)
+                    {
+                        droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
+                        droppedItem.transform.position = transform.position;
+                    }
                 }
             }
 
@@ -218,7 +227,11 @@ public class FarmLand : StructureBehaviorScript
 
     void OnDestroy()
     {
-        if(!gameObject.scene.isLoaded) return;
+        if (!gameObject.scene.isLoaded) return; 
+        if (isLivingCreature)
+        {
+            Instantiate(livingCreature, transform.position, transform.rotation); //Code needs work once mandrake crop is added
+        }
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
         base.OnDestroy();
     }
