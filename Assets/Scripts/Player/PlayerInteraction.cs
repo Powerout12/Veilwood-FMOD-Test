@@ -11,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     PlayerEffectsHandler playerEffects;
 
     public bool isInteracting { get; private set; }
+    public bool toolCooldown;
 
     public static PlayerInteraction Instance;
 
@@ -193,9 +194,12 @@ public class PlayerInteraction : MonoBehaviour
 
     public IEnumerator ToolUse(ToolBehavior tool, float time, float coolDown)
     {
+        if(toolCooldown) yield break;
+        toolCooldown = true;
         yield return new WaitForSeconds(time);
         tool.ItemUsed();
         yield return new WaitForSeconds(coolDown - time);
+        toolCooldown = false;
         //use a bool that says i am done swinging to avoid tool overlap
     }
     

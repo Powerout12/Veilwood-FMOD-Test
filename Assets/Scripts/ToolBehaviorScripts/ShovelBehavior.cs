@@ -8,7 +8,7 @@ public class ShovelBehavior : ToolBehavior
     public LayerMask mask;
     public override void PrimaryUse(Transform _player, ToolType _tool)
     {
-        if (usingPrimary || usingSecondary) return;
+        if (usingPrimary || usingSecondary || PlayerInteraction.Instance.toolCooldown) return;
         if (!player) player = _player;
         tool = _tool;
         usingPrimary = true;
@@ -20,7 +20,7 @@ public class ShovelBehavior : ToolBehavior
 
     public override void SecondaryUse(Transform _player, ToolType _tool)
     {
-        if (usingPrimary || usingSecondary) return;
+        if (usingPrimary || usingSecondary || PlayerInteraction.Instance.toolCooldown) return;
         if (!player) player = _player;
         tool = _tool;
 
