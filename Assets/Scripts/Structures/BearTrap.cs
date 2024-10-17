@@ -99,6 +99,7 @@ public class BearTrap : StructureBehaviorScript
             else
             {
                 CreatureBehaviorScript creature = victim.GetComponent<CreatureBehaviorScript>();
+                creature.isTrapped = true;
                 if(creature.health > 50)
                 {
                     //stun and damage
