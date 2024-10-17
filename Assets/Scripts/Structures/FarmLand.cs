@@ -28,12 +28,12 @@ public class FarmLand : StructureBehaviorScript
     void Awake()
     {
         base.Awake();
-        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
     }
 
     void Start()
     {
-        if(!crop) ignoreNextGrowthMoment = true;
+        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+        if (!crop) ignoreNextGrowthMoment = true;
         else if(crop.harvestableGrowthStages.Contains(growthStage))
         {
             harvestable = true;
