@@ -84,7 +84,7 @@ public class FarmLand : StructureBehaviorScript
             {
                 if (isLivingCreature)
                 {
-                    Instantiate(livingCreature, itemDropTransform); //Code needs work once mandrake crop is added
+                    Instantiate(livingCreature, transform.position, transform.rotation); //Code needs work once mandrake crop is added
                 }
                 else
                 {
