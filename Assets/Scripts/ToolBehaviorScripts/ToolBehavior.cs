@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToolBehavior : ScriptableObject
 {
-    [HideInInspector] public bool usingPrimary, usingSecondary;
+    [HideInInspector] public bool usingPrimary, usingSecondary = false;
     [HideInInspector] public Transform player;
     [HideInInspector] public ToolType tool;
     public virtual void PrimaryUse(Transform player, ToolType tool)
