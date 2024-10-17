@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 6
   displayName: Shovel
   description: Melee Weapon
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d9463fafc358ec646b4ea85514fd91c0, type: 3}
   maxStackSize: 1
   value: 0
   sellValueMultiplier: 1

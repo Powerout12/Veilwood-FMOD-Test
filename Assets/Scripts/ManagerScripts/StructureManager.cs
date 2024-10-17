@@ -30,7 +30,7 @@ public class StructureManager : MonoBehaviour
             Instance = this;
         }
         //load in all the saved data, such as the nutrient storages and alltiles list
-        PopulateWeeds(); //Only do this when a new game has started. Implement weeds spawning in overtime
+        PopulateWeeds(5, 20); //Only do this when a new game has started. Implement weeds spawning in overtime
     }
 
     public void HourUpdate()
@@ -39,6 +39,7 @@ public class StructureManager : MonoBehaviour
         {
             structure.HourPassed();
         }
+        PopulateWeeds(-9, 3);
     }
 
 
@@ -114,7 +115,7 @@ public class StructureManager : MonoBehaviour
         }
     }
 
-    void PopulateWeeds()
+    void PopulateWeeds(int min, int max)
     {
         List<Vector3Int> spawnablePositions = new List<Vector3Int>();
 
@@ -124,8 +125,8 @@ public class StructureManager : MonoBehaviour
             spawnablePositions.Add(position);
         }
 
-        int r = Random.Range(5,20);
-        print(r);
+        int r = Random.Range(min,max);
+        if (r <= 0) return;
         for(int i = 0; i < r; i++)
         {
             if(spawnablePositions.Count != 0)
@@ -140,6 +141,7 @@ public class StructureManager : MonoBehaviour
             }
         }
     }
+
 }
 
 [System.Serializable]
