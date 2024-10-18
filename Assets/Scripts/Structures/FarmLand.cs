@@ -7,7 +7,6 @@ public class FarmLand : StructureBehaviorScript
     public CropData crop; //The current crop planted here
     public SpriteRenderer cropRenderer;
     public Transform itemDropTransform;
-    public GameObject livingCreature;
 
     public MeshRenderer meshRenderer;
     public Material dry, wet, barren, barrenWet;
@@ -19,7 +18,6 @@ public class FarmLand : StructureBehaviorScript
     public bool harvestable = false; //true if growth stage matches crop data growth stages
     public bool rotted = false;
     public bool isWeed = false;
-    public bool isLivingCreature = false;
 
     private bool ignoreNextGrowthMoment = false; //tick this if crop was just planted
 
@@ -85,9 +83,9 @@ public class FarmLand : StructureBehaviorScript
             harvestable = false;
             if(rotted == false)
             {
-                if (isLivingCreature)
+                if (crop.creaturePrefab)
                 {
-                    Instantiate(livingCreature, transform.position, transform.rotation); //Code needs work once mandrake crop is added
+                    Instantiate(crop.creaturePrefab, transform.position, transform.rotation); //Code needs work once mandrake crop is added
                 }
                 else
                 {
@@ -250,9 +248,9 @@ public class FarmLand : StructureBehaviorScript
     void OnDestroy()
     {
         if (!gameObject.scene.isLoaded) return; 
-        if (isLivingCreature)
+        if (crop != null && crop.creaturePrefab)
         {
-            Instantiate(livingCreature, transform.position, transform.rotation); //Code needs work once mandrake crop is added
+            Instantiate(crop.creaturePrefab, transform.position, transform.rotation); //Code needs work once mandrake crop is added
         }
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
         base.OnDestroy();
