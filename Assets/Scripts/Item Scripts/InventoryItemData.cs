@@ -19,11 +19,12 @@ public class InventoryItemData : ScriptableObject
     public int maxStackSize = 1;
     public float value = 0;
     public float sellValueMultiplier = 1; //if value or sellValueMultipier == 0, cannot be sold
+    public bool isKeyItem = false; //if true, should not be sold or be able to be thrown away.
    
     public void UseItem()
     {
         Debug.Log($"Using {this.displayName}");
     }
 
-    public virtual void PrimaryUse(){}
+    //public virtual void PrimaryUse(){}
 }
