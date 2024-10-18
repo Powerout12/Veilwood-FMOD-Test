@@ -72,6 +72,8 @@ public class FarmLand : StructureBehaviorScript
             playerInventoryHolder.UpdateInventory();
             ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
 
+            audioHandler.PlayRandomSound(audioHandler.miscSounds1);
+
         }
     }
 
@@ -79,6 +81,7 @@ public class FarmLand : StructureBehaviorScript
     {
         if(harvestable)
         {
+            audioHandler.PlaySound(audioHandler.interactSound);
             harvestable = false;
             if(rotted == false)
             {
@@ -104,6 +107,7 @@ public class FarmLand : StructureBehaviorScript
             }
 
             crop = null;
+            isWeed = false;
             SpriteChange();
         }
     }
@@ -137,59 +141,38 @@ public class FarmLand : StructureBehaviorScript
             return;
         }
         hoursSpent++;
-        if(hoursSpent >= crop.hoursPerStage && growthStage < crop.growthStages)
+        if(hoursSpent >= crop.hoursPerStage)
         {
-            if(growthStage == crop.growthStages - 1)
+            if(growthStage >= crop.growthStages - 1)
             {
-                
-                if(hoursSpent < crop.hoursPerStage * 3) return;
-                //plant rots
-                CropDied();
-            }
-            hoursSpent = 0;
-            growthStage++;
-            if(crop.harvestableGrowthStages.Contains(growthStage)) harvestable = true;
-            else harvestable = false;
-            SpriteChange();
-        }
-        else if(!isWeed) return;
-        if(!rotted)
-        {
-            //BALANCE THIS, IF IT DRAINS EACH HOUR AND NOT GROWTH STAGE, MAKE IT COST ALOT LESS RESOURCES PER HOUR AND INCREASE THE CAP. THE PLAYER SHOULD NOT HAVE TO REWATER AFTER 5 - 10 HOURS
-            //THATS WHY PLANTS DRAIN PER GROWTH STAGE, AND THE PLAYER SHOULD HAVE TO WATER ROUGHLY EVERY STAGE/EVERY OTHER STAGE
-            bool plantDied = false;
-            nutrients.ichorLevel -= crop.ichorIntake;
-            if(nutrients.ichorLevel < 0)
-            {
-                nutrients.ichorLevel = 0;
-                plantDied = true;
-            }
-            nutrients.terraLevel -= crop.terraIntake;
-            if(nutrients.terraLevel < 0)
-            {
-                nutrients.terraLevel = 0;
-                plantDied = true;
-            }
-            nutrients.gloamLevel -= crop.gloamIntake;
-            if(nutrients.gloamLevel < 0)
-            {
-                nutrients.gloamLevel = 0;
-                plantDied = true;
-            }
-            nutrients.waterLevel -= crop.waterIntake;
-            if(nutrients.waterLevel < 0)
-            {
-                nutrients.waterLevel = 0;
-                plantDied = true;
-            }
-            StructureManager.Instance.UpdateStorage(transform.position, nutrients);
+                //IT HAS REACHED MAX GROWTH STATE
 
-            if(plantDied && !isWeed)
-            {
-                CropDied();
+                //if(hoursSpent < crop.hoursPerStage * 3) return;
+                //plant rots
+                //CropDied();
             }
-            else SpriteChange();
+            else
+            {
+                hoursSpent = 0;
+                if(!isWeed) growthStage++;
+                if(crop.harvestableGrowthStages.Contains(growthStage)) harvestable = true;
+                else harvestable = false;
+                SpriteChange();
+            }
+            
         }
+        else return;
+
+        DrainNutrients();
+    }
+
+    public void InsertCreature(CropData _data, int _growthStage)
+    {
+        //the mimic will use this function to "plant" itself
+        isWeed = true;
+        crop = _data;
+        growthStage = _growthStage;
+        SpriteChange();
     }
 
     public void SpriteChange()
@@ -211,7 +194,44 @@ public class FarmLand : StructureBehaviorScript
         }
     }
 
-    public void CropDied()
+    void DrainNutrients()
+    {
+        //PLANTS DRAIN PER GROWTH STAGE, AND THE PLAYER SHOULD HAVE TO WATER ROUGHLY EVERY STAGE/EVERY OTHER STAGE
+        bool plantDied = false;
+        nutrients.ichorLevel -= crop.ichorIntake;
+        if(nutrients.ichorLevel < 0)
+        {
+            nutrients.ichorLevel = 0;
+            plantDied = true;
+        }
+        nutrients.terraLevel -= crop.terraIntake;
+        if(nutrients.terraLevel < 0)
+        {
+            nutrients.terraLevel = 0;
+            plantDied = true;
+        }
+        nutrients.gloamLevel -= crop.gloamIntake;
+        if(nutrients.gloamLevel < 0)
+        {
+            nutrients.gloamLevel = 0;
+            plantDied = true;
+        }
+        nutrients.waterLevel -= crop.waterIntake;
+        if(nutrients.waterLevel < 0)
+        {
+            nutrients.waterLevel = 0;
+            plantDied = true;
+        }
+        StructureManager.Instance.UpdateStorage(transform.position, nutrients);
+
+        if(plantDied && !isWeed)
+        {
+            CropDied();
+        }
+        else SpriteChange();
+    }
+
+    void CropDied()
     {
         rotted = true;
         harvestable = true;

@@ -19,9 +19,11 @@ MonoBehaviour:
   cropYield: {fileID: 0}
   cropSeed: {fileID: 0}
   cropYieldAmount: 1
-  seedYieldAmount: 1
-  seedYieldVariance: 1
+  seedYieldAmount: 0
+  seedYieldVariance: 0
   waterIntake: 1
-  ichorIntake: 0
+  ichorIntake: 0.75
   terraIntake: 0
-  gloamIntake: 0
+  gloamIntake: -0.25
+  creaturePrefab: {fileID: 8095277121360393263, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+    type: 3}

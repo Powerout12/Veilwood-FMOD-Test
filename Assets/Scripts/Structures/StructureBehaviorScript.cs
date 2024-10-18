@@ -15,14 +15,16 @@ public class StructureBehaviorScript : MonoBehaviour
     public float health = 5;
     public float maxHealth = 5;
 
-    [HideInInspector] public AudioSource source;
+    [HideInInspector] public StructureAudioHandler audioHandler;
+    //[HideInInspector] public AudioSource source;
 
 
     public void Awake()
     {
         StructureManager.Instance.allStructs.Add(this);
         OnStructuresUpdated?.Invoke();
-        source = GetComponent<AudioSource>();
+        //source = GetComponent<AudioSource>();
+        audioHandler = GetComponent<StructureAudioHandler>();
     }
 
 

@@ -14,7 +14,8 @@ public class Mandrake : CreatureBehaviorScript
     public Tilemap tileMap; // Reference to your tilemap
 
     public GameObject farmTile;
-    public GameObject mandrakeTile;
+    public CropData data;
+    //public GameObject mandrakeTile;
     private GameObject spawnedFarmTile;
     private Vector3 spot;
 
@@ -347,14 +348,15 @@ public class Mandrake : CreatureBehaviorScript
             yield return null;
         }
 
-        // Destroy the farm tile before spawning the mandrake tile
         if (spawnedFarmTile != null)
         {
-            Destroy(spawnedFarmTile);
+            //Destroy(spawnedFarmTile);
+            
+            //spawnedFarmTile.GetComponent<FarmLand>().InsertCreature(data, 4); //this is mimic behavior btw, the mandrake should not replant itself
         }
 
         // Spawn the mandrake tile
-        structManager.SpawnStructure(mandrakeTile, spot);
+        //structManager.SpawnStructure(mandrakeTile, spot);
         coroutineRunning = false;
         Destroy(this.gameObject);
     }

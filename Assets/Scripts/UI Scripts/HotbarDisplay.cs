@@ -69,7 +69,8 @@ public class HotbarDisplay : MonoBehaviour
         // Optionally, use the item in the selected slot
         if (currentSlot.AssignedInventorySlot != null && currentSlot.AssignedInventorySlot.ItemData != null)
         {
-            currentSlot.AssignedInventorySlot.ItemData.UseItem();
+            currentSlot.AssignedInventorySlot.ItemData.UseItem(); //currently just reports what item is in the slot in the debugger
+            
             ToolItem t_item = currentSlot.AssignedInventorySlot.ItemData as ToolItem;
             if(t_item)
             {
