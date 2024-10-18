@@ -1,29 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
+using SaveLoadSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerInventoryHolder : InventoryHolder
 {
+    public static PlayerInventoryHolder Instance;
+
     [SerializeField] protected int secondaryInventorySize;
-    [SerializeField] protected InventorySystem secondaryInventorySystem;
+    [SerializeField] public InventorySystem secondaryInventorySystem;
+
 
     public InventorySystem InventorySystem => secondaryInventorySystem;
-
     public static UnityAction<InventorySystem> OnPlayerBackpackDisplayRequested;
+    public static UnityAction<InventorySystem> OnPlayerInventoryChanged;
 
     protected override void Awake()
     {
         base.Awake();
         secondaryInventorySystem = new InventorySystem(secondaryInventorySize);
+
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
-    void Update()
+    private void Start()
     {
-        // Only trigger the event to open the backpack if no inventory is open
-        if (Input.GetKeyDown(KeyCode.E) && !PlayerMovement.accessingInventory)
+        var inventoryData = new PlayerInventorySaveData(primaryInventorySystem, secondaryInventorySystem);
+
+        // Directly save to playerInventoryData in SaveData
+        SaveLoad.CurrentSaveData.playerInventoryData = inventoryData;
+    }
+
+    private void LoadInventory(SaveData data)
+    {
+        if (data.playerInventoryData.primaryInvSystem != null)
         {
-            OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem);
+            this.primaryInventorySystem = data.playerInventoryData.primaryInvSystem;
+            this.secondaryInventorySystem = data.playerInventoryData.secondaryInvSystem;
+            OnPlayerInventoryChanged?.Invoke(this.primaryInventorySystem);
+            OnPlayerInventoryChanged?.Invoke(this.secondaryInventorySystem);
         }
     }
 
@@ -31,13 +53,34 @@ public class PlayerInventoryHolder : InventoryHolder
     {
         if (primaryInventorySystem.AddToInventory(data, amount))
         {
+            OnPlayerInventoryChanged?.Invoke(primaryInventorySystem);
             return true;
         }
         else if (secondaryInventorySystem.AddToInventory(data, amount))
         {
+            OnPlayerInventoryChanged?.Invoke(secondaryInventorySystem);
             return true;
         }
 
         return false;
+    }
+
+    public void UpdateInventory()
+    {
+        OnPlayerInventoryChanged?.Invoke(primaryInventorySystem);
+        OnPlayerInventoryChanged?.Invoke(secondaryInventorySystem);
+    }
+}
+
+[System.Serializable]
+public struct PlayerInventorySaveData
+{
+    public InventorySystem primaryInvSystem;
+    public InventorySystem secondaryInvSystem;
+
+    public PlayerInventorySaveData(InventorySystem _primaryInvSystem, InventorySystem _secondaryInvSystem)
+    {
+        primaryInvSystem = _primaryInvSystem;
+        secondaryInvSystem = _secondaryInvSystem;
     }
 }

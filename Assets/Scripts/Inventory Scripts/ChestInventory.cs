@@ -36,12 +36,18 @@ public class ChestInventory : InventoryHolder , IInteractable
 
     public UnityAction<IInteractable> OnInteractionComplete { get; set; }
 
-    public void Interact(Interactor interactor, out bool interactSuccessful)
+    public void Interact(PlayerInteraction interactor, out bool interactSuccessful)
     {
        
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem);
         interactSuccessful = true;
     }
+
+    public void InteractWithItem(PlayerInteraction interactor, out bool interactSuccessful, InventoryItemData item)
+    {
+        interactSuccessful = false;
+    }
+    
     public void EndInteraction()
     {
        
