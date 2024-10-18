@@ -14,6 +14,8 @@ public class DialogueController : MonoBehaviour
     private Queue<Emotion> emotions = new Queue<Emotion>();
 
     private bool conversationEnded;
+    private bool isTalking = false;
+    private bool interruptable = true;
     private string p;
 
     private Emotion e;
@@ -22,16 +24,18 @@ public class DialogueController : MonoBehaviour
 
     
     public NPC currentTalker;
-    int currentPath = -1;
+    private int currentPath = -1;
 
     public void DisplayNextParagraph(DialogueText dialogueText, int path)
     {
         // If nothing left in queue
+        isTalking = true;
         if(path != currentPath)
         {
             currentPath = path;
             EndConversation();
-            StartConversation(dialogueText);
+            DisplayNextParagraph(dialogueText, currentPath);
+            return;
             
         }
         if (paragraphs.Count == 0)
@@ -77,19 +81,18 @@ public class DialogueController : MonoBehaviour
         }
 
         // Update convo text
-        p = p.Replace("{itemValue}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value * HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.sellValueMultiplier}");
-        if(p.Contains("{itemSold}"))
-        {
-            p = p.Replace("{itemSold}", $"{""}");
-            PlayerSoldItem();
-        }
+        UpdateStringVariables();
+        
 
         NPCDialogueText.text = p;
 
         if (paragraphs.Count == 0)
         {
             conversationEnded = true;
+            interruptable = true;
+            //isTalking = false;
         }
+        
     }
 
     private void StartConversation(DialogueText dialogueText)
@@ -130,6 +133,7 @@ public class DialogueController : MonoBehaviour
         emotions.Clear();
 
         conversationEnded = false;
+        isTalking = false;
 
         if(gameObject.activeSelf)
         {
@@ -139,12 +143,50 @@ public class DialogueController : MonoBehaviour
 
     public void PlayerSoldItem()
     {
+        int itemAmount = HotbarDisplay.currentSlot.AssignedInventorySlot.StackSize;
         InventoryItemData soldItem = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
         if(!soldItem) return;
-        float moneyGained = soldItem.value * soldItem.sellValueMultiplier;
+        float moneyGained = soldItem.value * soldItem.sellValueMultiplier * itemAmount;
         int moneyGainedInt = (int) moneyGained;
         PlayerInteraction.Instance.currentMoney += moneyGainedInt;
-        HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
+        HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(itemAmount);
         PlayerInventoryHolder.Instance.UpdateInventory();
+    }
+
+    void UpdateStringVariables()
+    {
+        if(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData)
+        {
+            p = p.Replace("{itemValue}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value * HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.sellValueMultiplier}");
+            p = p.Replace("{itemTotalValue}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value * HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.sellValueMultiplier * HotbarDisplay.currentSlot.AssignedInventorySlot.StackSize}");
+            p = p.Replace("{itemName}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.name}");
+            if(p.Contains("{itemSold}"))
+            {
+                p = p.Replace("{itemSold}", $"{""}");
+                PlayerSoldItem();
+            }
+        } 
+        
+    }
+
+    public void SetInterruptable(bool b)
+    {
+        interruptable = b;
+    }
+
+    public int GetPath()
+    {
+        return currentPath;
+    }
+
+    public bool IsTalking()
+    {
+        return isTalking;
+        //return conversationEnded;
+    }
+
+    public bool IsInterruptable()
+    {
+        return interruptable;
     }
 }

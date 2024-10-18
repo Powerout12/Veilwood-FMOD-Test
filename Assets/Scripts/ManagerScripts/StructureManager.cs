@@ -18,6 +18,8 @@ public class StructureManager : MonoBehaviour
     List<Vector3Int> allTiles = new List<Vector3Int>();
     List<NutrientStorage> storage = new List<NutrientStorage>();
 
+
+
     void Awake()
     {
         if(Instance != null && Instance != this)
@@ -63,6 +65,14 @@ public class StructureManager : MonoBehaviour
         Instantiate(obj, pos, Quaternion.identity);
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         tileMap.SetTile(gridPos, occupiedTile);
+    }
+
+    public GameObject SpawnStructureWithInstance(GameObject obj, Vector3 pos)
+    {
+        GameObject instance = Instantiate(obj, pos, Quaternion.identity);
+        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        tileMap.SetTile(gridPos, occupiedTile);
+        return instance;
     }
 
     public void SetTile(Vector3 pos)

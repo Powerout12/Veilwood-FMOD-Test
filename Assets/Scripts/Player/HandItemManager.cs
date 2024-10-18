@@ -81,4 +81,23 @@ public class HandItemManager : MonoBehaviour
         }
         else return false;
     }
+
+    public void CheckSlotForTool()
+    {
+        InventorySlot slot = HotbarDisplay.currentSlot.AssignedInventorySlot;
+        if (slot != null && slot.ItemData != null)
+        {           
+            ToolItem t_item = slot.ItemData as ToolItem;
+            if(t_item)
+            {
+                SwapHandModel(t_item.tool);
+            }
+            else SwapHandModel(ToolType.Null);
+        }
+        else
+        {
+            HandItemManager.Instance.ClearHandModel();
+        }
+    }
+
 }

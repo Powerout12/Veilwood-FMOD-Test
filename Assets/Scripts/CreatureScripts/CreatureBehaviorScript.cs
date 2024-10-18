@@ -17,7 +17,9 @@ public class CreatureBehaviorScript : MonoBehaviour
 
     public float sightRange = 4; //how far can it see the player
     public bool playerInSightRange = false;
+    public bool playerInAttackRange = false;
     public bool shovelVulnerable = true;
+    public bool isTrapped = false;
     public bool isDead = false;
 
     public void Start()
