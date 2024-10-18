@@ -70,7 +70,7 @@ public class BearTrap : StructureBehaviorScript
         yield return new WaitForSeconds(0.5f);
         topClamp.rotation = Quaternion.Euler(-161, 90, -90);
         bottomClamp.rotation = Quaternion.Euler(-20, 90, -90);
-        source.PlayOneShot(triggeredSFX);
+        audioHandler.PlaySound(triggeredSFX);
 
         if(victim.gameObject.layer == 9) victim.transform.position = transform.position;
         Vector3 victimPos = new Vector3(victim.transform.position.x, transform.position.y, victim.transform.position.z);
@@ -99,6 +99,7 @@ public class BearTrap : StructureBehaviorScript
             else
             {
                 CreatureBehaviorScript creature = victim.GetComponent<CreatureBehaviorScript>();
+                creature.isTrapped = true;
                 if(creature.health > 50)
                 {
                     //stun and damage

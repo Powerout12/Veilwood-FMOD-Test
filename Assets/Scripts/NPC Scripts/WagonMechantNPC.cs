@@ -10,10 +10,14 @@ public class WagonMerchantNPC : NPC, ITalkable
 
     public override void Interact(PlayerInteraction interactor, out bool interactSuccessful)
     {
-        currentPath = -1;
+        if(dialogueController.IsTalking() == false)
+        {
+            currentPath = -1;
+            lastSeenItem = null;
+            dialogueController.SetInterruptable(false);
+        }
         Talk();
         interactSuccessful = true;
-        lastSeenItem = null;
     }
 
     public void Talk()
@@ -24,6 +28,11 @@ public class WagonMerchantNPC : NPC, ITalkable
 
     public override void InteractWithItem(PlayerInteraction interactor, out bool interactSuccessful, InventoryItemData item)
     {
+        if(dialogueController.IsInterruptable() == false)
+        {
+            interactSuccessful = true;
+            return;
+        } 
         if(item.sellValueMultiplier == 0 || item.value == 0)
         {
             //Cannot Buy
@@ -38,7 +47,8 @@ public class WagonMerchantNPC : NPC, ITalkable
             {
                 //Are you sure?
                 lastSeenItem = item;
-                currentPath = 0;
+                if(HotbarDisplay.currentSlot.AssignedInventorySlot.StackSize > 1) currentPath = 3;
+                else currentPath = 0;
             }
             else
             {
