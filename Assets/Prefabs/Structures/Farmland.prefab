@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 4633201760500700868}
   m_Layer: 6
   m_Name: Farmland
-  m_TagString: Untagged
+  m_TagString: FarmLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,6 +228,7 @@ MonoBehaviour:
   structData: {fileID: 11400000, guid: 4bb8c5d0417971e499a33ac0a0c86ee3, type: 2}
   health: 5
   maxHealth: 5
+  source: {fileID: 0}
   crop: {fileID: 0}
   cropRenderer: {fileID: 8704679450468573891}
   itemDropTransform: {fileID: 3612033332719255909}
@@ -236,11 +237,16 @@ MonoBehaviour:
   wet: {fileID: 2100000, guid: 50966c5c23a410e47a11ca11b6edf61c, type: 2}
   barren: {fileID: 2100000, guid: 7f2604cbfca11914c9180e408c1b2f37, type: 2}
   barrenWet: {fileID: 2100000, guid: e0d2e06b1685e3843b589d75cc43950c, type: 2}
-  waterLevel: 0
   growthStage: -1
   hoursSpent: 0
   harvestable: 0
   rotted: 0
+  isWeed: 0
+  nutrients:
+    ichorLevel: 10
+    terraLevel: 10
+    gloamLevel: 10
+    waterLevel: 5
 --- !u!1001 &7364721809948816860
 PrefabInstance:
   m_ObjectHideFlags: 0

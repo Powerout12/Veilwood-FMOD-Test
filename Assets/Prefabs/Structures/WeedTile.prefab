@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 7070324328342486321}
   m_Layer: 6
   m_Name: WeedTile
-  m_TagString: Untagged
+  m_TagString: Farmland
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,6 +242,11 @@ MonoBehaviour:
   harvestable: 0
   rotted: 0
   isWeed: 1
+  nutrients:
+    ichorLevel: 10
+    terraLevel: 10
+    gloamLevel: 10
+    waterLevel: 5
 --- !u!1001 &760438906384791969
 PrefabInstance:
   m_ObjectHideFlags: 0
