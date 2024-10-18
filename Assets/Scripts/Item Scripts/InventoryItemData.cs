@@ -26,5 +26,5 @@ public class InventoryItemData : ScriptableObject
         Debug.Log($"Using {this.displayName}");
     }
 
-    public virtual void PrimaryUse(){}
+    //public virtual void PrimaryUse(){}
 }
