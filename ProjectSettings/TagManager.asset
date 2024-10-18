@@ -6,7 +6,7 @@ TagManager:
   tags:
   - NPC
   - Interactable
-  - Farmland
+  - FarmLand
   layers:
   - Default
   - TransparentFX

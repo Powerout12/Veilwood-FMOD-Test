@@ -32,11 +32,11 @@ public class UICropStats : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(mainCam.transform.position, fwd, out hit, reach, 1 << 6))
         {
-            if (hit.collider.gameObject.tag == "Farmland")
+            if (hit.collider.gameObject.tag == "FarmLand")
             {
                 cropStatsObject.SetActive(true);
                 hitCrop = hit.collider.GetComponent<FarmLand>();
-                //print(hitCrop.nutrients.waterLevel);
+                //print(hitCrop.cropStats.waterLevel);
                 if(hitCrop.growthStage < 0)
                 {
                     growthStageText.SetActive(false);
@@ -63,11 +63,11 @@ public class UICropStats : MonoBehaviour
     void FarmlandStatUpdate(FarmLand crop) //Cam don't look at this
     {
         //Gloam Level Check I feel so gloaming
-        if(crop.nutrients.gloamLevel >= nHigh)
+        if(crop.cropStats.gloamLevel >= nHigh)
         {
             gloamAmount.text = "High";
         }
-        else if(crop.nutrients.gloamLevel >= nMedium)
+        else if(crop.cropStats.gloamLevel >= nMedium)
         {
             gloamAmount.text = "Medium";
         }
@@ -77,11 +77,11 @@ public class UICropStats : MonoBehaviour
         }
 
         //Terra Level Check
-        if(crop.nutrients.terraLevel >= nHigh)
+        if(crop.cropStats.terraLevel >= nHigh)
         {
             terraAmount.text = "High";
         }
-        else if(crop.nutrients.terraLevel >= nMedium)
+        else if(crop.cropStats.terraLevel >= nMedium)
         {
             terraAmount.text = "Medium";
         }
@@ -91,11 +91,11 @@ public class UICropStats : MonoBehaviour
         }
 
         //Ichor Level Check idk if it's actually called ichor but that's what it says in the structure manager script so that's what I'm going with
-        if(crop.nutrients.ichorLevel >= nHigh)
+        if(crop.cropStats.ichorLevel >= nHigh)
         {
             ichorAmount.text = "High";
         }
-        else if(crop.nutrients.ichorLevel >= nMedium)
+        else if(crop.cropStats.ichorLevel >= nMedium)
         {
             ichorAmount.text = "Medium";
         }
@@ -105,11 +105,11 @@ public class UICropStats : MonoBehaviour
         }
 
         //Water Level Check
-        if(crop.nutrients.waterLevel >= wlHigh)
+        if(crop.cropStats.waterLevel >= wlHigh)
         {
             waterAmount.text = "High";
         }
-        else if(crop.nutrients.waterLevel >= wlMedium)
+        else if(crop.cropStats.waterLevel >= wlMedium)
         {
             waterAmount.text = "Medium";
         }
