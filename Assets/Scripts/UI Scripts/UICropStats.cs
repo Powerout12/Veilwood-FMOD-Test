@@ -40,7 +40,7 @@ public class UICropStats : MonoBehaviour
                 cropStatsObject.SetActive(true);
                 hitCrop = hit.collider.GetComponent<FarmLand>();
                 //print(hitCrop.cropStats.waterLevel);
-                if(hitCrop.growthStage < 0)
+                if(hitCrop.growthStage < 0 || !hitCrop.crop)
                 {
                     growthStageText.SetActive(false);
                     cropNameText.text = "Farmland";

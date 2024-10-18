@@ -2673,10 +2673,8 @@ MonoBehaviour:
   waterAmount: {fileID: 3863063820373961450}
   growthStageNumber: {fileID: 4207025675528961481}
   reach: 5
-  hitCrop: {fileID: 0}
-  cropName: Crop Name
-  wlHigh: 4
-  wlMedium: 2
+  wlHigh: 7
+  wlMedium: 4
   nHigh: 7
   nMedium: 4
   gloamBG: {fileID: 0}

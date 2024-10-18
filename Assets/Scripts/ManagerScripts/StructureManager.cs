@@ -161,14 +161,14 @@ public class NutrientStorage
     public float terraLevel = 10; //max is 10
     public float gloamLevel = 10; //max is 10
 
-    public float waterLevel = 5; //max is 5
+    public float waterLevel = 3; //max is 5
 
     public NutrientStorage()
     {
         ichorLevel = 10; 
         terraLevel = 10; 
         gloamLevel = 10; 
-        waterLevel = 5;
+        waterLevel = 3;
     }
 
     public void ResetStorage(NutrientStorage s)
@@ -176,7 +176,7 @@ public class NutrientStorage
         s.ichorLevel = 10;
         s.terraLevel = 10;
         s.gloamLevel = 10;
-        s.waterLevel = 5;
+        s.waterLevel = 3;
     }
     public void LoadStorage(NutrientStorage s, float i, float t, float g, float w)
     {
