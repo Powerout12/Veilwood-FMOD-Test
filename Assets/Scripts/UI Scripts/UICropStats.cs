@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UICropStats : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class UICropStats : MonoBehaviour
     public GameObject cropStatsObject, growthStageText;
     public TextMeshProUGUI cropNameText, gloamAmount, terraAmount, ichorAmount, waterAmount, growthStageNumber;
     public float reach = 5;
-    public FarmLand hitCrop;
-    public string cropName = "Crop Name";
+    private FarmLand hitCrop;
+    private string cropName = "Crop Name";
     public float wlHigh, wlMedium; //Water Level Values
     public float nHigh, nMedium;
+
+    public Image gloamBG, terraBG, ichorBG;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +48,7 @@ public class UICropStats : MonoBehaviour
                 else
                 {
                     growthStageText.SetActive(true);
-                    cropNameText.text = cropName;
+                    cropNameText.text = hitCrop.crop.name;
                 }
                 FarmlandStatUpdate(hitCrop);
             }
@@ -60,16 +63,20 @@ public class UICropStats : MonoBehaviour
         }
     }
 
-    void FarmlandStatUpdate(FarmLand crop) //Cam don't look at this
+    void FarmlandStatUpdate(FarmLand tile) //Cam don't look at this. //I looked at it
     {
         //Gloam Level Check I feel so gloaming
-        if(crop.cropStats.gloamLevel >= nHigh)
+        if(tile.cropStats.gloamLevel >= nHigh)
         {
             gloamAmount.text = "High";
         }
-        else if(crop.cropStats.gloamLevel >= nMedium)
+        else if(tile.cropStats.gloamLevel >= nMedium)
         {
             gloamAmount.text = "Medium";
+        }
+        else if(tile.cropStats.gloamLevel == 0)
+        {
+            gloamAmount.text = "Depleted";
         }
         else
         {
@@ -77,13 +84,17 @@ public class UICropStats : MonoBehaviour
         }
 
         //Terra Level Check
-        if(crop.cropStats.terraLevel >= nHigh)
+        if(tile.cropStats.terraLevel >= nHigh)
         {
             terraAmount.text = "High";
         }
-        else if(crop.cropStats.terraLevel >= nMedium)
+        else if(tile.cropStats.terraLevel >= nMedium)
         {
             terraAmount.text = "Medium";
+        }
+        else if(tile.cropStats.terraLevel == 0)
+        {
+            terraAmount.text = "Depleted";
         }
         else
         {
@@ -91,13 +102,17 @@ public class UICropStats : MonoBehaviour
         }
 
         //Ichor Level Check idk if it's actually called ichor but that's what it says in the structure manager script so that's what I'm going with
-        if(crop.cropStats.ichorLevel >= nHigh)
+        if(tile.cropStats.ichorLevel >= nHigh)
         {
             ichorAmount.text = "High";
         }
-        else if(crop.cropStats.ichorLevel >= nMedium)
+        else if(tile.cropStats.ichorLevel >= nMedium)
         {
             ichorAmount.text = "Medium";
+        }
+        else if(tile.cropStats.ichorLevel == 0)
+        {
+            ichorAmount.text = "Depleted";
         }
         else
         {
@@ -105,13 +120,17 @@ public class UICropStats : MonoBehaviour
         }
 
         //Water Level Check
-        if(crop.cropStats.waterLevel >= wlHigh)
+        if(tile.cropStats.waterLevel >= wlHigh)
         {
             waterAmount.text = "High";
         }
-        else if(crop.cropStats.waterLevel >= wlMedium)
+        else if(tile.cropStats.waterLevel >= wlMedium)
         {
             waterAmount.text = "Medium";
+        }
+        else if(tile.cropStats.waterLevel == 0)
+        {
+            waterAmount.text = "Drained";
         }
         else
         {
@@ -119,6 +138,11 @@ public class UICropStats : MonoBehaviour
         }
 
         //Growth Stage Check
-        growthStageNumber.text = crop.growthStage.ToString();
+        if(tile.isWeed == false && tile.crop)
+        {
+            string growthString = "Stage: " + tile.growthStage + "/" + tile.crop.growthStages;
+            growthStageNumber.text = growthString;
+        } 
+        else growthStageNumber.text = "";
     }
 }
