@@ -67,8 +67,8 @@ public class PlayerInventoryHolder : InventoryHolder
     // Explicitly refresh both inventories (hotbar and backpack)
     public void UpdateInventory()
     {
-        OnPlayerHotbarDisplayRequested?.Invoke(primaryInventorySystem);   // Update primary (hotbar)
-        OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem); // Update secondary (backpack)
+        //OnPlayerHotbarDisplayRequested?.Invoke(primaryInventorySystem);   // Update primary (hotbar)
+        //OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem); // Update secondary (backpack)
 
         // Notify listeners about inventory changes
         OnPlayerInventoryChanged?.Invoke(primaryInventorySystem);   // Notify general inventory change for hotbar
