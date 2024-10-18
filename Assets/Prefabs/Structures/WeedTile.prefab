@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 7601748635002274455}
   m_Layer: 6
   m_Name: WeedTile
-  m_TagString: Untagged
+  m_TagString: FarmLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +234,6 @@ MonoBehaviour:
   crop: {fileID: 11400000, guid: 5349594fbfaf93a4ea544f582119b7fb, type: 2}
   cropRenderer: {fileID: 6240152475005840231}
   itemDropTransform: {fileID: 5844641336483811334}
-  livingCreature: {fileID: 0}
   meshRenderer: {fileID: 2111073912527856933}
   dry: {fileID: 2100000, guid: 8ea3aa49265af6042bef80f5faa324ba, type: 2}
   wet: {fileID: 2100000, guid: 50966c5c23a410e47a11ca11b6edf61c, type: 2}
@@ -245,7 +244,11 @@ MonoBehaviour:
   harvestable: 0
   rotted: 0
   isWeed: 1
-  isLivingCreature: 0
+  nutrients:
+    ichorLevel: 10
+    terraLevel: 10
+    gloamLevel: 10
+    waterLevel: 5
 --- !u!114 &1499389874103428145
 MonoBehaviour:
   m_ObjectHideFlags: 0

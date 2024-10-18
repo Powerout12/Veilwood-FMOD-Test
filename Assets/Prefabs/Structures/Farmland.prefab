@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 2388967791222999615}
   m_Layer: 6
   m_Name: Farmland
-  m_TagString: Untagged
+  m_TagString: FarmLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
