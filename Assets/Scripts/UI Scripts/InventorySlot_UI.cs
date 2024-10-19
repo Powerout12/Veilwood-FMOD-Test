@@ -11,7 +11,6 @@ public class InventorySlot_UI : MonoBehaviour
     [SerializeField] private GameObject slotHighlight;
     [SerializeField] private InventorySlot assignedInventorySlot;
 
-    private Button button;
     public InventorySlot AssignedInventorySlot => assignedInventorySlot;
     public InventoryDisplay ParentDisplay { get; private set; }
 
@@ -19,19 +18,15 @@ public class InventorySlot_UI : MonoBehaviour
     {
         ClearSlot();
 
-        button = GetComponent<Button>();
-        button?.onClick.AddListener(OnUISlotClick);
-
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>();
 
-       
         AddEventTriggers();
     }
 
-    // Add EventTrigger component and setup event listeners for highlight detection
+    // Add EventTrigger component and setup event listeners for highlight detection and clicks
     private void AddEventTriggers()
     {
-        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        EventTrigger trigger = gameObject.AddComponent<EventTrigger>();
 
         // PointerEnter (highlighted)
         EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
@@ -44,11 +39,42 @@ public class InventorySlot_UI : MonoBehaviour
         pointerExit.eventID = EventTriggerType.PointerExit;
         pointerExit.callback.AddListener((eventData) => { OnHighlight(false); });
         trigger.triggers.Add(pointerExit);
+
+        // PointerClick (detect left and right mouse clicks)
+        EventTrigger.Entry pointerClick = new EventTrigger.Entry();
+        pointerClick.eventID = EventTriggerType.PointerClick;
+        pointerClick.callback.AddListener((eventData) => OnPointerClick((PointerEventData)eventData));
+        trigger.triggers.Add(pointerClick);
+    }
+
+    private void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            // Handle left-click
+            OnLeftUISlotClick();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            // Handle right-click
+            OnRightUISlotClick();
+        }
+    }
+
+    private void OnLeftUISlotClick()
+    {
+        // Handle left-click behavior
+        ParentDisplay?.HandleSlotLeftClick(this);
+    }
+
+    private void OnRightUISlotClick()
+    {
+        // Handle right-click behavior
+        ParentDisplay?.HandleSlotRightClick(this);
     }
 
     private void OnHighlight(bool selected)
     {
-
         itemName.gameObject.SetActive(selected);
     }
 
@@ -86,11 +112,6 @@ public class InventorySlot_UI : MonoBehaviour
         if (assignedInventorySlot != null) UpdateUISlot(assignedInventorySlot);
     }
 
-    public void OnUISlotClick()
-    {
-        ParentDisplay?.SlotClicked(this);
-    }
-
     public void ClearSlot()
     {
         assignedInventorySlot?.ClearSlot();
@@ -99,6 +120,5 @@ public class InventorySlot_UI : MonoBehaviour
         itemCount.text = "";
         itemName.text = "";
         itemName.gameObject.SetActive(false);
-
     }
 }

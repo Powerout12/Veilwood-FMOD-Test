@@ -24,7 +24,7 @@ public class CreatureBehaviorScript : MonoBehaviour
 
     public void Start()
     {
-        structManager = FindObjectOfType<StructureManager>();
+        structManager = StructureManager.Instance;
         effectsHandler = FindObjectOfType<CreatureEffectsHandler>();
         player = FindObjectOfType<PlayerInteraction>().transform;
     }

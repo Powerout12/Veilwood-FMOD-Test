@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d548831c787c14a9c04ea42f41f402, type: 3}
   m_Name: WeedCrop
   m_EditorClassIdentifier: 
+  name: Weed
   growthStages: 3
   hoursPerStage: 9999
   harvestableGrowthStages: 010000000200000003000000
@@ -28,3 +29,4 @@ MonoBehaviour:
   ichorIntake: 0.25
   terraIntake: 0.25
   gloamIntake: 0.25
+  creaturePrefab: {fileID: 0}
