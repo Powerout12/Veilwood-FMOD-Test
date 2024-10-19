@@ -2438,13 +2438,13 @@ Transform:
   - {fileID: 1090845169}
   - {fileID: 2009989832}
   - {fileID: 1344130967}
+  - {fileID: 496247367}
+  - {fileID: 43572014}
+  - {fileID: 1547069897}
   - {fileID: 8486353293453209499}
   - {fileID: 276125011}
   - {fileID: 2558621808385508334}
   - {fileID: 8634736030944031520}
-  - {fileID: 496247367}
-  - {fileID: 43572014}
-  - {fileID: 1547069897}
   - {fileID: 8486353293737726725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3935,6 +3935,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060353663220160237, guid: 87c0604840a57034e9f6852e4f6cad9e,
+        type: 3}
+      propertyPath: inventorySize
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4953640713924337418, guid: 87c0604840a57034e9f6852e4f6cad9e,
         type: 3}

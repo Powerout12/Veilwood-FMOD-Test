@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Crop Object", menuName = "Crop")]
 public class CropData : ScriptableObject
 {
+    public string name;
+
     public int growthStages = 5; //How many different stages of life does it have
     public int hoursPerStage = 6; //How many in game hours must take place before each growth change
     public List<int> harvestableGrowthStages; //at what stage is it harvestable?
