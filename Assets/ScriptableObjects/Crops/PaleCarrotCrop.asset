@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pale Carrot
   growthStages: 5
-  hoursPerStage: 6
+  hoursPerStage: 5
   harvestableGrowthStages: 0400000005000000
   cropSprites:
   - {fileID: -1083060862, guid: be6afb23f3e5fc54cb6baa4782d3d68f, type: 3}
@@ -29,6 +29,6 @@ MonoBehaviour:
   seedYieldVariance: 1
   waterIntake: 4
   ichorIntake: 0
-  terraIntake: 0.5
-  gloamIntake: -0.25
+  terraIntake: 0.75
+  gloamIntake: -0.5
   creaturePrefab: {fileID: 0}

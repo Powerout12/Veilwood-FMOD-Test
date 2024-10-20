@@ -24,7 +24,6 @@ public class FarmLand : StructureBehaviorScript
     PlayerInventoryHolder playerInventoryHolder;
 
     private NutrientStorage nutrients;
-    public NutrientStorage cropStats;
     // Start is called before the first frame update
     void Awake()
     {
@@ -259,7 +258,6 @@ public class FarmLand : StructureBehaviorScript
 
     public NutrientStorage GetCropStats()
     {
-        cropStats = StructureManager.Instance.FetchNutrient(transform.position);
-        return cropStats;
+        return nutrients;
     }
 }

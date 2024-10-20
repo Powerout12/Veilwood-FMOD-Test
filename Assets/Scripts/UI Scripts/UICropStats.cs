@@ -16,20 +16,32 @@ public class UICropStats : MonoBehaviour
     public float nHigh, nMedium;
 
     public Image gloamBG, terraBG, ichorBG;
+    public Color c_default, c_rising, c_lowering;
 
     // Start is called before the first frame update
     void Start()
     {
         if(!mainCam) mainCam = FindObjectOfType<Camera>();
+        StartCoroutine(CheckTimer());
     }
 
     // Update is called once per frame
     void Update()
     {
-        FarmlandCheck();
+        //
     }
 
-    public void FarmlandCheck()
+    IEnumerator CheckTimer()
+    {
+        do
+        {
+            yield return new WaitForSeconds(0.2f);
+            FarmlandCheck();
+        }
+        while(gameObject.activeSelf);
+    }
+
+    void FarmlandCheck()
     {
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
@@ -39,7 +51,7 @@ public class UICropStats : MonoBehaviour
             {
                 cropStatsObject.SetActive(true);
                 hitCrop = hit.collider.GetComponent<FarmLand>();
-                //print(hitCrop.cropStats.waterLevel);
+
                 if(hitCrop.growthStage < 0 || !hitCrop.crop)
                 {
                     growthStageText.SetActive(false);
@@ -65,16 +77,18 @@ public class UICropStats : MonoBehaviour
 
     void FarmlandStatUpdate(FarmLand tile) //Cam don't look at this. //I looked at it
     {
+        NutrientStorage tileNutrients = tile.GetCropStats();
+
         //Gloam Level Check I feel so gloaming
-        if(tile.cropStats.gloamLevel >= nHigh)
+        if(tileNutrients.gloamLevel >= nHigh)
         {
             gloamAmount.text = "High";
         }
-        else if(tile.cropStats.gloamLevel >= nMedium)
+        else if(tileNutrients.gloamLevel >= nMedium)
         {
             gloamAmount.text = "Medium";
         }
-        else if(tile.cropStats.gloamLevel == 0)
+        else if(tileNutrients.gloamLevel == 0)
         {
             gloamAmount.text = "Depleted";
         }
@@ -84,15 +98,15 @@ public class UICropStats : MonoBehaviour
         }
 
         //Terra Level Check
-        if(tile.cropStats.terraLevel >= nHigh)
+        if(tileNutrients.terraLevel >= nHigh)
         {
             terraAmount.text = "High";
         }
-        else if(tile.cropStats.terraLevel >= nMedium)
+        else if(tileNutrients.terraLevel >= nMedium)
         {
             terraAmount.text = "Medium";
         }
-        else if(tile.cropStats.terraLevel == 0)
+        else if(tileNutrients.terraLevel == 0)
         {
             terraAmount.text = "Depleted";
         }
@@ -102,15 +116,15 @@ public class UICropStats : MonoBehaviour
         }
 
         //Ichor Level Check idk if it's actually called ichor but that's what it says in the structure manager script so that's what I'm going with
-        if(tile.cropStats.ichorLevel >= nHigh)
+        if(tileNutrients.ichorLevel >= nHigh)
         {
             ichorAmount.text = "High";
         }
-        else if(tile.cropStats.ichorLevel >= nMedium)
+        else if(tileNutrients.ichorLevel >= nMedium)
         {
             ichorAmount.text = "Medium";
         }
-        else if(tile.cropStats.ichorLevel == 0)
+        else if(tileNutrients.ichorLevel == 0)
         {
             ichorAmount.text = "Depleted";
         }
@@ -120,15 +134,15 @@ public class UICropStats : MonoBehaviour
         }
 
         //Water Level Check
-        if(tile.cropStats.waterLevel >= wlHigh)
+        if(tileNutrients.waterLevel >= wlHigh)
         {
             waterAmount.text = "High";
         }
-        else if(tile.cropStats.waterLevel >= wlMedium)
+        else if(tileNutrients.waterLevel >= wlMedium)
         {
             waterAmount.text = "Medium";
         }
-        else if(tile.cropStats.waterLevel == 0)
+        else if(tileNutrients.waterLevel == 0)
         {
             waterAmount.text = "Drained";
         }
@@ -144,5 +158,25 @@ public class UICropStats : MonoBehaviour
             growthStageNumber.text = growthString;
         } 
         else growthStageNumber.text = "";
+
+        if(!tile.crop)
+        {
+            gloamBG.color = c_default;
+            terraBG.color = c_default;
+            ichorBG.color = c_default;
+            return;
+        } 
+
+        if(tile.crop.gloamIntake > 0) gloamBG.color = c_lowering;
+        else if(tile.crop.gloamIntake < 0) gloamBG.color = c_rising;
+        else gloamBG.color = c_default;
+
+        if(tile.crop.terraIntake > 0) terraBG.color = c_lowering;
+        else if(tile.crop.terraIntake < 0) terraBG.color = c_rising;
+        else terraBG.color = c_default;
+
+        if(tile.crop.ichorIntake > 0) ichorBG.color = c_lowering;
+        else if(tile.crop.ichorIntake < 0) ichorBG.color = c_rising;
+        else ichorBG.color = c_default;
     }
 }
