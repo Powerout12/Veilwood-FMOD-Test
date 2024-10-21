@@ -1360,16 +1360,16 @@ MonoBehaviour:
     - _QueueControl
     m_PropertyValues:
     - 0
-    - 0
-    - 0
-    - 1
     - 1
     - 0
     - 1
+    - 5
+    - 10
+    - 0
     - 0
     - 4
     - 2
-    - 1
+    - 0
     - 0
     - 0
   MeshCount: 1
