@@ -27782,7 +27782,7 @@ PrefabInstance:
     - target: {fileID: 6086770611968495876, guid: 16e7df38893b7214d819590c973a34e7,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174495586741239676, guid: 16e7df38893b7214d819590c973a34e7,
         type: 3}
@@ -27832,6 +27832,11 @@ PrefabInstance:
     - target: {fileID: 6174495586741239676, guid: 16e7df38893b7214d819590c973a34e7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581483198706272833, guid: 16e7df38893b7214d819590c973a34e7,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
