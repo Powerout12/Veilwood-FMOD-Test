@@ -27890,6 +27890,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Smoke_FX
       objectReference: {fileID: 0}
+    - target: {fileID: 6086770611968495876, guid: 16e7df38893b7214d819590c973a34e7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6174495586741239676, guid: 16e7df38893b7214d819590c973a34e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27898,7 +27903,7 @@ PrefabInstance:
     - target: {fileID: 6174495586741239676, guid: 16e7df38893b7214d819590c973a34e7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 7.3
       objectReference: {fileID: 0}
     - target: {fileID: 6174495586741239676, guid: 16e7df38893b7214d819590c973a34e7,
         type: 3}
