@@ -6,15 +6,10 @@ public class FaceCamera : MonoBehaviour
 {
     Transform player;
 
-    void Start()
+    void OnEnable()
     {
-        player = FindObjectOfType<PlayerCam>().transform;
+        if(!player) player = FindObjectOfType<PlayerCam>().transform;
         StartCoroutine("FacePlayer");
-    }
-
-    void Update()
-    {
-        
     }
 
     IEnumerator FacePlayer()

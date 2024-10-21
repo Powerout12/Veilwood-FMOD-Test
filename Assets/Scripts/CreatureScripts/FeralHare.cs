@@ -26,6 +26,12 @@ public class FeralHare : CreatureBehaviorScript
     // Update is called once per frame
     void Update()
     {
+        //GET RID OF THIS AFTER POC
+        if(Input.GetKeyDown("b"))
+        {
+            gameObject.SetActive(false);
+        }
+
         base.Update();
 
         if(!jumpCooldown && !isEating)
@@ -44,16 +50,24 @@ public class FeralHare : CreatureBehaviorScript
             playerInSightRange = false;
         }
 
-        if(foundFarmTile) distance = Vector3.Distance (foundFarmTile.transform.position, transform.position);
-        if(distance <= 1.5f && !isEating)
+        if(foundFarmTile)
         {
-            isEating = true;
-            StartCoroutine("EatCrop");
-            print("Eating crop");
-        }
-        if(distance > 2f) inEatingRange = false;
+            if(foundFarmTile.crop == null)
+            {
+                foundFarmTile = null;
+                return;
+            }
+            distance = Vector3.Distance (foundFarmTile.transform.position, transform.position);
+            if(distance <= 1.5f && !isEating)
+            {
+                isEating = true;
+                StartCoroutine("EatCrop");
+            }
+            if(distance > 2f) inEatingRange = false;
+        } 
+        
 
-        if(inEatingRange && eatingTimeLeft > 0)
+        if(inEatingRange && eatingTimeLeft > 0 && foundFarmTile)
         {
             var lookPos = foundFarmTile.transform.position - transform.position;
             lookPos.y = 0;
@@ -94,9 +108,14 @@ public class FeralHare : CreatureBehaviorScript
     public void Hop(Vector3 destination)
     {
         //hare will jump toward a random direction using physics, using rb.addforce to a random vector3 position in addition to a vector3.up force
-        print("Jump");
         Vector3 jumpDirection = (transform.position - destination).normalized;
         jumpDirection *= -1;
+
+        if(playerInSightRange)
+        {
+            jumpDirection = (transform.position - player.position).normalized;
+            destination = new Vector3(transform.position.x + jumpDirection.x, transform.position.y, transform.position.z + jumpDirection.z);
+        }
         //ad force yadadada
         float r = Random.Range(170,210f);
         rb.AddForce(Vector3.up * 100);
@@ -107,6 +126,8 @@ public class FeralHare : CreatureBehaviorScript
 
 
         SearchWanderPoint();
+
+        effectsHandler.OnMove(0.8f);
     }
 
     public void SearchWanderPoint()
@@ -118,12 +139,13 @@ public class FeralHare : CreatureBehaviorScript
 
         
     }
+    
 
     IEnumerator JumpCooldownTimer()
     {
         jumpCooldown = true;
-        float time = Random.Range(1.5f, 2.2f);
-        if(playerInSightRange) yield return new WaitForSeconds(time/2);
+        float time = Random.Range(1.3f, 2f);
+        if(playerInSightRange) yield return new WaitForSeconds(time/4);
         else yield return new WaitForSeconds(time);
         jumpCooldown = false;
     }

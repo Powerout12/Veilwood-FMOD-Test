@@ -14,6 +14,8 @@ public class ItemPickup : MonoBehaviour
 
     private SphereCollider myCollider;
 
+    public SpriteRenderer r;
+
     [SerializeField] private ItemPickupSaveData itemSaveData;
     private string id;
 
@@ -28,6 +30,8 @@ public class ItemPickup : MonoBehaviour
         myCollider = GetComponent<SphereCollider>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
+
+        if(!r) r = GetComponent<SpriteRenderer>();
     }
 
    
@@ -45,6 +49,12 @@ public class ItemPickup : MonoBehaviour
             Destroy(this.gameObject);
         }
         
+    }
+
+    public void RefreshItem(InventoryItemData newItem)
+    {
+        r.sprite = newItem.icon;
+        ItemData = newItem;
     }
 
     private void OnDestroy()
@@ -74,15 +84,15 @@ public class ItemPickup : MonoBehaviour
     {
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
 
-       if (!inventory) return;
+        if (!inventory) return;
 
         if (inventory.AddToInventory(ItemData, 1))
         {
-           
             SaveGameManager.data.collectedItems.Add(id);
-            print(SaveGameManager.data.collectedItems[0]);
-            Destroy(this.gameObject);
+            FindObjectOfType<PlayerEffectsHandler>().ItemCollectSFX();
+            gameObject.SetActive(false); // Make the item disappear
         }
+
 
 
     }

@@ -40,7 +40,7 @@ public class TimeManager : MonoBehaviour
     {
         do
         {
-            yield return new WaitForSeconds(15);
+            yield return new WaitForSeconds(45);
             currentHour++;
             if(currentHour >= 24) currentHour = 0;
             structManager.HourUpdate();
@@ -98,7 +98,6 @@ public class TimeManager : MonoBehaviour
             else newValue -= 0.01f;
 
             newValue = Mathf.Round(newValue * 100f) / 100f;
-            print(newValue);
             skyMat.SetFloat("_BlendCubemaps", newValue);
             lerpedColor = Color.Lerp(nightColor, dayColor, newValue);
             dayLight.color = lerpedColor;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Interactable
+  - FarmLand
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Ground
   - Item
   - Creature
-  - 
-  - 
+  - Player
+  - Tool
   - 
   - 
   - 
