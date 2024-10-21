@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2400f1e1724e5ba44ad5075b1f5e4fa1, type: 3}
-  m_Name: PaleCarrot
+  m_Name: Mandrake
   m_EditorClassIdentifier: 
   ID: 3
-  displayName: Pale Carrot
-  description: Carrot
-  icon: {fileID: 21300000, guid: 87007cc65640ea649bdd89843ff36ec9, type: 3}
-  maxStackSize: 10
-  value: 7
+  displayName: Mandrake
+  description: Mandrake
+  icon: {fileID: 21300000, guid: aa448fccc18453f4b9097f7bfb81f543, type: 3}
+  maxStackSize: 5
+  value: 35
   sellValueMultiplier: 1
   isKeyItem: 0

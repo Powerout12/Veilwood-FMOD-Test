@@ -159,7 +159,7 @@ public class DialogueController : MonoBehaviour
         {
             p = p.Replace("{itemValue}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value * HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.sellValueMultiplier}");
             p = p.Replace("{itemTotalValue}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.value * HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.sellValueMultiplier * HotbarDisplay.currentSlot.AssignedInventorySlot.StackSize}");
-            p = p.Replace("{itemName}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.name}");
+            p = p.Replace("{itemName}", $"{HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData.displayName}");
             if(p.Contains("{itemSold}"))
             {
                 p = p.Replace("{itemSold}", $"{""}");

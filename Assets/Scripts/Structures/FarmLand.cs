@@ -139,9 +139,11 @@ public class FarmLand : StructureBehaviorScript
             return;
         }
         hoursSpent++;
+        crop.OnHour(this);
+
         if(hoursSpent >= crop.hoursPerStage)
         {
-            if(growthStage >= crop.growthStages - 1)
+            if(growthStage >= crop.growthStages)
             {
                 //IT HAS REACHED MAX GROWTH STATE
 
@@ -175,8 +177,11 @@ public class FarmLand : StructureBehaviorScript
 
     public void SpriteChange()
     {
-        print(growthStage);
-        if(crop) cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
+        if(crop) 
+        {
+            if(rotted) cropRenderer.sprite = crop.rottedImage;
+            else cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
+        }
         else cropRenderer.sprite = null;
 
         if(nutrients.ichorLevel <= 1 || nutrients.terraLevel <= 1 || nutrients.gloamLevel <= 1)

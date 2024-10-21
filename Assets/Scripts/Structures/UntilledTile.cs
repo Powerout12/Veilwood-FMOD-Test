@@ -17,6 +17,7 @@ public class UntilledTile : StructureBehaviorScript
     void Start()
     {
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+        clearTileOnDestroy = false;
     }
 
     public override void ToolInteraction(ToolType type, out bool success)

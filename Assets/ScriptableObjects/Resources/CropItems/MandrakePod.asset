@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2edfa73c5b2ca624f88c7f0fb8be25d6, type: 3}
-  m_Name: PaleCarrotSeed
+  m_Name: MandrakePod
   m_EditorClassIdentifier: 
   ID: 4
-  displayName: Pale Carrot Seeds
+  displayName: Mandrake Pod
   description: 
-  icon: {fileID: 112162144, guid: be6afb23f3e5fc54cb6baa4782d3d68f, type: 3}
+  icon: {fileID: -1358232093, guid: 737d75bd0db95ec438000c855501225a, type: 3}
   maxStackSize: 20
-  value: 1
+  value: 5
   sellValueMultiplier: 0
   isKeyItem: 0
   plantable: 1
-  cropData: {fileID: 11400000, guid: 803ee950098efcb4291d3f9a5bf5e87e, type: 2}
+  cropData: {fileID: 11400000, guid: 8172637bdf1f08549abde986d4a5a463, type: 2}
