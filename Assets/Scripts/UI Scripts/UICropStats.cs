@@ -35,8 +35,8 @@ public class UICropStats : MonoBehaviour
     {
         do
         {
-            yield return new WaitForSeconds(0.2f);
             FarmlandCheck();
+            yield return new WaitForSeconds(0.2f);
         }
         while(gameObject.activeSelf);
     }
