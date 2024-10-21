@@ -18,6 +18,8 @@ public class Mandrake : CreatureBehaviorScript
     //public GameObject mandrakeTile;
     private GameObject spawnedFarmTile;
     private Vector3 spot;
+    public float timeBeforeLeavingFarm;
+    private float savedTime;
 
 
     public enum CreatureState
@@ -25,9 +27,8 @@ public class Mandrake : CreatureBehaviorScript
         WakeUp,
         Run,
         Wander,
-        FindAvaliableLand,
-        Dig,
-        Replant,
+        Idle,
+        LeaveFarm,
         Die,
         Trapped
     }
@@ -42,11 +43,17 @@ public class Mandrake : CreatureBehaviorScript
         agent = GetComponent<NavMeshAgent>();
         currentState = CreatureState.WakeUp;
         tileMap = FindObjectOfType<Tilemap>();
+        savedTime = timeBeforeLeavingFarm;
 
     }
 
     private void Update()
     {
+        timeBeforeLeavingFarm -= Time.deltaTime;
+        if (timeBeforeLeavingFarm < 0)
+        {
+            currentState = CreatureState.LeaveFarm;
+        }
         float distance = Vector3.Distance(player.position, transform.position);
         playerInSightRange = distance <= sightRange;
         if (isTrapped) { currentState = CreatureState.Trapped; }
@@ -70,16 +77,12 @@ public class Mandrake : CreatureBehaviorScript
                 Wander();
                 break;
 
-            case CreatureState.FindAvaliableLand:
-                FindAvaliableLand();
+            case CreatureState.Idle:
+                Idle();
                 break;
 
-            case CreatureState.Dig:
-                Dig();
-                break;
-
-            case CreatureState.Replant:
-                Replant();
+            case CreatureState.LeaveFarm:
+                LeaveFarm();
                 break;
 
             case CreatureState.Die:
@@ -92,7 +95,25 @@ public class Mandrake : CreatureBehaviorScript
         }
     }
 
-    
+    private void Idle()
+    {
+       
+            if (!coroutineRunning)
+            {
+                int r = Random.Range(1, 6);
+               
+                 if (r < 4 && r >= 1) StartCoroutine(WaitAround());
+                 if (r >= 4) currentState = CreatureState.Wander;
+            }
+    }
+
+    private IEnumerator WaitAround()
+    {
+        coroutineRunning = true;
+        float r = Random.Range(1, 4.5f);
+        yield return new WaitForSeconds(r);
+        coroutineRunning = false;
+    } 
 
     private void WakeUp()
     {
@@ -115,6 +136,7 @@ public class Mandrake : CreatureBehaviorScript
 
     private void Run()
     {
+        timeBeforeLeavingFarm = savedTime;
         agent.speed = 10;
         agent.angularSpeed = 150;
         if (playerInSightRange)
@@ -129,7 +151,7 @@ public class Mandrake : CreatureBehaviorScript
                 Vector3 fleeDirection = (transform.position - player.position).normalized;
 
                
-                float randomAngle = Random.Range(-30f, 30f); //random offset for random movement
+                float randomAngle = Random.Range(-90f, 90f); //random offset for random movement
 
                 fleeDirection = Quaternion.Euler(0, randomAngle, 0) * fleeDirection;
 
@@ -145,8 +167,8 @@ public class Mandrake : CreatureBehaviorScript
 
     private void Wander()
     {
-        agent.speed = 3.5f;
-        agent.angularSpeed = 120f;
+        agent.speed = 2f;
+        agent.angularSpeed = 80f;
         if (!isMoving)
         {
             Vector3 randomPoint = GetRandomPointAround(transform.position, 15f); //gets a random point within a 5 unit radius of itself
@@ -178,189 +200,28 @@ public class Mandrake : CreatureBehaviorScript
             yield return null;
         }
 
-        // Agent has reached the destination, now decide the next action (50/50 chance)
-        int randomChoice = Random.Range(0, 3);
-        if (randomChoice == 0)
-        {
-            currentState = CreatureState.Wander;
-        }
-        else
-        {
-            currentState = CreatureState.FindAvaliableLand;
-        }
+        int r = Random.Range(0, 2);
+        if (r == 0) { currentState = CreatureState.Wander; }
+        else if (r == 1) { currentState = CreatureState.Idle; }
 
         isMoving = false;
     }
 
-    private void FindAvaliableLand()
+    private void LeaveFarm()
     {
-        
-        Vector3? availableLand = GetClosestAvailableLand(transform.position);
-        if (availableLand.HasValue)
+        if (hasTarget && !agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 1f)
         {
-           
-            Vector3Int cellPosition = tileMap.WorldToCell(availableLand.Value);  // Convert availableLand world position to a cell position
-
-
-            spot = tileMap.GetCellCenterWorld(cellPosition); // Get the center of the cell in world space
-
-           
-            agent.SetDestination(spot);
-
-            if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 0.1f)
-            {
-                currentState = CreatureState.Dig; 
-            }
+            Destroy(this.gameObject);
         }
-        else
+        else if (!hasTarget)
         {
-            Debug.Log("No available land found!");
+            hasTarget = true;
+            Vector3 fleeDirection = (transform.position - player.position).normalized;
+            Vector3 newDestination = transform.position + fleeDirection * fleeDistance *5;
+
+            agent.SetDestination(newDestination);
         }
     }
-
-
-    private Vector3? GetClosestAvailableLand(Vector3 startPosition)
-    {
-        List<(Vector3 tilePosition, float distance)> tileDistances = new List<(Vector3, float)>();
-
-       
-        foreach (var position in tileMap.cellBounds.allPositionsWithin)
-        {
-          
-            Vector3 worldPosition = tileMap.CellToWorld(position);
-
-           
-            if (tileMap.HasTile(position))
-            {
-                
-                float distance = Vector3.Distance(startPosition, worldPosition);
-
-              
-                tileDistances.Add((worldPosition, distance));
-            }
-        }
-
-       
-        tileDistances.Sort((a, b) => a.distance.CompareTo(b.distance));
-
-        // Find the closest available tile that is not taken
-        foreach (var (tilePosition, _) in tileDistances)
-        {
-            if (!IsTileTaken(tilePosition))
-            {
-                return tilePosition; // Return the first available tile
-            }
-        }
-
-        return null; // No available land found
-    }
-
-    private bool IsTileTaken(Vector3 tilePosition)
-    {
-        foreach (StructureBehaviorScript structure in structManager.allStructs)
-        {
-            
-            if (Vector3.Distance(structure.transform.position, tilePosition) < 0.1f) 
-            {
-                return true; // Tile is taken
-            }
-        }
-        return false; // Tile is available
-    }
-
-    private void Dig()
-    {
-        if (!coroutineRunning)
-        {
-            StartCoroutine(Digging());
-        }
-    }
-
-    IEnumerator Digging()
-    {
-        coroutineRunning = true;
-
-        // Play dig animation
-        float digDuration = 5f;
-        float elapsedTime = 0f;
-
-        // Check if the player is nearby when digging; if so, break the coroutine
-        while (elapsedTime < digDuration)
-        {
-            if (playerInSightRange)
-            {
-                Debug.Log("Player is too close! Cancelling dig.");
-                coroutineRunning = false;
-                yield break;
-            }
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Spawn the farm tile
-        spawnedFarmTile = structManager.SpawnStructureWithInstance(farmTile, spot);
-
-        // Wait for a frame to ensure the farm tile is instantiated before searching
-
-        if (spawnedFarmTile == null)
-        {
-            Debug.LogWarning("No farm tile found at the location!");
-        }
-
-        currentState = CreatureState.Replant;
-        coroutineRunning = false;
-
-        // Pass the reference to the Replant coroutine
-        StartCoroutine(Replanting(spawnedFarmTile));
-    }
-
-
-
-
-    private void Replant()
-    {
-        if (!coroutineRunning)
-        {
-            StartCoroutine(Replanting(spawnedFarmTile));
-        }
-    }
-
-    IEnumerator Replanting(GameObject spawnedFarmTile)
-    {
-        coroutineRunning = true;
-
-        // Play replant animation
-        float replantDuration = 5f;
-        float elapsedTime = 0f;
-
-        // Check if the player is nearby when replanting; if so, break the coroutine
-        while (elapsedTime < replantDuration)
-        {
-            if (playerInSightRange)
-            {
-                Debug.Log("Player is too close! Cancelling replant.");
-                coroutineRunning = false;
-                yield break;
-            }
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        if (spawnedFarmTile != null)
-        {
-            //Destroy(spawnedFarmTile);
-            
-            //spawnedFarmTile.GetComponent<FarmLand>().InsertCreature(data, 4); //this is mimic behavior btw, the mandrake should not replant itself
-        }
-
-        // Spawn the mandrake tile
-        //structManager.SpawnStructure(mandrakeTile, spot);
-        coroutineRunning = false;
-        Destroy(this.gameObject);
-    }
-
 
     private void Die()
     {
