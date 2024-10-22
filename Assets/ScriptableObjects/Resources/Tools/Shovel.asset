@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70dbf8d30e14dbf4a99b211eb63c25fb, type: 3}
   m_Name: Shovel
   m_EditorClassIdentifier: 
-  ID: 6
+  ID: 1
   displayName: Shovel
   description: Melee Weapon
   icon: {fileID: 21300000, guid: d9463fafc358ec646b4ea85514fd91c0, type: 3}

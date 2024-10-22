@@ -53,6 +53,8 @@ public class HotbarDisplay : MonoBehaviour
 
     private void SelectHotbarSlot(int slotIndex) //if possible, call this again when picking up an item to refresh hand item, or find a workaround (preferred)
     {
+        if(PlayerMovement.restrictMovementTokens > 0) return;
+
         // Turn off highlight on the current slot
         if (currentSlot != null)
         {
@@ -70,7 +72,7 @@ public class HotbarDisplay : MonoBehaviour
         if (currentSlot.AssignedInventorySlot != null && currentSlot.AssignedInventorySlot.ItemData != null)
         {
             currentSlot.AssignedInventorySlot.ItemData.UseItem(); //currently just reports what item is in the slot in the debugger
-            
+
             ToolItem t_item = currentSlot.AssignedInventorySlot.ItemData as ToolItem;
             if(t_item)
             {

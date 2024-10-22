@@ -18,6 +18,8 @@ public class StructureBehaviorScript : MonoBehaviour
     [HideInInspector] public StructureAudioHandler audioHandler;
     //[HideInInspector] public AudioSource source;
 
+    [HideInInspector] public bool clearTileOnDestroy = true;
+
 
     public void Awake()
     {
@@ -46,7 +48,7 @@ public class StructureBehaviorScript : MonoBehaviour
     {
         if(!gameObject.scene.isLoaded) return;
         print("Destroyed");
-        StructureManager.Instance.ClearTile(transform.position);
+        if(clearTileOnDestroy) StructureManager.Instance.ClearTile(transform.position);
         StructureManager.Instance.allStructs.Remove(this);
         OnStructuresUpdated?.Invoke();
 

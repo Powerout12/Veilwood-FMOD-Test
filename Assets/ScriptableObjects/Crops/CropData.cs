@@ -12,7 +12,7 @@ public class CropData : ScriptableObject
     public int hoursPerStage = 6; //How many in game hours must take place before each growth change
     public List<int> harvestableGrowthStages; //at what stage is it harvestable?
     public Sprite[] cropSprites; //should equal growth stages
-    //public Sprite rottedImage;
+    public Sprite rottedImage;
 
     public InventoryItemData cropYield; //what does the crop drop
     public InventoryItemData cropSeed;
@@ -27,6 +27,13 @@ public class CropData : ScriptableObject
     public float gloamIntake;
 
     public GameObject creaturePrefab; //Specifically for the mandrake and the mimic. If this isnt null, spawn the creature instead of the cropYield
+
+    public CropBehavior behavior;
+
+    public void OnHour(FarmLand tile)
+    {
+        if(behavior) behavior.OnHour(tile);
+    }
 
 
 
