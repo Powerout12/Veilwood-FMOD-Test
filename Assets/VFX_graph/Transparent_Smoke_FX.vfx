@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: Smoke_FX
+  m_Name: Transparent_Smoke_FX
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -76,7 +76,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Smoke_FX
+  m_Name: Transparent_Smoke_FX
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -1360,16 +1360,16 @@ MonoBehaviour:
     - _QueueControl
     m_PropertyValues:
     - 0
-    - 0
-    - 0
-    - 1
     - 1
     - 0
     - 1
+    - 5
+    - 10
+    - 0
     - 0
     - 4
     - 2
-    - 1
+    - 0
     - 0
     - 0
   MeshCount: 1
@@ -2047,7 +2047,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.00001707052615529392,"g":0.0,"b":0.00004606426227837801,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":0.017367076128721238,"b":0.08490568399429321,"a":1.0},"time":0.41765469312667849},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.7705958485603333},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.014709697104990483},{"alpha":1.0,"time":0.4294193983078003},{"alpha":1.0,"time":0.7852903008460999},{"alpha":0.800000011920929,"time":0.9588311314582825},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.00001707052615529392,"g":0.0,"b":0.00004606426227837801,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":0.08492681384086609,"b":0.10377359390258789,"a":1.0},"time":0.41765469312667849},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.7705958485603333},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.014709697104990483},{"alpha":1.0,"time":0.4294193983078003},{"alpha":1.0,"time":0.7852903008460999},{"alpha":0.800000011920929,"time":0.9588311314582825},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: gradient
@@ -3529,7 +3529,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":5106752729515925069,"guid":"b2d1877c032b45d4a8f77288807cae2f","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":5106752729515925069,"guid":"9fdfac027ba3c504dae17fe8958e09c1","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mesh
