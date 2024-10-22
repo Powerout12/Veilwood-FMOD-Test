@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Weed
   growthStages: 3
-  hoursPerStage: 9999
+  hoursPerStage: 4
   harvestableGrowthStages: 010000000200000003000000
   cropSprites:
   - {fileID: -666897899, guid: 16ebfa7ad06a54647881f740b4cc1bba, type: 3}
@@ -25,8 +25,8 @@ MonoBehaviour:
   cropYieldAmount: 1
   seedYieldAmount: 0
   seedYieldVariance: 0
-  waterIntake: 5
-  ichorIntake: 0.25
-  terraIntake: 0.25
+  waterIntake: 4
+  ichorIntake: 0.1
+  terraIntake: -0.5
   gloamIntake: 0.25
   creaturePrefab: {fileID: 0}

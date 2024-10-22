@@ -1930,7 +1930,9 @@ MonoBehaviour:
   anim: {fileID: 7612584312978109833}
   sightRange: 8
   playerInSightRange: 0
+  playerInAttackRange: 0
   shovelVulnerable: 1
+  isTrapped: 0
   isDead: 0
   desiredCrops:
   - {fileID: 11400000, guid: 803ee950098efcb4291d3f9a5bf5e87e, type: 2}
@@ -2028,7 +2030,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 25
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

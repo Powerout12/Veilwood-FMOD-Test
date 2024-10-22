@@ -6,6 +6,7 @@ using TMPro;
 public class TimeManager : MonoBehaviour
 {
     public static int currentHour = 15; //caps at 24, day is from 6-20. Military time. Night begins at 8PM,(20) and ends at 6AM, lasting 10 hours. Day lasts 14 hours. Each hour lasts 45 seconds. For demo, 15 seconds
+    public static bool isDay;
     public TextMeshProUGUI timeText;
     public Light dayLight;
     StructureManager structManager;
@@ -16,6 +17,8 @@ public class TimeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(currentHour >= 6 && currentHour < 20) isDay = true;
+        else isDay = false;
         structManager = GetComponent<StructureManager>();
         if(!dayLight) dayLight = FindObjectOfType<Light>();
         StartCoroutine("TimePassage");
@@ -43,6 +46,10 @@ public class TimeManager : MonoBehaviour
             yield return new WaitForSeconds(45);
             currentHour++;
             if(currentHour >= 24) currentHour = 0;
+
+            if(currentHour >= 6 && currentHour < 20) isDay = true;
+            else isDay = false;
+            
             structManager.HourUpdate();
             print("Hour passed. Time is now " + currentHour);
 

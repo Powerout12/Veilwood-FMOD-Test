@@ -2547,9 +2547,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
         type: 3}
+      propertyPath: fleeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
       propertyPath: structManager
       value: 
       objectReference: {fileID: 526567826}
+    - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
+      propertyPath: timeBeforeLeavingFarm
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8095277121360393263, guid: 55c91fa69fe128a4a9df242ebb665a9a,
         type: 3}
       propertyPath: m_Name
@@ -2604,6 +2614,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600245057972823617, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3102,9 +3117,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
         type: 3}
+      propertyPath: fleeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
       propertyPath: structManager
       value: 
       objectReference: {fileID: 526567826}
+    - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
+      propertyPath: timeBeforeLeavingFarm
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8095277121360393263, guid: 55c91fa69fe128a4a9df242ebb665a9a,
         type: 3}
       propertyPath: m_Name
@@ -3159,6 +3184,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600245057972823617, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3936,6 +3966,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4060353663220160237, guid: 87c0604840a57034e9f6852e4f6cad9e,
+        type: 3}
+      propertyPath: _database
+      value: 
+      objectReference: {fileID: 11400000, guid: 778e7ccc03dfccb4294abbe8b57c710a,
+        type: 2}
     - target: {fileID: 4060353663220160237, guid: 87c0604840a57034e9f6852e4f6cad9e,
         type: 3}
       propertyPath: inventorySize
@@ -11414,9 +11450,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
         type: 3}
+      propertyPath: fleeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
       propertyPath: structManager
       value: 
       objectReference: {fileID: 526567826}
+    - target: {fileID: 6198489945415801376, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
+      propertyPath: timeBeforeLeavingFarm
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8095277121360393263, guid: 55c91fa69fe128a4a9df242ebb665a9a,
         type: 3}
       propertyPath: m_Name
@@ -11471,6 +11517,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600245057972823617, guid: 55c91fa69fe128a4a9df242ebb665a9a,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

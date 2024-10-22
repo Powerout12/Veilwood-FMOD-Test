@@ -157,7 +157,7 @@ public class StructureManager : MonoBehaviour
 [System.Serializable]
 public class NutrientStorage
 {
-    public float ichorLevel = 10; //max is 10
+    public float ichorLevel = 5; //max is 10
     public float terraLevel = 10; //max is 10
     public float gloamLevel = 10; //max is 10
 
@@ -165,7 +165,7 @@ public class NutrientStorage
 
     public NutrientStorage()
     {
-        ichorLevel = 10; 
+        ichorLevel = 5; 
         terraLevel = 10; 
         gloamLevel = 10; 
         waterLevel = 3;
@@ -173,7 +173,7 @@ public class NutrientStorage
 
     public void ResetStorage(NutrientStorage s)
     {
-        s.ichorLevel = 10;
+        s.ichorLevel = 5;
         s.terraLevel = 10;
         s.gloamLevel = 10;
         s.waterLevel = 3;

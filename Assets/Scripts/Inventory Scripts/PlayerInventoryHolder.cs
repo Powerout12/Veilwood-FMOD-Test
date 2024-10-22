@@ -5,10 +5,11 @@ using UnityEngine.Events;
 public class PlayerInventoryHolder : InventoryHolder
 {
     public static PlayerInventoryHolder Instance;
+ 
 
     [SerializeField] protected int secondaryInventorySize;
     [SerializeField] public InventorySystem secondaryInventorySystem; // Only manage secondary inventory here
-
+    [SerializeField] private Database _database;
     // Unity Actions to handle the UI updates for the primary and secondary inventories
     public static UnityAction<InventorySystem> OnPlayerHotbarDisplayRequested;   // For the hotbar (primary)
     public static UnityAction<InventorySystem> OnPlayerBackpackDisplayRequested; // For the backpack (secondary)
@@ -36,6 +37,17 @@ public class PlayerInventoryHolder : InventoryHolder
     {
         var inventoryData = new PlayerInventorySaveData(primaryInventorySystem, secondaryInventorySystem);
         SaveLoad.CurrentSaveData.playerInventoryData = inventoryData;
+        EquipTools();
+    }
+
+    private void EquipTools()
+    {
+        InventoryItemData hoe = _database.GetItem(0);
+        InventoryItemData shovel = _database.GetItem(1);
+        InventoryItemData waterCan = _database.GetItem(2);
+        AddToInventory(hoe, 1);
+        AddToInventory(shovel, 1);
+        AddToInventory(waterCan, 1);
     }
 
     // Method to add items to the correct inventory system (primary or secondary)
