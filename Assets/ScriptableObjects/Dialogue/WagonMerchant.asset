@@ -40,7 +40,7 @@ MonoBehaviour:
     - I see that caught your eye. Care to buy?
     emotions: 00000000
   - paragraphs:
-    - Sold!
+    - Sold! {itemBought}
     emotions: 01000000
   - paragraphs:
     - Get some more money first.
