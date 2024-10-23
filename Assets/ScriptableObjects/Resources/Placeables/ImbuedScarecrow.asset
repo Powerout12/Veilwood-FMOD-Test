@@ -20,6 +20,6 @@ MonoBehaviour:
   value: 0
   sellValueMultiplier: 1
   isKeyItem: 0
-  placedPrefab: {fileID: 555237567018633496, guid: 73a9a3eaf61127f4595d228e7e2ed12c,
+  placedPrefab: {fileID: 3528986597304786203, guid: 773f692664fd80a4fa2f889e5fe590d6,
     type: 3}
   removeAfterUse: 1
