@@ -64,6 +64,7 @@ public class WagonMerchantNPC : NPC, ITalkable
             {
                 //Are you sure?
                 lastSeenItem = item;
+                dialogueController.restartDialogue = true;
                 if(HotbarDisplay.currentSlot.AssignedInventorySlot.StackSize > 1) currentPath = 3;
                 else currentPath = 0;
 
@@ -90,12 +91,17 @@ public class WagonMerchantNPC : NPC, ITalkable
         if(lastInteractedStoreItem == item)
         {
             //check price, then give item
-            currentPath = 5; //item sold
+            if(PlayerInteraction.Instance.currentMoney < lastInteractedStoreItem.cost)
+            {
+                currentPath = 6; //no money!?!?!?
+            }
+            else currentPath = 5; //item sold
             anim.SetTrigger("Transaction");
             //lastInteractedStoreItem = null;
         }
         else
         {
+            dialogueController.restartDialogue = true;
             currentPath = 4; //item selected
             anim.SetTrigger("IsTalking");
             lastInteractedStoreItem = item;
@@ -123,4 +129,11 @@ public class WagonMerchantNPC : NPC, ITalkable
             item.seller = this;
         }
     }
+
+    public override void EmptyShopItem()
+    {
+        lastInteractedStoreItem.Empty();
+        lastInteractedStoreItem = null;
+    }
+    
 }
