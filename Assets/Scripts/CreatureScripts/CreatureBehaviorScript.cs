@@ -21,6 +21,8 @@ public class CreatureBehaviorScript : MonoBehaviour
     public bool shovelVulnerable = true;
     public bool isTrapped = false;
     public bool isDead = false;
+    public int damageToStructure;
+    public int damageToPlayer;
 
     public void Start()
     {
@@ -39,7 +41,7 @@ public class CreatureBehaviorScript : MonoBehaviour
     {
         print("Ouch");
         health -= damage;
-        if(health < 0)
+        if(health <= 0)
         {
             effectsHandler.OnDeath();
             OnDeath();

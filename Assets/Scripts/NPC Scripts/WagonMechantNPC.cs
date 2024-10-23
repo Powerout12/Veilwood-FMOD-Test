@@ -6,7 +6,20 @@ public class WagonMerchantNPC : NPC, ITalkable
 {
     private InventoryItemData lastSeenItem;
 
+    public Animator anim;
+
+    public float sellMultiplier = 1;
+    public InventoryItemData[] possibleSoldItems;
+    public float[] itemWeight; //likelyness of being sold, from 0 - 1
+
+    public StoreItem[] storeItems;
+
     //Find a way to get feedback on when a dialogue tree is finished by calling an event/delegate.
+
+    void Start()
+    {
+        RefreshStore();
+    }
 
     public override void Interact(PlayerInteraction interactor, out bool interactSuccessful)
     {
@@ -15,6 +28,8 @@ public class WagonMerchantNPC : NPC, ITalkable
             currentPath = -1;
             lastSeenItem = null;
             dialogueController.SetInterruptable(false);
+
+            anim.SetTrigger("IsTalking");
         }
         Talk();
         interactSuccessful = true;
@@ -39,6 +54,8 @@ public class WagonMerchantNPC : NPC, ITalkable
             lastSeenItem = item;
             currentPath = 1;
             Talk();
+
+            anim.SetTrigger("IsTalking");
         }
         else
         {
@@ -49,14 +66,61 @@ public class WagonMerchantNPC : NPC, ITalkable
                 lastSeenItem = item;
                 if(HotbarDisplay.currentSlot.AssignedInventorySlot.StackSize > 1) currentPath = 3;
                 else currentPath = 0;
+
+                anim.SetTrigger("IsTalking");
             }
             else
             {
                 //Sold, remove item and gain money
                 currentPath = 2;
+
+                anim.SetTrigger("Transaction");
             }
             Talk();
         }
         interactSuccessful = true;
+    }
+
+    public override void PurchaseAttempt(StoreItem item)
+    {
+        if(dialogueController.IsInterruptable() == false)
+        {
+            return;
+        } 
+        if(lastInteractedStoreItem == item)
+        {
+            //check price, then give item
+            currentPath = 5; //item sold
+            anim.SetTrigger("Transaction");
+            //lastInteractedStoreItem = null;
+        }
+        else
+        {
+            currentPath = 4; //item selected
+            anim.SetTrigger("IsTalking");
+            lastInteractedStoreItem = item;
+        }
+        Talk();
+    }
+
+    public override void RefreshStore()
+    {
+        int i;
+        float r;
+        InventoryItemData newItem;
+        foreach (StoreItem item in storeItems)
+        {
+            newItem = null;
+            do
+            {
+                i = Random.Range(0, possibleSoldItems.Length);
+                r = Random.Range(0f,1f);
+                if(r < itemWeight[i]) newItem = possibleSoldItems[i];
+            }
+            while(!newItem);
+            int newCost = (int) (newItem.value * sellMultiplier);
+            item.RefreshItem(newItem, newCost);
+            item.seller = this;
+        }
     }
 }
