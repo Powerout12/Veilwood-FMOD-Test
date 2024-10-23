@@ -26,6 +26,11 @@ public class HandItemManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        CheckSlotForTool();
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -12,19 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d548831c787c14a9c04ea42f41f402, type: 3}
   m_Name: MandrakeRoot
   m_EditorClassIdentifier: 
-  name: ManDrake
-  growthStages: 5
-  hoursPerStage: 6
+  name: Mandrake
+  growthStages: 4
+  hoursPerStage: 1
   harvestableGrowthStages: 
-  cropSprites: []
+  cropSprites:
+  - {fileID: -1489303540, guid: 737d75bd0db95ec438000c855501225a, type: 3}
+  - {fileID: -1606242420, guid: 737d75bd0db95ec438000c855501225a, type: 3}
+  - {fileID: -932092564, guid: 737d75bd0db95ec438000c855501225a, type: 3}
+  - {fileID: -123535889, guid: 737d75bd0db95ec438000c855501225a, type: 3}
+  rottedImage: {fileID: -141229572, guid: 737d75bd0db95ec438000c855501225a, type: 3}
   cropYield: {fileID: 0}
   cropSeed: {fileID: 0}
   cropYieldAmount: 1
   seedYieldAmount: 0
   seedYieldVariance: 0
-  waterIntake: 1
+  waterIntake: 4
   ichorIntake: 0.75
-  terraIntake: 0
-  gloamIntake: -0.25
+  terraIntake: 0.5
+  gloamIntake: -0.5
   creaturePrefab: {fileID: 8095277121360393263, guid: 55c91fa69fe128a4a9df242ebb665a9a,
     type: 3}
+  behavior: {fileID: 11400000, guid: fd64c69be01693a4cb537035f29207b0, type: 2}
