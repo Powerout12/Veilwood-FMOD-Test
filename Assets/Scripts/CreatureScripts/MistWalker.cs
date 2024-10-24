@@ -38,11 +38,30 @@ public class MistWalker : CreatureBehaviorScript
         //StartCoroutine(StructureCheck());
         currentState = CreatureState.Idle;
         StructureBehaviorScript.OnStructuresUpdated += UpdateStructureList; //if a structure is placed or destroyed, this will update the list of available structures
+        ImbuedScarecrow.OnScarecrowAttract += TargetImbuedScarecrow;
         UpdateStructureList();
     }
     void OnDestroy()
     {
         StructureBehaviorScript.OnStructuresUpdated -= UpdateStructureList; //unsubscribe to prevent memory leaks
+    }
+
+    private void TargetImbuedScarecrow(GameObject structure)
+    {
+        if (currentState == CreatureState.AttackStructure)
+        {
+            if (targetStructure == structure.GetComponent<StructureBehaviorScript>())
+            {
+                return;
+            }
+        }
+            float distance = Vector3.Distance(transform.position, structure.transform.position);
+        if (distance < 25f)
+        {
+            targetStructure = structure.GetComponent<StructureBehaviorScript>();
+            target = structure.transform;
+            currentState = CreatureState.WalkTowardsPriorityStructure;
+        }
     }
 
     private void UpdateStructureList()
@@ -63,16 +82,18 @@ public class MistWalker : CreatureBehaviorScript
     // Update is called once per frame
     void Update()
     {
+        if (!isDead)
+        {
+            float distance = Vector3.Distance(player.position, transform.position);
+            playerInSightRange = distance <= sightRange;
+            if (isTrapped) { currentState = CreatureState.Trapped; }
+            if (playerInSightRange && !isTrapped && !coroutineRunning) { currentState = CreatureState.WalkTowardsPlayer; }
 
-        float distance = Vector3.Distance(player.position, transform.position);
-        playerInSightRange = distance <= sightRange;
-        if (isTrapped) { currentState = CreatureState.Trapped; }
-        if (playerInSightRange && !isTrapped && !coroutineRunning) { currentState = CreatureState.WalkTowardsPlayer; }
- 
-        CheckState(currentState);
+            CheckState(currentState);
+        }
     }
 
-    public void CheckState(CreatureState currentState)
+        public void CheckState(CreatureState currentState)
     {
         switch (currentState)
         {
@@ -214,9 +235,10 @@ public class MistWalker : CreatureBehaviorScript
                 currentState = CreatureState.Wander; 
             }
         }
-        else if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 0.5f)
+        else if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 3f)
         {
             target = null;
+            agent.ResetPath();
             currentState = CreatureState.AttackStructure;
         }
     }
@@ -250,7 +272,16 @@ public class MistWalker : CreatureBehaviorScript
 
     private void WalkTowardsPriorityStructure()
     {
-        // Walks towards structure that is attacking it
+        if (targetStructure == null) return;
+
+        agent.destination = target.position;
+
+       if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 3f)
+        {
+            agent.ResetPath();
+            target = null;
+            currentState = CreatureState.AttackStructure;
+        }
     }
 
     private void WalkTowardsPlayer()
@@ -273,6 +304,7 @@ public class MistWalker : CreatureBehaviorScript
         }
         else if (targetStructure != null && !coroutineRunning)
         {
+         
             StartCoroutine(AttackingStructure());
         }
     }
@@ -280,16 +312,23 @@ public class MistWalker : CreatureBehaviorScript
     IEnumerator AttackingStructure()
     {
         //play animation
-        coroutineRunning = true;
-        targetStructure.health -= 5;
-        if (targetStructure.health <= 0 ) { targetStructure = null; }
-        yield return new WaitForSeconds(3f);
-        coroutineRunning = false;
-        Debug.Log("Stopped coroutine");
+        float distance = Vector3.Distance(transform.position, targetStructure.transform.position);
+        if (distance < 3.5f)
+        {
+            coroutineRunning = true;
+            targetStructure.health -= damageToStructure;
+            transform.LookAt(targetStructure.transform.position);
+            if (targetStructure.health <= 0) { targetStructure = null; }
+            yield return new WaitForSeconds(3f);
+            coroutineRunning = false;
+        }
+        else
+        {
+            currentState = CreatureState.WalkTowardsClosestStructure;
+        }
+        }
 
-    }
-
-    private void AttackPlayer()
+        private void AttackPlayer()
     {
         // Implementation for attacking the player
     }
@@ -302,6 +341,14 @@ public class MistWalker : CreatureBehaviorScript
     private void Die()
     {
         // Implementation for death behavior
+    }
+
+    public override void OnDeath()
+    {
+        agent.enabled = false;
+        rb.isKinematic = false;
+        agent.ResetPath();
+        //anim.SetTrigger("IsDead");
     }
 
     private void Trapped()

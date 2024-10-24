@@ -79,6 +79,7 @@ public class ShovelBehavior : ToolBehavior
             if (creature != null)
             {
                 creature.TakeDamage(25);
+                //playsound
             }
         }
     }
