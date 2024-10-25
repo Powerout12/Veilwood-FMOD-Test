@@ -30,4 +30,6 @@ public abstract class NPC : MonoBehaviour, IInteractable
     public virtual void PurchaseAttempt(StoreItem item){}
 
     public virtual void RefreshStore(){}
+
+    public virtual void EmptyShopItem(){}
 }

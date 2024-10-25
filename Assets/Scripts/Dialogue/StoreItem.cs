@@ -54,6 +54,7 @@ public class StoreItem : MonoBehaviour, IInteractable
         cost = _cost;
         costText.text = cost.ToString();
         costObject.SetActive(true);
+        myCollider.enabled = true;
     }
 
     public void Empty()
@@ -63,5 +64,6 @@ public class StoreItem : MonoBehaviour, IInteractable
         cost = 0;
         costText.text = "";
         costObject.SetActive(false);
+        myCollider.enabled = false;
     }
 }

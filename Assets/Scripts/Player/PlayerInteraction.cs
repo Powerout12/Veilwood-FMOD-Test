@@ -164,8 +164,13 @@ public class PlayerInteraction : MonoBehaviour
             {
                 structure.StructureInteraction();
                 Debug.Log("Interacting with a structure");
+                return;
             }
         }
+
+        //if nothing, progress dialogue
+        DialogueController.Instance.AdvanceDialogue();
+        
     }
 
 
