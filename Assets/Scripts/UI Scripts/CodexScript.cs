@@ -26,16 +26,22 @@ public class CodexScript : MonoBehaviour
     {
         if(Input.GetKeyDown("c"))
         {
+            currentCreatureEntry = 0;
+            nameText.text = CreatureEntries[currentCreatureEntry].entryName;
+            descriptionText.text = CreatureEntries[currentCreatureEntry].description;
             codex.SetActive(!codex.activeInHierarchy);
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if(codex.activeInHierarchy)
         {
-            UpdatePage(-1);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            UpdatePage(1);
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                UpdatePage(-1);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                UpdatePage(1);
+            }
         }
     }
 
