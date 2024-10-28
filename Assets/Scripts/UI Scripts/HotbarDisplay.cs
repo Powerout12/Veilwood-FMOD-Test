@@ -82,7 +82,7 @@ public class HotbarDisplay : MonoBehaviour
         }
         else
         {
-            Debug.Log($"No item in hotbar slot {slotIndex + 1}");
+            //Debug.Log($"No item in hotbar slot {slotIndex + 1}");
             HandItemManager.Instance.ClearHandModel();
         }
     }

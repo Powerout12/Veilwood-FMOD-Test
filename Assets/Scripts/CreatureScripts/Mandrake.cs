@@ -20,7 +20,10 @@ public class Mandrake : CreatureBehaviorScript
     private Vector3 spot;
     public float timeBeforeLeavingFarm;
     private float savedTime;
-
+    private bool isLeavingFarm = false;
+    private bool hasTarget = false;
+    private bool isMoving;
+    private Vector3 fleeDirection;
 
     public enum CreatureState
     {
@@ -34,8 +37,7 @@ public class Mandrake : CreatureBehaviorScript
     }
 
     public CreatureState currentState;
-    private bool hasTarget = false;
-    private bool isMoving;
+    
 
     void Start()
     {
@@ -49,14 +51,25 @@ public class Mandrake : CreatureBehaviorScript
 
     private void Update()
     {
+       
         timeBeforeLeavingFarm -= Time.deltaTime;
+        if (isTrapped) { currentState = CreatureState.Trapped; }
         if (timeBeforeLeavingFarm < 0)
         {
+            
+            fleeDirection = (transform.position - player.position).normalized;
             currentState = CreatureState.LeaveFarm;
+            agent.ResetPath();
         }
+
+
+        if (currentState != CreatureState.LeaveFarm && isLeavingFarm)
+        {
+            isLeavingFarm = false;
+        }
+
         float distance = Vector3.Distance(player.position, transform.position);
         playerInSightRange = distance <= sightRange;
-        if (isTrapped) { currentState = CreatureState.Trapped; }
         if (playerInSightRange && !isTrapped && !coroutineRunning && currentState != CreatureState.WakeUp) { currentState = CreatureState.Run; }
         CheckState(currentState);
     }
@@ -209,21 +222,10 @@ public class Mandrake : CreatureBehaviorScript
 
     private void LeaveFarm()
     {
-        if (hasTarget && !agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 1f)
-        {
-            Destroy(this.gameObject);
-        }
-        else if (!hasTarget)
-        {
-            hasTarget = true;
-            Vector3 fleeDirection = (transform.position - player.position).normalized;
-            Vector3 newDestination = transform.position + fleeDirection * fleeDistance *5;
-
-            agent.SetDestination(newDestination);
-        }
+            agent.Move(fleeDirection * agent.speed * Time.deltaTime);  
     }
 
-    private void Die()
+        private void Die()
     {
         throw new NotImplementedException();
     }
@@ -231,5 +233,19 @@ public class Mandrake : CreatureBehaviorScript
     private void Trapped()
     {
         rb.isKinematic = true;
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("mist") && currentState == CreatureState.LeaveFarm)
+        {
+            StartCoroutine(DestroyMandrake());
+        }
+    }
+
+    IEnumerator DestroyMandrake()
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(this.gameObject);
     }
 }
