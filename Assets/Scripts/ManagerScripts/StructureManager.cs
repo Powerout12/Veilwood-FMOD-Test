@@ -12,7 +12,7 @@ public class StructureManager : MonoBehaviour
 
     public List<StructureBehaviorScript> allStructs;
 
-    public GameObject weedTile;
+    public GameObject weedTile, farmTree;
 
     //Game will compare the two to find out which tile position correlates with the nutrients associated with it.
     List<Vector3Int> allTiles = new List<Vector3Int>();
@@ -32,7 +32,8 @@ public class StructureManager : MonoBehaviour
             Instance = this;
         }
         //load in all the saved data, such as the nutrient storages and alltiles list
-        PopulateWeeds(5, 20); //Only do this when a new game has started. Implement weeds spawning in overtime
+        PopulateWeeds(10, 20); //Only do this when a new game has started. Implement weeds spawning in over time
+        PopulateTrees(5, 8);
     }
 
     public void HourUpdate()
@@ -75,13 +76,38 @@ public class StructureManager : MonoBehaviour
         return instance;
     }
 
-    public void SetTile(Vector3 pos)
-    {
+    public bool SpawnLargeStructure(GameObject obj, Vector3 pos)
+    { //STILL DOES NOT WORK
+        List<Vector3Int> selectedTiles = new List<Vector3Int>();
         Vector3Int gridPos = tileMap.WorldToCell(pos);
-        tileMap.SetTile(gridPos, occupiedTile);
+        selectedTiles.Add(gridPos);
+        selectedTiles.Add(new Vector3Int(gridPos.x + 1, gridPos.y));
+        selectedTiles.Add(new Vector3Int(gridPos.x, gridPos.y - 1));
+        selectedTiles.Add(new Vector3Int(gridPos.x + 1, gridPos.y - 1));
+
+        foreach(Vector3Int _pos in selectedTiles)
+        {
+            TileBase currentTile = tileMap.GetTile(_pos);
+            if(currentTile == null || currentTile != freeTile) return false;
+        }
+
+        foreach(Vector3Int _pos in selectedTiles)
+        {
+            tileMap.SetTile(_pos, occupiedTile);
+        }
+
+        Vector3 start = tileMap.GetCellCenterWorld(gridPos);
+        Vector3 otherEnd = tileMap.GetCellCenterWorld(new Vector3Int(gridPos.x + 1, gridPos.y - 1));
+        print(start);
+        print(otherEnd);
+        Vector3 center = new Vector3((start.x + otherEnd.x)/2, (start.y + otherEnd.y)/2, (start.z + otherEnd.z)/2);
+        print(center);
+
+        Instantiate(obj, center, Quaternion.identity);
+        return true;
     }
 
-    public void Set4Tile(Vector3 pos) //to set a cube of tiles for big structures, currently unimplemented
+    public void SetTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         tileMap.SetTile(gridPos, occupiedTile);
@@ -90,8 +116,23 @@ public class StructureManager : MonoBehaviour
     public void ClearTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);
-        print(tileMap.GetTile(gridPos));
         tileMap.SetTile(gridPos, freeTile);
+    }
+
+    public void ClearLargeTile(Vector3 pos)
+    {
+        //fetch tiles within a small radius, should return the 4 its occupying
+        print("Clearing");
+        foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
+        {
+            Vector3 position = tileMap.GetCellCenterWorld(gridPosition);
+            if(Vector3.Distance(position, pos) <= 2f)
+            {
+                tileMap.SetTile(gridPosition, freeTile);
+                print("FoundTile");
+            }
+            
+        }
     }
 
     public NutrientStorage FetchNutrient(Vector3 pos)
@@ -147,6 +188,34 @@ public class StructureManager : MonoBehaviour
                 if(tileMap.GetTile(spawnablePositions[randomIndex]) != null)
                 {
                     SpawnStructure(weedTile, spawnPos);
+                }
+            }
+        }
+    }
+
+    void PopulateTrees(int min, int max)
+    {
+        List<Vector3Int> spawnablePositions = new List<Vector3Int>();
+
+        Vector3 spawnPos = new Vector3 (0,0,0);
+        foreach (Vector3Int position in tileMap.cellBounds.allPositionsWithin)
+        {
+            spawnablePositions.Add(position);
+        }
+
+        int r = Random.Range(min,max);
+        if (r <= 0) return;
+        for(int i = 0; i < r; i++)
+        {
+            if(spawnablePositions.Count != 0)
+            {
+                int randomIndex = Random.Range(0, spawnablePositions.Count);
+                spawnPos = tileMap.GetCellCenterWorld(spawnablePositions[randomIndex]);
+
+                if(tileMap.GetTile(spawnablePositions[randomIndex]) != null)
+                {
+                    bool success = SpawnLargeStructure(farmTree, spawnPos);
+                    print(success);
                 }
             }
         }
