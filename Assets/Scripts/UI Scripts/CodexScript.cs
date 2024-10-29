@@ -52,8 +52,8 @@ public class CodexScript : MonoBehaviour
         currentEntry = currentEntry + page;
         currentEntry = Mathf.Clamp(currentEntry,0,currentCat.Length - 1);
         //print(CreatureEntries[currentEntry]);
-        nameText.text = CreatureEntries[currentEntry].entryName;
-        descriptionText.text = CreatureEntries[currentEntry].description;
+        nameText.text = currentCat[currentEntry].entryName;
+        descriptionText.text = currentCat[currentEntry].description;
     }
 
     public void SwitchCategories(int cat)
