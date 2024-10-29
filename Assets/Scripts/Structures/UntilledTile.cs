@@ -47,6 +47,7 @@ public class UntilledTile : StructureBehaviorScript
             ignoreNextHour = false;
             return;
         }
+        clearTileOnDestroy = true;
         Destroy(this.gameObject);
     }
 
