@@ -53,10 +53,10 @@ public class UntilledTile : StructureBehaviorScript
 
     IEnumerator QuickHoe()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.7f);
         secondTill.SetActive(true);
         firstTill.SetActive(false);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
         Instantiate(farmTile, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }

@@ -32,4 +32,6 @@ public abstract class NPC : MonoBehaviour, IInteractable
     public virtual void RefreshStore(){}
 
     public virtual void EmptyShopItem(){}
+    
+    public virtual void PlayerLeftRadius(){}
 }
