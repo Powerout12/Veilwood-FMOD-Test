@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Diagnostics;
 
 public class CodexScript : MonoBehaviour
 {
-    CodexEntries[] CreatureEntries;
+    CodexEntries[] CurrentCategory, CreatureEntries, ToolEntries;
     int creatureEntriesLength;
     public GameObject codex;
     public TextMeshProUGUI nameText, descriptionText;
-    public int currentCreatureEntry = 0;
+    public int currentEntry = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         CreatureEntries = Resources.LoadAll<CodexEntries>("Codex/Creatures/");
-        creatureEntriesLength = CreatureEntries.Length;
+        ToolEntries = Resources.LoadAll<CodexEntries>("Codex/Tools/");
+        creatureEntriesLength = CreatureEntries.Length; //Make one of these for every category
         print(creatureEntriesLength);
         nameText.text = CreatureEntries[0].entryName;
         descriptionText.text = CreatureEntries[0].description;
@@ -26,9 +28,9 @@ public class CodexScript : MonoBehaviour
     {
         if(Input.GetKeyDown("c"))
         {
-            currentCreatureEntry = 0;
-            nameText.text = CreatureEntries[currentCreatureEntry].entryName;
-            descriptionText.text = CreatureEntries[currentCreatureEntry].description;
+            currentEntry = 0;
+            nameText.text = CreatureEntries[currentEntry].entryName;
+            descriptionText.text = CreatureEntries[currentEntry].description;
             codex.SetActive(!codex.activeInHierarchy);
         }
 
@@ -36,21 +38,43 @@ public class CodexScript : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                UpdatePage(-1);
+                UpdatePage(-1, CurrentCategory);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                UpdatePage(1);
+                UpdatePage(1, CurrentCategory);
             }
         }
     }
 
-    void UpdatePage(int page)
+    void UpdatePage(int page, CodexEntries[] currentCat) // add a 3rd value for category length
     {
-        currentCreatureEntry = currentCreatureEntry + page;
-        currentCreatureEntry = Mathf.Clamp(currentCreatureEntry,0,creatureEntriesLength - 1);
-        //print(CreatureEntries[currentCreatureEntry]);
-        nameText.text = CreatureEntries[currentCreatureEntry].entryName;
-        descriptionText.text = CreatureEntries[currentCreatureEntry].description;
+        currentEntry = currentEntry + page;
+        currentEntry = Mathf.Clamp(currentEntry,0,currentCat.Length - 1);
+        //print(CreatureEntries[currentEntry]);
+        nameText.text = CreatureEntries[currentEntry].entryName;
+        descriptionText.text = CreatureEntries[currentEntry].description;
+    }
+
+    public void SwitchCategories(int cat)
+    {
+        switch (cat)
+        {
+            case 0:
+            CurrentCategory = CreatureEntries;
+            currentEntry = 0;
+            UpdatePage(0, CurrentCategory);
+            break;
+
+            case 1:
+            CurrentCategory = ToolEntries;
+            currentEntry = 0;
+            UpdatePage(0, CurrentCategory);
+            break;
+
+            default:
+            print("Default");
+            break;
+        }
     }
 }
