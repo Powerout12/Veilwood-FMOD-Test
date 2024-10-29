@@ -7,7 +7,7 @@ using System.Diagnostics;
 public class CodexScript : MonoBehaviour
 {
     CodexEntries[] CurrentCategory, CreatureEntries, ToolEntries;
-    int creatureEntriesLength;
+    int currentCategoryLength;
     public GameObject codex;
     public TextMeshProUGUI nameText, descriptionText;
     public int currentEntry = 0;
@@ -17,8 +17,7 @@ public class CodexScript : MonoBehaviour
     {
         CreatureEntries = Resources.LoadAll<CodexEntries>("Codex/Creatures/");
         ToolEntries = Resources.LoadAll<CodexEntries>("Codex/Tools/");
-        creatureEntriesLength = CreatureEntries.Length; //Make one of these for every category
-        print(creatureEntriesLength);
+        CurrentCategory = CreatureEntries;
         nameText.text = CreatureEntries[0].entryName;
         descriptionText.text = CreatureEntries[0].description;
     }
@@ -29,6 +28,7 @@ public class CodexScript : MonoBehaviour
         if(Input.GetKeyDown("c"))
         {
             currentEntry = 0;
+            CurrentCategory = CreatureEntries;
             nameText.text = CreatureEntries[currentEntry].entryName;
             descriptionText.text = CreatureEntries[currentEntry].description;
             codex.SetActive(!codex.activeInHierarchy);
@@ -47,11 +47,11 @@ public class CodexScript : MonoBehaviour
         }
     }
 
-    void UpdatePage(int page, CodexEntries[] currentCat) // add a 3rd value for category length
+    void UpdatePage(int page, CodexEntries[] currentCat)
     {
         currentEntry = currentEntry + page;
         currentEntry = Mathf.Clamp(currentEntry,0,currentCat.Length - 1);
-        //print(CreatureEntries[currentEntry]);
+        
         nameText.text = currentCat[currentEntry].entryName;
         descriptionText.text = currentCat[currentEntry].description;
     }
