@@ -126,7 +126,7 @@ public class StructureManager : MonoBehaviour
         foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
         {
             Vector3 position = tileMap.GetCellCenterWorld(gridPosition);
-            if(Vector3.Distance(position, pos) <= 2f)
+            if(Vector3.Distance(position, pos) <= 3f)
             {
                 tileMap.SetTile(gridPosition, freeTile);
                 print("FoundTile");
