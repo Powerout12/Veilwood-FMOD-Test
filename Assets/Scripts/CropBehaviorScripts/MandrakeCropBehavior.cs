@@ -8,8 +8,9 @@ public class MandrakeCropBehavior : CropBehavior
     public GameObject mandrake;
     public override void OnHour(FarmLand tile)
     {
-        Debug.Log("OnHour");
-        if(TimeManager.isDay == false)
+        //BUG WHERE IN BUILD, THE MANDRAKE LEAVES IMMEDIATLY WHEN PLANTED
+        Debug.Log(TimeManager.isDay);
+        if(TimeManager.isDay == false && tile.crop.growthStages == tile.growthStage)
         {
             float r = Random.Range(0, 4);
             float probability = -1;
