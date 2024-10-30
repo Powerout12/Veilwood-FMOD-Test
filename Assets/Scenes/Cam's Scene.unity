@@ -1106,7 +1106,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 500
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -2378,6 +2378,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Smoke Rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3181228680370080925, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2393,10 +2413,20 @@ PrefabInstance:
       propertyPath: otherEnd
       value: 
       objectReference: {fileID: 1920113522}
+    - target: {fileID: 7877537005281114693, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8102731737742082666, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_Size.x
       value: 190.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
@@ -2483,6 +2513,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Smoke Rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3115487118390387250, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2498,6 +2548,16 @@ PrefabInstance:
       propertyPath: otherEnd
       value: 
       objectReference: {fileID: 1972589560}
+    - target: {fileID: 7877537005281114693, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_CastShadows
@@ -13577,6 +13637,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1015458675681676664, guid: 5f5fcaf963705e0419b1ecadb42c0641,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2961193080738427394, guid: 5f5fcaf963705e0419b1ecadb42c0641,
         type: 3}
       propertyPath: m_Name
@@ -13635,6 +13700,11 @@ PrefabInstance:
     - target: {fileID: 3331779135957699454, guid: 5f5fcaf963705e0419b1ecadb42c0641,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822705514840690295, guid: 5f5fcaf963705e0419b1ecadb42c0641,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14548,6 +14618,11 @@ PrefabInstance:
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7289710357014222372, guid: f624de460446d55418aee8f72e501299,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14755,6 +14830,11 @@ PrefabInstance:
     - target: {fileID: 5568564549336775038, guid: f624de460446d55418aee8f72e501299,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289710357014222372, guid: f624de460446d55418aee8f72e501299,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -22324,6 +22404,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: Smoke Rate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3115487118390387250, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -22339,10 +22439,20 @@ PrefabInstance:
       propertyPath: otherEnd
       value: 
       objectReference: {fileID: 452806981}
+    - target: {fileID: 7877537005281114693, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8102731737742082666, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_Size.x
       value: 155.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
@@ -23701,6 +23811,11 @@ PrefabInstance:
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7289710357014222372, guid: f624de460446d55418aee8f72e501299,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23788,7 +23903,7 @@ PrefabInstance:
     - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2989202168254144060, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
@@ -23815,6 +23930,11 @@ PrefabInstance:
       propertyPath: otherEnd
       value: 
       objectReference: {fileID: 465172681}
+    - target: {fileID: 7877537005281114693, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8120376081582583322, guid: 84bbed3313ade694994cd79ad5dc53da,
         type: 3}
       propertyPath: m_IsActive
