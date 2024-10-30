@@ -28,26 +28,26 @@ public class HoeBehavior : ToolBehavior
         if(Physics.Raycast(player.position, fwd, out hit, 5, mask))
         {
 
-            tile = hit.collider.GetComponent<UntilledTile>();
-            if (tile != null)
-            {
+            //tile = hit.collider.GetComponent<UntilledTile>();
+            //if (tile != null)
+            //{
                 //play hoe anim
-                HandItemManager.Instance.PlayPrimaryAnimation();
+            //    HandItemManager.Instance.PlayPrimaryAnimation();
                 //HandItemManager.Instance.toolSource.PlayOneShot(swing);
-                PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 1.5f, 0f));
-                PlayerMovement.restrictMovementTokens++;
+            //    PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 1.5f, 0f));
+            //    PlayerMovement.restrictMovementTokens++;
 
-                return;
-            }
+            //    return;
+            //}
 
 
             pos = StructureManager.Instance.CheckTile(hit.point);
             if(pos != new Vector3(0,0,0)) 
             {
-                //usingPrimary = true;
+                usingPrimary = true;
                 HandItemManager.Instance.PlayPrimaryAnimation();
                 //HandItemManager.Instance.toolSource.PlayOneShot(swing);
-                PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 1.5f, 0f));
+                PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.7f, 0));
                 PlayerMovement.restrictMovementTokens++;
                 //HAVE PLAYER NOT BE ABLE TO TURN
             }
@@ -62,10 +62,16 @@ public class HoeBehavior : ToolBehavior
 
     public override void ItemUsed() 
     { 
-        usingPrimary = false;
-        PlayerMovement.restrictMovementTokens--;
+        PlayerInteraction.Instance.StartCoroutine(ExtraLag());
         if(tile) tile.ToolInteraction(tool, out bool playAnim);
         else StructureManager.Instance.SpawnStructure(farmTile, pos);
+    }
+
+    IEnumerator ExtraLag()
+    {
+        yield return new WaitForSeconds(1);
+        usingPrimary = false;
+        PlayerMovement.restrictMovementTokens--;
     }
 
 
