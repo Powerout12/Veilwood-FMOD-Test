@@ -101,7 +101,7 @@ public class HandItemManager : MonoBehaviour
         }
         else
         {
-            HandItemManager.Instance.ClearHandModel();
+            ClearHandModel();
         }
     }
 

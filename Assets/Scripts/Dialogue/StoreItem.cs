@@ -15,7 +15,7 @@ public class StoreItem : MonoBehaviour, IInteractable
     private SphereCollider myCollider;
 
     public SpriteRenderer r;
-    public GameObject costObject;
+    public GameObject costObject, arrowObject;
     public TextMeshProUGUI costText;
 
     public NPC seller;
