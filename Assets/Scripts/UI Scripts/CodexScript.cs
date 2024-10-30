@@ -12,6 +12,9 @@ public class CodexScript : MonoBehaviour
     public TextMeshProUGUI nameText, descriptionText;
     public int currentEntry = 0;
 
+    string defaultName = "Undiscovered";
+    string defaultDesc = "Undiscovered";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,9 +55,16 @@ public class CodexScript : MonoBehaviour
     {
         currentEntry = currentEntry + page;
         currentEntry = Mathf.Clamp(currentEntry,0,currentCat.Length - 1);
-        
-        nameText.text = currentCat[currentEntry].entryName;
-        descriptionText.text = currentCat[currentEntry].description;
+        if (currentCat[currentEntry].unlocked == true)
+        {
+            nameText.text = currentCat[currentEntry].entryName;
+            descriptionText.text = currentCat[currentEntry].description;
+        }
+        else
+        {
+            nameText.text = defaultName;
+            descriptionText.text = defaultDesc;
+        }
     }
 
     public void SwitchCategories(int cat)
