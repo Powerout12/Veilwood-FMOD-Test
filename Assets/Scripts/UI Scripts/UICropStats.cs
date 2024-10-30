@@ -28,7 +28,7 @@ public class UICropStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //
+        //if holding shift, bring detailed info up for crops
     }
 
     IEnumerator CheckTimer()
