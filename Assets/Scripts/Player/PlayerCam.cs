@@ -25,7 +25,7 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerMovement.accessingInventory)
+        if (PlayerMovement.accessingInventory || PlayerMovement.isCodexOpen)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -36,7 +36,7 @@ public class PlayerCam : MonoBehaviour
             CursorLock();
         }
 
-        if(PlayerMovement.restrictMovementTokens > 0) return;
+        if(PlayerMovement.restrictMovementTokens > 0 || PlayerMovement.isCodexOpen) return;
 
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;

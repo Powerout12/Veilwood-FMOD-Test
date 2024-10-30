@@ -32,6 +32,7 @@ public class CodexScript : MonoBehaviour
             nameText.text = CreatureEntries[currentEntry].entryName;
             descriptionText.text = CreatureEntries[currentEntry].description;
             codex.SetActive(!codex.activeInHierarchy);
+            PlayerMovement.isCodexOpen = codex.activeInHierarchy;
         }
 
         if(codex.activeInHierarchy)
