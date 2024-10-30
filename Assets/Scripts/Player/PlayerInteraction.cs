@@ -169,7 +169,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         //if nothing, progress dialogue
-        DialogueController.Instance.AdvanceDialogue();
+        if(DialogueController.Instance) DialogueController.Instance.AdvanceDialogue();
         
     }
 

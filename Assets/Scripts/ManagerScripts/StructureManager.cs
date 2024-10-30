@@ -33,7 +33,7 @@ public class StructureManager : MonoBehaviour
         }
         //load in all the saved data, such as the nutrient storages and alltiles list
         PopulateWeeds(10, 20); //Only do this when a new game has started. Implement weeds spawning in over time
-        PopulateTrees(5, 8);
+        PopulateTrees(8, 12);
     }
 
     public void HourUpdate()
@@ -48,12 +48,12 @@ public class StructureManager : MonoBehaviour
 
     public Vector3 CheckTile(Vector3 pos)
     {
-        print("Checking");
+        //print("Checking");
         Vector3Int gridPos = tileMap.WorldToCell(pos);
 
         TileBase currentTile = tileMap.GetTile(gridPos);
 
-        print(currentTile);
+        //print(currentTile);
         if(currentTile != null && currentTile == freeTile)
         {
             //
@@ -100,10 +100,10 @@ public class StructureManager : MonoBehaviour
 
         Vector3 start = tileMap.GetCellCenterWorld(gridPos);
         Vector3 otherEnd = tileMap.GetCellCenterWorld(new Vector3Int(gridPos.x + 1, gridPos.y - 1));
-        print(start);
-        print(otherEnd);
+        //print(start);
+        //print(otherEnd);
         Vector3 center = new Vector3((start.x + otherEnd.x)/2, (start.y + otherEnd.y)/2, (start.z + otherEnd.z)/2);
-        print(center);
+        //print(center);
 
         Instantiate(obj, center, Quaternion.identity);
         return true;
@@ -124,14 +124,14 @@ public class StructureManager : MonoBehaviour
     public void ClearLargeTile(Vector3 pos)
     {
         //fetch tiles within a small radius, should return the 4 its occupying
-        print("Clearing");
+        //print("Clearing");
         foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
         {
             Vector3 position = tileMap.GetCellCenterWorld(gridPosition);
             if(Vector3.Distance(position, pos) <= 3f)
             {
                 tileMap.SetTile(gridPosition, freeTile);
-                print("FoundTile");
+                //print("FoundTile");
             }
             
         }

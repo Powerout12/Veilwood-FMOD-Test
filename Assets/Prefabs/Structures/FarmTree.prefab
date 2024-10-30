@@ -81,9 +81,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1678588678400525526
 MonoBehaviour:
@@ -100,6 +100,7 @@ MonoBehaviour:
   structData: {fileID: 11400000, guid: 27864248b8840704fbbb773c399907ad, type: 2}
   health: 999
   maxHealth: 999
+  wealthValue: 1
   audioHandler: {fileID: 0}
   clearTileOnDestroy: 1
 --- !u!1001 &6782181105163600545
@@ -188,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 121c6bd392535024bb6b96c317f07f60,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
