@@ -18,6 +18,7 @@ public class UntilledTile : StructureBehaviorScript
     {
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
         clearTileOnDestroy = false;
+        StartCoroutine(QuickHoe());
     }
 
     public override void ToolInteraction(ToolType type, out bool success)
@@ -46,6 +47,17 @@ public class UntilledTile : StructureBehaviorScript
             ignoreNextHour = false;
             return;
         }
+        clearTileOnDestroy = true;
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator QuickHoe()
+    {
+        yield return new WaitForSeconds(0.7f);
+        secondTill.SetActive(true);
+        firstTill.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(farmTile, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

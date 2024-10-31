@@ -95,7 +95,11 @@ public class WagonMerchantNPC : NPC, ITalkable
             {
                 currentPath = 6; //no money!?!?!?
             }
-            else currentPath = 5; //item sold
+            else
+            {
+                currentPath = 5; //item sold
+                item.arrowObject.SetActive(false);
+            }
             anim.SetTrigger("Transaction");
             //lastInteractedStoreItem = null;
         }
@@ -104,7 +108,9 @@ public class WagonMerchantNPC : NPC, ITalkable
             dialogueController.restartDialogue = true;
             currentPath = 4; //item selected
             anim.SetTrigger("IsTalking");
+            if(lastInteractedStoreItem) lastInteractedStoreItem.arrowObject.SetActive(false);
             lastInteractedStoreItem = item;
+            item.arrowObject.SetActive(true);
         }
         Talk();
     }
@@ -134,6 +140,16 @@ public class WagonMerchantNPC : NPC, ITalkable
     {
         lastInteractedStoreItem.Empty();
         lastInteractedStoreItem = null;
+    }
+
+    public override void PlayerLeftRadius()
+    {
+        if(lastInteractedStoreItem)
+        {
+            lastInteractedStoreItem.arrowObject.SetActive(false);
+            lastInteractedStoreItem = null;
+        }
+        if(lastSeenItem) lastSeenItem = null;
     }
     
 }
