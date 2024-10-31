@@ -110,7 +110,7 @@ public class FarmLand : StructureBehaviorScript
             }
 
             crop = null;
-            isWeed = false;
+            if (isWeed) Destroy(this.gameObject);
             SpriteChange();
         }
     }
@@ -162,13 +162,13 @@ public class FarmLand : StructureBehaviorScript
                 if(!isWeed)
                 {
                     growthStage++;
-                    growth.Play();
+                    if(growth) growth.Play();
                 }
                 if(crop.harvestableGrowthStages.Contains(growthStage))
                 {
                     harvestable = true;
-                    growth.Stop();
-                    growthComplete.Play();
+                    if(growth) growth.Stop();
+                    if(growthComplete) growthComplete.Play();
                 }
                 else harvestable = false;
                 SpriteChange();
