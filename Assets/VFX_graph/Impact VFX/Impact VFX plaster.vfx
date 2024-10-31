@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: Impact VFX wood
+  m_Name: Impact VFX plaster
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -167,7 +167,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.16981130838394166,"g":0.07381816953420639,"b":0.004004983231425285,"a":1.0}'
+      m_SerializableObject: '{"r":0.18889303505420686,"g":0.12321324646472931,"b":0.07395340502262116,"a":1.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.09433960914611817,"g":0.04646947234869003,"b":0.008454962633550167,"a":1.0}'
+      m_SerializableObject: '{"r":0.25737348198890688,"g":0.11705046147108078,"b":0.057059209793806079,"a":1.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -195,7 +195,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.24528300762176515,"g":0.11314616352319718,"b":0.005784975830465555,"a":1.0}'
+      m_SerializableObject: '{"r":0.3145826756954193,"g":0.1487264335155487,"b":0.07567790150642395,"a":1.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -211,7 +211,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Impact VFX wood
+  m_Name: Impact VFX plaster
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -1816,7 +1816,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.16981130838394166,"g":0.07381816953420639,"b":0.004004983231425285,"a":1.0}'
+      m_SerializableObject: '{"r":0.18889303505420686,"g":0.12321324646472931,"b":0.07395340502262116,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -7031,7 +7031,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.09433960914611817,"g":0.04646947234869003,"b":0.008454962633550167,"a":1.0}'
+      m_SerializableObject: '{"r":0.25737348198890688,"g":0.11705046147108078,"b":0.057059209793806079,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -7247,7 +7247,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.24528300762176515,"g":0.11314616352319718,"b":0.005784975830465555,"a":1.0}'
+      m_SerializableObject: '{"r":0.3145826756954193,"g":0.1487264335155487,"b":0.07567790150642395,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -8486,7 +8486,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.6698113083839417,"y":0.28091558814048769,"z":0.1800907701253891}'
+      m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
     m_Space: 2147483647
   m_Property:
     name: Color
