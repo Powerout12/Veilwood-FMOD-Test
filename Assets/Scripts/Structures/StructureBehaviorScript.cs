@@ -48,7 +48,11 @@ public class StructureBehaviorScript : MonoBehaviour
     {
         if(!gameObject.scene.isLoaded) return;
         print("Destroyed");
-        if(clearTileOnDestroy) StructureManager.Instance.ClearTile(transform.position);
+        if(clearTileOnDestroy && structData)
+        {
+            if(!structData.isLarge) StructureManager.Instance.ClearTile(transform.position);
+            else StructureManager.Instance.ClearLargeTile(transform.position);
+        } 
         StructureManager.Instance.allStructs.Remove(this);
         OnStructuresUpdated?.Invoke();
 
