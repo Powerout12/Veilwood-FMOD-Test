@@ -52,6 +52,7 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PlayerMovement.restrictMovementTokens > 0) return;
         //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
@@ -114,6 +115,16 @@ public class PlayerInteraction : MonoBehaviour
 
     void StructureInteractionWithItem()
     {
+        InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+
+        //Is it a Tool item?
+        ToolItem t_item = item as ToolItem;
+        if (t_item) 
+        {
+            t_item.SecondaryUse(mainCam.transform);
+            return;
+        }
+
         Vector3 fwd = mainCam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
@@ -131,10 +142,11 @@ public class PlayerInteraction : MonoBehaviour
             if (structure != null)
             {
                 structure.ItemInteraction(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
-                Debug.Log("Interacted with item");
+                //Debug.Log("Interacted with item");
                 return;
             }
         }
+
     }
 
     void InteractWithObject()
@@ -151,7 +163,7 @@ public class PlayerInteraction : MonoBehaviour
 
 
                 if(hit.collider.GetComponent<ChestInventory>() != null) PlayerMovement.accessingInventory = true;  // Needs to check if opening a chest, else this should not be called
-                Debug.Log("Opened Inventory of Interactable Object");
+                //Debug.Log("Opened Inventory of Interactable Object");
                 return;
             }
 
@@ -159,7 +171,7 @@ public class PlayerInteraction : MonoBehaviour
             if (structure != null)
             {
                 structure.StructureInteraction();
-                Debug.Log("Interacting with a structure");
+                //Debug.Log("Interacting with a structure");
                 return;
             }
         }
@@ -181,6 +193,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             t_item.PrimaryUse(mainCam.transform);
         }
+        
 
         //Is it a placeable item?
         PlaceableItem p_item = item as PlaceableItem;
