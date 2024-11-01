@@ -48,10 +48,12 @@ public class StructureManager : MonoBehaviour
 
     public Vector3 CheckTile(Vector3 pos)
     {
+        print("Checking");
         Vector3Int gridPos = tileMap.WorldToCell(pos);
 
         TileBase currentTile = tileMap.GetTile(gridPos);
 
+        print(currentTile);
         if(currentTile != null && currentTile == freeTile)
         {
             //

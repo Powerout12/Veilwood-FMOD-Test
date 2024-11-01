@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class FarmLand : StructureBehaviorScript
 {
@@ -24,10 +25,14 @@ public class FarmLand : StructureBehaviorScript
     PlayerInventoryHolder playerInventoryHolder;
 
     private NutrientStorage nutrients;
+
+    public VisualEffect growth, growthComplete;
     // Start is called before the first frame update
     void Awake()
     {
         base.Awake();
+        if(growth) growth.Stop();
+        if(growthComplete) growthComplete.Stop();
     }
 
     void Start()
@@ -154,8 +159,17 @@ public class FarmLand : StructureBehaviorScript
             else
             {
                 hoursSpent = 0;
-                if(!isWeed) growthStage++;
-                if(crop.harvestableGrowthStages.Contains(growthStage)) harvestable = true;
+                if(!isWeed)
+                {
+                    growthStage++;
+                    growth.Play();
+                }
+                if(crop.harvestableGrowthStages.Contains(growthStage))
+                {
+                    harvestable = true;
+                    growth.Stop();
+                    growthComplete.Play();
+                }
                 else harvestable = false;
                 SpriteChange();
             }
