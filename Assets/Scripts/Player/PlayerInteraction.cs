@@ -17,9 +17,6 @@ public class PlayerInteraction : MonoBehaviour
 
     public int currentMoney;
 
-    public int health = 3;
-    [HideInInspector] public readonly int maxHealth = 3;
-
     public int stamina = 100;
     [HideInInspector] public readonly int maxStamina = 100;
 
@@ -80,7 +77,6 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
-        if(health > maxHealth) health = maxHealth;
         if(stamina > maxStamina) stamina = maxStamina;
 
     }
