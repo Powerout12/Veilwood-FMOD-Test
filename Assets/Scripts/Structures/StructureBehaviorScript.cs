@@ -15,6 +15,8 @@ public class StructureBehaviorScript : MonoBehaviour
     public float health = 5;
     public float maxHealth = 5;
 
+    public float wealthValue = 1; //dictates how hard a night could be 
+
     [HideInInspector] public StructureAudioHandler audioHandler;
     //[HideInInspector] public AudioSource source;
 

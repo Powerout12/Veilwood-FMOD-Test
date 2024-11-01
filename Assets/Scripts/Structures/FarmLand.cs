@@ -19,6 +19,7 @@ public class FarmLand : StructureBehaviorScript
     public bool harvestable = false; //true if growth stage matches crop data growth stages
     public bool rotted = false;
     public bool isWeed = false;
+    bool forceDig = false;
 
     private bool ignoreNextGrowthMoment = false; //tick this if crop was just planted
 
@@ -82,10 +83,11 @@ public class FarmLand : StructureBehaviorScript
 
     public override void StructureInteraction()
     {
-        if(harvestable)
+        if(harvestable || forceDig)
         {
             audioHandler.PlaySound(audioHandler.interactSound);
             harvestable = false;
+            forceDig = false;
             if(rotted == false)
             {
                 if (crop.creaturePrefab)
@@ -110,7 +112,7 @@ public class FarmLand : StructureBehaviorScript
             }
 
             crop = null;
-            isWeed = false;
+            if (isWeed) Destroy(this.gameObject);
             SpriteChange();
         }
     }
@@ -118,9 +120,10 @@ public class FarmLand : StructureBehaviorScript
     public override void ToolInteraction(ToolType type, out bool success)
     {
         success = false;
-        if(type == ToolType.Shovel)
+        if(type == ToolType.Shovel && !forceDig && crop)
         {
-            //Harvest
+            StartCoroutine(DigPlant());
+            success = true;
         }
         if(type == ToolType.WateringCan && PlayerInteraction.Instance.waterHeld > 0 && nutrients.waterLevel < 10)
         {
@@ -162,13 +165,13 @@ public class FarmLand : StructureBehaviorScript
                 if(!isWeed)
                 {
                     growthStage++;
-                    growth.Play();
+                    if(growth) growth.Play();
                 }
                 if(crop.harvestableGrowthStages.Contains(growthStage))
                 {
                     harvestable = true;
-                    growth.Stop();
-                    growthComplete.Play();
+                    if(growth) growth.Stop();
+                    if(growthComplete) growthComplete.Play();
                 }
                 else harvestable = false;
                 SpriteChange();
@@ -262,6 +265,13 @@ public class FarmLand : StructureBehaviorScript
         harvestable = false;
         SpriteChange();
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+    }
+
+    IEnumerator DigPlant()
+    {
+        forceDig = true;
+        yield return new WaitForSeconds(1f);
+        StructureInteraction();
     }
 
     void OnDestroy()
