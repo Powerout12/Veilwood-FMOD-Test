@@ -19,6 +19,7 @@ public class WagonMerchantNPC : NPC, ITalkable
     void Start()
     {
         RefreshStore();
+        TimeManager.OnHourlyUpdate += HourlyUpdate;
     }
 
     public override void Interact(PlayerInteraction interactor, out bool interactSuccessful)
@@ -117,6 +118,8 @@ public class WagonMerchantNPC : NPC, ITalkable
 
     public override void RefreshStore()
     {
+        if(lastInteractedStoreItem) lastInteractedStoreItem.arrowObject.SetActive(false);
+        lastInteractedStoreItem = null;
         int i;
         float r;
         InventoryItemData newItem;
@@ -150,6 +153,15 @@ public class WagonMerchantNPC : NPC, ITalkable
             lastInteractedStoreItem = null;
         }
         if(lastSeenItem) lastSeenItem = null;
+    }
+
+    public void HourlyUpdate()
+    {
+        //update store at night. Change to perform when not in view of the player 
+        if(TimeManager.currentHour == 17)
+        {
+            RefreshStore();
+        }
     }
     
 }

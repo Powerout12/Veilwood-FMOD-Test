@@ -26,6 +26,8 @@ public class WaterCanBehavior : ToolBehavior
                 {
                     HandItemManager.Instance.PlayPrimaryAnimation();
                     HandItemManager.Instance.toolSource.PlayOneShot(pour);
+                    PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.8f, 1.3f));
+                    PlayerMovement.restrictMovementTokens++;
                 } 
             }
         }
@@ -36,7 +38,10 @@ public class WaterCanBehavior : ToolBehavior
         //nothing
     }
 
-    public override void ItemUsed() { }
+    public override void ItemUsed() 
+    { 
+        PlayerMovement.restrictMovementTokens--;
+    }
 
 
 }

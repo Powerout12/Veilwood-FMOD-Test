@@ -15,6 +15,7 @@ public class FarmLand : StructureBehaviorScript
     //public float nutrients.waterLevel; //How much has this crop been watered
     public int growthStage = -1; //-1 means there is no crop
     public int hoursSpent = 0; //how long has the plant been in this growth stage for?
+    int plantStress = 0; //how much stress the plant has, gained from lack of nutrients/water. If 0 stress, the plant can produce seeds
 
     public bool harvestable = false; //true if growth stage matches crop data growth stages
     public bool rotted = false;
@@ -71,6 +72,8 @@ public class FarmLand : StructureBehaviorScript
         {
             crop = newCrop.cropData;
             growthStage = 1;
+            hoursSpent = 0;
+            plantStress = 0;
             SpriteChange();
             HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
             playerInventoryHolder.UpdateInventory();
@@ -103,15 +106,19 @@ public class FarmLand : StructureBehaviorScript
                         droppedItem.transform.position = transform.position;
                     }
                     int r = Random.Range(crop.seedYieldAmount - crop.seedYieldVariance, crop.seedYieldAmount + crop.seedYieldVariance + 1);
+                    if(r == 0) r = 1;
                     for (int i = 0; i < r; i++)
                     {
+                        if(!crop.cropSeed || plantStress != 0) return;
                         droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
                         droppedItem.transform.position = transform.position;
                     }
+                    
                 }
             }
 
             crop = null;
+            hoursSpent = 0;
             if (isWeed) Destroy(this.gameObject);
             SpriteChange();
         }
@@ -217,34 +224,33 @@ public class FarmLand : StructureBehaviorScript
     void DrainNutrients()
     {
         //PLANTS DRAIN PER GROWTH STAGE, AND THE PLAYER SHOULD HAVE TO WATER ROUGHLY EVERY STAGE/EVERY OTHER STAGE
-        bool plantDied = false;
         nutrients.ichorLevel -= crop.ichorIntake;
         if(nutrients.ichorLevel < 0)
         {
             nutrients.ichorLevel = 0;
-            plantDied = true;
+            plantStress++;
         }
         nutrients.terraLevel -= crop.terraIntake;
         if(nutrients.terraLevel < 0)
         {
             nutrients.terraLevel = 0;
-            plantDied = true;
+            plantStress++;
         }
         nutrients.gloamLevel -= crop.gloamIntake;
         if(nutrients.gloamLevel < 0)
         {
             nutrients.gloamLevel = 0;
-            plantDied = true;
+            plantStress++;
         }
         nutrients.waterLevel -= crop.waterIntake;
         if(nutrients.waterLevel < 0)
         {
             nutrients.waterLevel = 0;
-            plantDied = true;
+            plantStress++;
         }
         StructureManager.Instance.UpdateStorage(transform.position, nutrients);
 
-        if(plantDied && !isWeed)
+        if(plantStress > crop.stressLimit && !isWeed)
         {
             CropDied();
         }

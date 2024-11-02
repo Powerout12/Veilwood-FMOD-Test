@@ -29,6 +29,8 @@ public class StructureBehaviorScript : MonoBehaviour
         OnStructuresUpdated?.Invoke();
         //source = GetComponent<AudioSource>();
         audioHandler = GetComponent<StructureAudioHandler>();
+
+        TimeManager.OnHourlyUpdate += HourPassed;
     }
 
 
@@ -57,6 +59,7 @@ public class StructureBehaviorScript : MonoBehaviour
         } 
         StructureManager.Instance.allStructs.Remove(this);
         OnStructuresUpdated?.Invoke();
+        TimeManager.OnHourlyUpdate -= HourPassed;
 
     }
 }
