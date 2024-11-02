@@ -9,7 +9,9 @@ public class TimeManager : MonoBehaviour
     public static bool isDay;
     public TextMeshProUGUI timeText;
     public Light dayLight;
-    StructureManager structManager;
+
+    public delegate void HourlyUpdate();
+    public static event HourlyUpdate OnHourlyUpdate;
 
     public Material skyMat;
     float desiredBlend;
@@ -19,7 +21,6 @@ public class TimeManager : MonoBehaviour
     {
         if(currentHour >= 6 && currentHour < 20) isDay = true;
         else isDay = false;
-        structManager = GetComponent<StructureManager>();
         if(!dayLight) dayLight = FindObjectOfType<Light>();
         StartCoroutine("TimePassage");
         InitializeSkyBox();
@@ -50,7 +51,7 @@ public class TimeManager : MonoBehaviour
             if(currentHour >= 6 && currentHour < 20) isDay = true;
             else isDay = false;
             
-            structManager.HourUpdate();
+            OnHourlyUpdate?.Invoke();
             print("Hour passed. Time is now " + currentHour);
 
             switch (currentHour)

@@ -6,6 +6,11 @@ public class ShovelAttack : MonoBehaviour
 {
     public LayerMask hitDetection;
     public Collider collider;
+
+    void Start()
+    {
+        collider.enabled = false;
+    }
     
     public IEnumerator Swing()
     {
@@ -30,6 +35,8 @@ public class ShovelAttack : MonoBehaviour
             //playsound
             print("Hit Creature");
         }
+
+        //Something to hit corpses
 
         
     }

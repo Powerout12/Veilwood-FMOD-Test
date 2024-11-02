@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 1650829069434753569}
   - component: {fileID: 7164952027227652097}
   - component: {fileID: 7945951751573912567}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: StoreItemCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4596344592340862837}
   - component: {fileID: 7234849810479144316}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: ItemSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
