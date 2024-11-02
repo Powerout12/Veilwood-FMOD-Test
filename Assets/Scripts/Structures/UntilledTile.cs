@@ -53,7 +53,7 @@ public class UntilledTile : StructureBehaviorScript
 
     IEnumerator QuickHoe()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.4f);
         secondTill.SetActive(true);
         firstTill.SetActive(false);
         yield return new WaitForSeconds(0.5f);

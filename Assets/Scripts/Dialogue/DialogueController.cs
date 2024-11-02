@@ -44,7 +44,7 @@ public class DialogueController : MonoBehaviour
 
     public void AdvanceDialogue()
     {
-        if(IsTalking() == true && currentTalker) DisplayNextParagraph(currentTalker.dialogueText, currentPath);
+        if(IsTalking() == true && currentTalker && currentPath != -1) DisplayNextParagraph(currentTalker.dialogueText, currentPath);
     }
 
     public void DisplayNextParagraph(DialogueText dialogueText, int path)
