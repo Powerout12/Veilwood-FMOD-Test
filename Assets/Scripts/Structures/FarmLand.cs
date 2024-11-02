@@ -109,9 +109,12 @@ public class FarmLand : StructureBehaviorScript
                     if(r == 0) r = 1;
                     for (int i = 0; i < r; i++)
                     {
-                        if(!crop.cropSeed || plantStress != 0) return;
-                        droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
-                        droppedItem.transform.position = transform.position;
+                        if(crop.cropSeed && plantStress == 0)
+                        {
+                            droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
+                            droppedItem.transform.position = transform.position;
+                        }
+                        
                     }
                     
                 }

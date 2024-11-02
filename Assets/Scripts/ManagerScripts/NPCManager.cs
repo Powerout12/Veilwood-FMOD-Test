@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
+    //MANAGER FOR NPC QUEST AND DIALOGUE PROGRESSION
     // Start is called before the first frame update
     void Start()
     {
