@@ -213,7 +213,7 @@ public class UICropStats : MonoBehaviour
                 waterAmountD.text = "Low";
                 waterAmount.text = "Low";
             }
-            waterNumber.text = tileNutrients.waterLevel.ToString() + "/ 5";
+            waterNumber.text = tileNutrients.waterLevel.ToString() + "/ 10";
 
             //Growth Stage Check
             if(tile.isWeed == false && tile.crop)
