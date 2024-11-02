@@ -212,12 +212,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1c6623afdf1e992468dd092ddbfe177d, type: 2}
   - {fileID: 11400000, guid: 43a08c656a285f447b97b8dccdd0a0e0, type: 2}
   - {fileID: 11400000, guid: 38970a9a78b0dfa46a3de5a108691b3e, type: 2}
+  - {fileID: 11400000, guid: 41d4e27b3f49bc748823ae9d57d9752d, type: 2}
   itemWeight:
   - 1
   - 0.1
   - 0.25
   - 0.25
   - 0.25
+  - 1
   storeItems:
   - {fileID: 7136066315645887399}
   - {fileID: 8212830714044354903}

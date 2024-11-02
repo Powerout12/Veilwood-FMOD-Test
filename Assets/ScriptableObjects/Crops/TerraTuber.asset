@@ -26,10 +26,10 @@ MonoBehaviour:
   cropSeed: {fileID: 0}
   cropYieldAmount: 1
   seedYieldAmount: 1
-  seedYieldVariance: 1
+  seedYieldVariance: 2
   waterIntake: 4
   ichorIntake: 0
-  terraIntake: 0.75
+  terraIntake: 0.25
   gloamIntake: -0.5
   stressLimit: 2
   creaturePrefab: {fileID: 0}
