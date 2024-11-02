@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         MyMovementInput();
         SpeedControl();
         rb.drag = groundDrag;
+        GroundedCheck();
 
     }
 
@@ -108,6 +109,20 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+    }
+
+    private void GroundedCheck()
+    {
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit, 2f))
+        { 
+            //grounded
+        }
+        else
+        {
+            rb.AddForce(-Vector3.up * 30, ForceMode.Force);
         }
     }
 
