@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EntryHare 1
   m_EditorClassIdentifier: 
   entryType: 0
+  unlocked: 1
   entryName: Hare2
   description: Hare, the sequel

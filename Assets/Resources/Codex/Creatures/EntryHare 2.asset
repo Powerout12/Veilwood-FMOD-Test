@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EntryHare 2
   m_EditorClassIdentifier: 
   entryType: 0
+  unlocked: 0
   entryName: Hare3
   description: Hare, the Trilogy
