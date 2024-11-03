@@ -36,3 +36,12 @@ MonoBehaviour:
       What do
       you say?'
     emotions: 00000000
+  - paragraphs:
+    - I see that caught your eye. Care to buy?
+    emotions: 00000000
+  - paragraphs:
+    - Sold! {itemBought}
+    emotions: 01000000
+  - paragraphs:
+    - Get some more money first.
+    emotions: 03000000

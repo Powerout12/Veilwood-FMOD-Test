@@ -13,6 +13,7 @@ public class HotbarDisplay : MonoBehaviour
         currentIndex = 0;
         currentSlot = hotbarSlots[currentIndex];
         currentSlot.ToggleHighlight(); // Highlight the initial slot
+        SelectHotbarSlot(currentIndex);
     }
 
     private void OnEnable()

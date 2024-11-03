@@ -14,7 +14,7 @@ public class WaterCanBehavior : ToolBehavior
         //water
         Vector3 fwd = player.TransformDirection(Vector3.forward);
         RaycastHit hit;
-        if (Physics.Raycast(player.position, fwd, out hit, 4, 1 << 6))
+        if (Physics.Raycast(player.position, fwd, out hit, 4, mask))
         {
             var structure = hit.collider.GetComponent<StructureBehaviorScript>();
             if (structure != null)
@@ -26,6 +26,8 @@ public class WaterCanBehavior : ToolBehavior
                 {
                     HandItemManager.Instance.PlayPrimaryAnimation();
                     HandItemManager.Instance.toolSource.PlayOneShot(pour);
+                    PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.8f, 1.3f));
+                    PlayerMovement.restrictMovementTokens++;
                 } 
             }
         }
@@ -36,7 +38,10 @@ public class WaterCanBehavior : ToolBehavior
         //nothing
     }
 
-    public override void ItemUsed() { }
+    public override void ItemUsed() 
+    { 
+        PlayerMovement.restrictMovementTokens--;
+    }
 
 
 }

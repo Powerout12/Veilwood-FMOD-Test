@@ -15,6 +15,8 @@ public class StructureBehaviorScript : MonoBehaviour
     public float health = 5;
     public float maxHealth = 5;
 
+    public float wealthValue = 1; //dictates how hard a night could be 
+
     [HideInInspector] public StructureAudioHandler audioHandler;
     //[HideInInspector] public AudioSource source;
 
@@ -27,6 +29,8 @@ public class StructureBehaviorScript : MonoBehaviour
         OnStructuresUpdated?.Invoke();
         //source = GetComponent<AudioSource>();
         audioHandler = GetComponent<StructureAudioHandler>();
+
+        TimeManager.OnHourlyUpdate += HourPassed;
     }
 
 
@@ -48,9 +52,14 @@ public class StructureBehaviorScript : MonoBehaviour
     {
         if(!gameObject.scene.isLoaded) return;
         print("Destroyed");
-        if(clearTileOnDestroy) StructureManager.Instance.ClearTile(transform.position);
+        if(clearTileOnDestroy && structData)
+        {
+            if(!structData.isLarge) StructureManager.Instance.ClearTile(transform.position);
+            else StructureManager.Instance.ClearLargeTile(transform.position);
+        } 
         StructureManager.Instance.allStructs.Remove(this);
         OnStructuresUpdated?.Invoke();
+        TimeManager.OnHourlyUpdate -= HourPassed;
 
     }
 }

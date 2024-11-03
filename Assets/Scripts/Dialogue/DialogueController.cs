@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class DialogueController : MonoBehaviour
 {
+    public static DialogueController Instance;
+
     [SerializeField] private TextMeshProUGUI NPCNameText;
     [SerializeField] private TextMeshProUGUI NPCDialogueText;
 
@@ -16,6 +18,7 @@ public class DialogueController : MonoBehaviour
     private bool conversationEnded;
     private bool isTalking = false;
     private bool interruptable = true;
+    public bool restartDialogue = false;
     private string p;
 
     private Emotion e;
@@ -26,13 +29,32 @@ public class DialogueController : MonoBehaviour
     public NPC currentTalker;
     private int currentPath = -1;
 
+    void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    public void AdvanceDialogue()
+    {
+        if(IsTalking() == true && currentTalker && currentPath != -1) DisplayNextParagraph(currentTalker.dialogueText, currentPath);
+    }
+
     public void DisplayNextParagraph(DialogueText dialogueText, int path)
     {
         // If nothing left in queue
         isTalking = true;
-        if(path != currentPath)
+        if(path != currentPath || restartDialogue)
         {
             currentPath = path;
+            restartDialogue = false;
             EndConversation();
             DisplayNextParagraph(dialogueText, currentPath);
             return;
@@ -153,6 +175,20 @@ public class DialogueController : MonoBehaviour
         PlayerInventoryHolder.Instance.UpdateInventory();
     }
 
+    public void PlayerBoughtItem()
+    {
+        var inventory = PlayerInventoryHolder.Instance;
+        if (inventory.AddToInventory(currentTalker.lastInteractedStoreItem.itemData, 1))
+        {
+            PlayerInteraction.Instance.currentMoney -= currentTalker.lastInteractedStoreItem.cost;
+            FindObjectOfType<PlayerEffectsHandler>().ItemCollectSFX();
+
+            currentTalker.EmptyShopItem();
+            //put it in inventory and remove money
+        }
+        
+    }
+
     void UpdateStringVariables()
     {
         if(HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData)
@@ -166,6 +202,12 @@ public class DialogueController : MonoBehaviour
                 PlayerSoldItem();
             }
         } 
+
+        if(p.Contains("{itemBought}"))
+        {
+            p = p.Replace("{itemBought}", $"{""}");
+            PlayerBoughtItem();
+        }
         
     }
 

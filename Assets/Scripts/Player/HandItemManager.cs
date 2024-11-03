@@ -28,7 +28,7 @@ public class HandItemManager : MonoBehaviour
 
     void Start()
     {
-        CheckSlotForTool();
+        StartCoroutine(DelayedStart());
     }
 
     // Update is called once per frame
@@ -101,8 +101,14 @@ public class HandItemManager : MonoBehaviour
         }
         else
         {
-            HandItemManager.Instance.ClearHandModel();
+            ClearHandModel();
         }
+    }
+
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.2f);
+        CheckSlotForTool();
     }
 
 }
