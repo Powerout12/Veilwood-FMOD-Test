@@ -86,7 +86,7 @@ public class Mandrake : CreatureBehaviorScript
                 break;
 
             case CreatureState.Die:
-                Die();
+                //OnDeath();
                 break;
 
             case CreatureState.Trapped:
@@ -223,9 +223,9 @@ public class Mandrake : CreatureBehaviorScript
         }
     }
 
-    private void Die()
+    public override void OnDeath()
     {
-        throw new NotImplementedException();
+        base.OnDeath();
     }
 
     private void Trapped()
