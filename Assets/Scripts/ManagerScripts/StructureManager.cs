@@ -67,6 +67,7 @@ public class StructureManager : MonoBehaviour
     {
         Instantiate(obj, pos, Quaternion.identity);
         Vector3Int gridPos = tileMap.WorldToCell(pos);
+        if(tileMap.GetTile(gridPos) == null) return;
         tileMap.SetTile(gridPos, occupiedTile);
     }
 
@@ -74,12 +75,12 @@ public class StructureManager : MonoBehaviour
     {
         GameObject instance = Instantiate(obj, pos, Quaternion.identity);
         Vector3Int gridPos = tileMap.WorldToCell(pos);
-        tileMap.SetTile(gridPos, occupiedTile);
+        if(tileMap.GetTile(gridPos) != null) tileMap.SetTile(gridPos, occupiedTile);
         return instance;
     }
 
     public bool SpawnLargeStructure(GameObject obj, Vector3 pos)
-    { //STILL DOES NOT WORK
+    { 
         List<Vector3Int> selectedTiles = new List<Vector3Int>();
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         selectedTiles.Add(gridPos);
@@ -112,12 +113,14 @@ public class StructureManager : MonoBehaviour
     public void SetTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);
+        if(tileMap.GetTile(gridPos) == null) return;
         tileMap.SetTile(gridPos, occupiedTile);
     }
 
     public void ClearTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);
+        if(tileMap.GetTile(gridPos) == null) return;
         tileMap.SetTile(gridPos, freeTile);
     }
 
@@ -130,7 +133,7 @@ public class StructureManager : MonoBehaviour
             Vector3 position = tileMap.GetCellCenterWorld(gridPosition);
             if(Vector3.Distance(position, pos) <= 3f)
             {
-                tileMap.SetTile(gridPosition, freeTile);
+                if(tileMap.GetTile(gridPosition) != null) tileMap.SetTile(gridPosition, freeTile);
                 //print("FoundTile");
             }
             

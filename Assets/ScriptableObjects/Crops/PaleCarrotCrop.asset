@@ -29,7 +29,8 @@ MonoBehaviour:
   seedYieldVariance: 1
   waterIntake: 4
   ichorIntake: 0
-  terraIntake: 0.75
-  gloamIntake: -0.5
+  terraIntake: -0.5
+  gloamIntake: 0.75
+  stressLimit: 1
   creaturePrefab: {fileID: 0}
   behavior: {fileID: 0}
