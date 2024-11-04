@@ -66,11 +66,9 @@ public class MistWalker : CreatureBehaviorScript
 
     private void UpdateStructureList()
     {
-       availableStructure.Clear();
-        foreach (StructureBehaviorScript structure in structManager.allStructs)
-        {
-            availableStructure.Add(structure);
-        }
+        availableStructure.Clear();
+        availableStructure = structManager.allStructs;
+
         if (availableStructure.Count > 0)
         {
             int r = Random.Range(0, availableStructure.Count);

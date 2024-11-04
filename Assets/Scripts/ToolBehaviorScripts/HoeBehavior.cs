@@ -48,7 +48,7 @@ public class HoeBehavior : ToolBehavior
                 //HandItemManager.Instance.toolSource.PlayOneShot(swing);
                 PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.4f, 1.9f));
                 PlayerMovement.restrictMovementTokens++;
-                //HAVE PLAYER NOT BE ABLE TO TURN
+                PlayerInteraction.Instance.StaminaChange(-2);
             }
 
         }
