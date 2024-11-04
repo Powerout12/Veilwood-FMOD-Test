@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor.Rendering;
 
 public class UICropStats : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class UICropStats : MonoBehaviour
 
     public Image gloamBG, terraBG, ichorBG;
     public Image gloamBGD, terraBGD, ichorBGD;
+    public Image gloamArrow, terraArrow, ichorArrow, waterArrow;
     public Color c_default, c_rising, c_lowering;
 
     // Start is called before the first frame update
@@ -94,6 +96,7 @@ public class UICropStats : MonoBehaviour
                     isActive = true;
                     //growthStageText.SetActive(false);
                     cropNameText.text = "Farmland";
+                    cropNameTextD.text = "Farmland";
                     
                 }
                 else
@@ -101,6 +104,7 @@ public class UICropStats : MonoBehaviour
                     isActive = true;
                     //growthStageText.SetActive(true);
                     cropNameText.text = hitCrop.crop.name;
+                    cropNameTextD.text = hitCrop.crop.name;
                 }
                 FarmlandStatUpdate(hitCrop);
             }
@@ -143,7 +147,7 @@ public class UICropStats : MonoBehaviour
                 gloamAmountD.text = "Low";
                 gloamAmount.text = "Low";
             }
-            gloamNumber.text = tileNutrients.gloamLevel.ToString() + "/ 10";
+            gloamNumber.text = tileNutrients.gloamLevel.ToString() + "/10";
 
             //Terra Level Check
             if(tileNutrients.terraLevel >= nHigh)
@@ -167,7 +171,7 @@ public class UICropStats : MonoBehaviour
                 terraAmountD.text = "Low";
                 terraAmount.text = "Low";
             }
-            terraNumber.text = tileNutrients.terraLevel.ToString() + "/ 10";
+            terraNumber.text = tileNutrients.terraLevel.ToString() + "/10";
 
             //Ichor Level Check idk if it's actually called ichor but that's what it says in the structure manager script so that's what I'm going with
             if(tileNutrients.ichorLevel >= nHigh)
@@ -190,7 +194,7 @@ public class UICropStats : MonoBehaviour
                 ichorAmountD.text = "Low";
                 ichorAmount.text = "Low";
             }
-            ichorNumber.text = tileNutrients.ichorLevel.ToString() + "/ 10";
+            ichorNumber.text = tileNutrients.ichorLevel.ToString() + "/10";
 
             //Water Level Check
             if(tileNutrients.waterLevel >= wlHigh)
@@ -213,7 +217,7 @@ public class UICropStats : MonoBehaviour
                 waterAmountD.text = "Low";
                 waterAmount.text = "Low";
             }
-            waterNumber.text = tileNutrients.waterLevel.ToString() + "/ 10";
+            waterNumber.text = tileNutrients.waterLevel.ToString() + "/10";
 
             //Growth Stage Check
             if(tile.isWeed == false && tile.crop)
@@ -230,6 +234,10 @@ public class UICropStats : MonoBehaviour
 
             if(!tile.crop)
             {
+                gloamArrow.color = c_default;
+                terraArrow.color = c_default;
+                ichorArrow.color = c_default;
+                //waterArrow.color = c_default;
                 gloamBGD.color = c_default;
                 terraBGD.color = c_default;
                 ichorBGD.color = c_default;
@@ -243,48 +251,66 @@ public class UICropStats : MonoBehaviour
             {
                 gloamBGD.color = c_lowering;
                 gloamBG.color = c_lowering;
+                gloamArrow.color = c_lowering;
+                gloamArrow.transform.rotation = Quaternion.Euler(0f,0f,0f);
             }
             else if(tile.crop.gloamIntake < 0)
             {
                 gloamBGD.color = c_rising;
                 gloamBG.color = c_rising;
+                gloamArrow.color = c_rising;
+                gloamArrow.transform.rotation = Quaternion.Euler(0f,0f,180f);
             } 
             else 
             {
                 gloamBGD.color = c_default;
                 gloamBG.color = c_default;
+                gloamArrow.color = c_default;
+                gloamArrow.transform.rotation = Quaternion.Euler(0f,0f,0f);
             }
 
             if(tile.crop.terraIntake > 0) 
             {
                 terraBGD.color = c_lowering;
                 terraBG.color = c_lowering;
+                terraArrow.color = c_lowering;
+                terraArrow.transform.rotation = Quaternion.Euler(0f,0f,0f);
             }
             else if(tile.crop.terraIntake < 0) 
             {
                 terraBGD.color = c_rising;
                 terraBG.color = c_rising;
+                terraArrow.color = c_rising;
+                terraArrow.transform.rotation = Quaternion.Euler(0f,0f,180f);
             }
             else 
             {
                 terraBGD.color = c_default;
                 terraBG.color = c_default;
+                terraArrow.color = c_default;
+                terraArrow.transform.rotation = Quaternion.Euler(0f,0f,0f);
             }
 
             if(tile.crop.ichorIntake > 0) 
             {
                 ichorBGD.color = c_lowering;
                 ichorBG.color = c_lowering;
+                ichorArrow.color = c_lowering;
+                ichorArrow.transform.rotation = Quaternion.Euler(0f,0f,0f);
             }
             else if(tile.crop.ichorIntake < 0) 
             {
                 ichorBGD.color = c_rising;
                 ichorBG.color = c_rising;
+                ichorArrow.color = c_rising;
+                ichorArrow.transform.rotation = Quaternion.Euler(0f,0f,180f);
             }
             else 
             {
                 ichorBGD.color = c_default;
                 ichorBG.color = c_default;
+                ichorArrow.color = c_default;
+                ichorArrow.transform.rotation = Quaternion.Euler(0f,0f,0f);
             }
     }
 }
