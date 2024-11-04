@@ -18,6 +18,8 @@ public class StructureManager : MonoBehaviour
     List<Vector3Int> allTiles = new List<Vector3Int>();
     List<NutrientStorage> storage = new List<NutrientStorage>();
 
+    [Header("CropDebugs")]
+    public bool ignoreCropGrowthTime = false; //if true, each growth phase takes an hour
 
 
     void Awake()
@@ -31,6 +33,7 @@ public class StructureManager : MonoBehaviour
         {
             Instance = this;
         }
+        InstantiateNutrientStorage();
         //load in all the saved data, such as the nutrient storages and alltiles list
         PopulateWeeds(10, 20); //Only do this when a new game has started. Implement weeds spawning in over time
         PopulateTrees(8, 12);
@@ -130,13 +133,48 @@ public class StructureManager : MonoBehaviour
         //print("Clearing");
         foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
         {
-            Vector3 position = tileMap.GetCellCenterWorld(gridPosition);
-            if(Vector3.Distance(position, pos) <= 3f)
+            Vector3 tilePosition = tileMap.GetCellCenterWorld(gridPosition);
+            if(Vector3.Distance(tilePosition, pos) <= 3f)
             {
                 if(tileMap.GetTile(gridPosition) != null) tileMap.SetTile(gridPosition, freeTile);
                 //print("FoundTile");
             }
             
+        }
+    }
+
+    public void IchorRefill(Vector3 pos, float radius, float amount)
+    {
+        foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
+        {
+            Vector3 tilePosition = tileMap.GetCellCenterWorld(gridPosition);
+            if(Vector3.Distance(tilePosition, pos) <= radius && tileMap.GetTile(gridPosition) != null)
+            {
+                for(int i = 0; i < allTiles.Count; i++)
+                {
+                    if(allTiles[i] == gridPosition)
+                    {
+                        if(storage[i] == null) storage[i] = new NutrientStorage();
+
+                        storage[i].ichorLevel += amount;
+                        if(storage[i].ichorLevel > 10) storage[i].ichorLevel = 10;
+                    } 
+                }
+            }
+            
+        }
+    }
+
+    void InstantiateNutrientStorage()
+    {
+        foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
+        {
+            if(tileMap.GetTile(gridPosition) != null)
+            {
+                allTiles.Add(gridPosition);
+                NutrientStorage newStorage = new NutrientStorage();
+                storage.Add(newStorage);
+            }
         }
     }
 
@@ -155,7 +193,8 @@ public class StructureManager : MonoBehaviour
                 }
             } 
         }
-        //if its not in the list
+        //if its not in the list. None of this should ever have to be called since we are instantiating the storages at scene start
+        Debug.Log("We have a storage problem");
         allTiles.Add(gridPos);
         NutrientStorage newStorage = new NutrientStorage();
         storage.Add(newStorage);

@@ -5436,7 +5436,7 @@ MonoBehaviour:
   dayLight: {fileID: 0}
   skyMat: {fileID: 2100000, guid: b765a272ba3f08b4cbd57e302799320e, type: 2}
   nightColor: {r: 0.24705882, g: 0.41568628, b: 0.42352942, a: 1}
-  dayColor: {r: 1, g: 0.9607843, b: 0.76862746, a: 1}
+  dayColor: {r: 0.7058824, g: 0.68235296, b: 0.5647059, a: 1}
 --- !u!114 &4750952263133987452
 MonoBehaviour:
   m_ObjectHideFlags: 0

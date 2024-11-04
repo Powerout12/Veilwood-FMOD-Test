@@ -16,6 +16,8 @@ public class TimeManager : MonoBehaviour
     public Material skyMat;
     float desiredBlend;
     public Color nightColor, dayColor;
+
+    
     // Start is called before the first frame update
     void Start()
     {
