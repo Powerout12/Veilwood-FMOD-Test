@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pale Carrot
   growthStages: 4
-  hoursPerStage: 5
+  hoursPerStage: 6
   harvestableGrowthStages: 04000000
   cropSprites:
   - {fileID: -1083060862, guid: be6afb23f3e5fc54cb6baa4782d3d68f, type: 3}

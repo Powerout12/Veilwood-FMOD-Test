@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
   
 
-    public static bool isStalled;
+    public static bool isStalled, isCodexOpen;
     public static bool accessingInventory;
     public static int restrictMovementTokens = 0; //if 0, player can move, else, they cant. This keeps track if multiple sources are stopping player movement
 
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         MyInput();
-        if (isStalled)
+        if (isStalled || isCodexOpen)
             return;
 
         MyMovementInput();
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isStalled)
+        if (isStalled || isCodexOpen)
             return;
         MovePlayer();
     }

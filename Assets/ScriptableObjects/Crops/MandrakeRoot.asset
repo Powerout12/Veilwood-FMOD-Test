@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Mandrake
   growthStages: 4
-  hoursPerStage: 1
+  hoursPerStage: 9
   harvestableGrowthStages: 
   cropSprites:
   - {fileID: -1489303540, guid: 737d75bd0db95ec438000c855501225a, type: 3}
@@ -27,7 +27,7 @@ MonoBehaviour:
   cropYieldAmount: 1
   seedYieldAmount: 0
   seedYieldVariance: 0
-  waterIntake: 4
+  waterIntake: 5
   ichorIntake: 0.75
   terraIntake: 0.5
   gloamIntake: -0.5

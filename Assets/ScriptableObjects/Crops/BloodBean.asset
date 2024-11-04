@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Blood Bean
   growthStages: 5
-  hoursPerStage: 6
-  harvestableGrowthStages: 07000000
+  hoursPerStage: 10
+  harvestableGrowthStages: 05000000
   cropSprites:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
