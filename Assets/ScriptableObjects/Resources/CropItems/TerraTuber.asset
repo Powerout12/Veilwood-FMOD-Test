@@ -20,3 +20,4 @@ MonoBehaviour:
   value: 16
   sellValueMultiplier: 1
   isKeyItem: 0
+  staminaValue: 14
