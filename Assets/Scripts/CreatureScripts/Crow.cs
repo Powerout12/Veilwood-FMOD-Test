@@ -33,6 +33,7 @@ public class Crow : CreatureBehaviorScript
     private bool coroutineRunning = false;
     private float timeBeforeAttack;
     private float savedAngle;
+    private GameObject currentStructure;
     public CreatureState currentState;
     #endregion
 
@@ -107,16 +108,25 @@ public class Crow : CreatureBehaviorScript
 
     private void CircleAroundPlayer()
     {
-  
+       
         angle += circleSpeed * Time.deltaTime;
         if (angle >= 360f) angle -= 360f;
 
         Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
         height = Mathf.PingPong(Time.time * 2, 10f) + 5f;
         Vector3 targetPosition = player.position + offset + Vector3.up * height;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * circleSpeed);
-        transform.LookAt(targetPosition);
-        if (!coroutineRunning)
+
+        if (Vector3.Distance(player.position, transform.position) > radius * 2)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.1f);
+            transform.LookAt(targetPosition);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * circleSpeed);
+            transform.LookAt(targetPosition);
+        }
+            if (!coroutineRunning)
         {
             StartCoroutine(Decide());
         }
@@ -180,61 +190,39 @@ public class Crow : CreatureBehaviorScript
     {
         if (other.CompareTag("scarecrow"))
         {
+            currentStructure = other.gameObject;
             StopAllCoroutines();
             coroutineRunning = false;
             currentState = CreatureState.Flee;
         }
     }
 
-    private void ReturnToCircle()
-    {
-        if (!coroutineRunning)
-        {
-            StartCoroutine(ReturnToCirclePosition());
-        }
-    }
+
     #endregion
 
     #region Coroutines
     private IEnumerator FleeFromStructure()
     {
         coroutineRunning = true;
-        Vector3 targetPosition = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z + 10);
+
+      
+        Vector3 fleeDirection = (transform.position - currentStructure.transform.position).normalized;
+    
+        Vector3 targetPosition = transform.position + fleeDirection * radius;
 
         while (Vector3.Distance(transform.position, targetPosition) > 1f)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * circleSpeed);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, circleSpeed * Time.deltaTime);
             yield return null;
         }
 
-        currentState = CreatureState.Wait;
-        coroutineRunning = false;
-        ReturnToCircle();
-    }
-
-    
-
-    private IEnumerator ReturnToCirclePosition()
-    {
-        coroutineRunning = true;
-
-      
-        Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
-        Vector3 targetPosition = player.position + offset + Vector3.up * height;
-
-        float distance = Vector3.Distance(transform.position, targetPosition);
-        float remainingDistance = distance;
-
-        while (remainingDistance > 0.1f)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, 1 - (remainingDistance / distance));
-            remainingDistance -= circleSpeed * Time.deltaTime;
-            yield return null;
-        }
-
+ 
         currentState = CreatureState.CirclePlayer;
         coroutineRunning = false;
     }
+
+
+
 
     private IEnumerator Attack()
     {

@@ -938,7 +938,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 500
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -1456,7 +1456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &361333376
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2236,6 +2236,11 @@ PrefabInstance:
       propertyPath: otherEnd
       value: 
       objectReference: {fileID: 1972589560}
+    - target: {fileID: 8972721610184776350, guid: 84bbed3313ade694994cd79ad5dc53da,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4709,7 +4714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1275158853
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5271,6 +5276,12 @@ MonoBehaviour:
   confused: {fileID: 8300000, guid: 7429ea34e6383834d98732c4fb970ee8, type: 3}
   shocked: {fileID: 8300000, guid: 9adcd4dc5f37cdc4e8749072f99ff2b5, type: 3}
   currentPath: -1
+  lastInteractedStoreItem: {fileID: 0}
+  anim: {fileID: 0}
+  sellMultiplier: 1
+  possibleSoldItems: []
+  itemWeight: []
+  storeItems: []
 --- !u!1001 &1425670497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11187,6 +11198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaf9ee1ef95c6241925cd1a6fe8ef16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invert: 0
 --- !u!114 &1666029940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13687,6 +13699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaf9ee1ef95c6241925cd1a6fe8ef16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invert: 0
 --- !u!114 &3488344060801452364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14058,6 +14071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaf9ee1ef95c6241925cd1a6fe8ef16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invert: 0
 --- !u!114 &7367519253914124828
 MonoBehaviour:
   m_ObjectHideFlags: 0
