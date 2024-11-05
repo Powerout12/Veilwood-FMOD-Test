@@ -71,7 +71,9 @@ public class CreatureBehaviorScript : MonoBehaviour
             if(Random.Range(0f,10f) < dropChance[i])
             {
                 GameObject droppedItem = ItemPoolManager.Instance.GrabItem(droppedItems[i]);
-                droppedItem.transform.position = transform.position;
+                float x = Random.Range(-0.5f,0.5f);
+                float z = Random.Range(-0.5f,0.5f);
+                droppedItem.transform.position = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
             }
         }
     } //Triggers creature specific effects

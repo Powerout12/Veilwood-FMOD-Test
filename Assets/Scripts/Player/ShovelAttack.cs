@@ -7,6 +7,8 @@ public class ShovelAttack : MonoBehaviour
     public LayerMask hitDetection;
     public Collider collider;
 
+    public AudioClip hitStruct, hitFlesh;
+
     void Start()
     {
         collider.enabled = false;
@@ -25,6 +27,7 @@ public class ShovelAttack : MonoBehaviour
         if (structure != null)
         {
             structure.health -= 2;
+            HandItemManager.Instance.toolSource.PlayOneShot(hitStruct);
             print("Hit Structure");
             PlayerInteraction.Instance.StaminaChange(-1);
             collider.enabled = false;
@@ -35,6 +38,7 @@ public class ShovelAttack : MonoBehaviour
         {
             creature.TakeDamage(25);
             //playsound
+            HandItemManager.Instance.toolSource.PlayOneShot(hitFlesh);
             print("Hit Creature");
             PlayerInteraction.Instance.StaminaChange(-1);
             collider.enabled = false;

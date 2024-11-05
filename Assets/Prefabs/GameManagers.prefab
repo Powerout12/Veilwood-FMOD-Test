@@ -218,6 +218,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cafce7a69597c3e4d8fcf0ad07e580e9, type: 3}
   musicAmbience:
   - {fileID: 8300000, guid: 5c44b85eb80e7c940b935c0f9dc5047e, type: 3}
+  bellTower: {fileID: 8300000, guid: 1a7ba7df697a64948a96110411f09fb7, type: 3}
 --- !u!82 &4487365083115385320
 AudioSource:
   m_ObjectHideFlags: 0
