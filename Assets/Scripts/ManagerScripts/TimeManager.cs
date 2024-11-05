@@ -55,6 +55,7 @@ public class TimeManager : MonoBehaviour
             
             OnHourlyUpdate?.Invoke();
             print("Hour passed. Time is now " + currentHour);
+            print("Is it day? " + isDay);
 
             switch (currentHour)
             {
@@ -147,11 +148,11 @@ public class TimeManager : MonoBehaviour
                 lerpedColor = Color.Lerp(nightColor, dayColor, 1f);
                 break;
             case 18:
-                skyMat.SetFloat("_BlendCubemaps", 0.4f);
+                skyMat.SetFloat("_BlendCubemaps", 0.5f);
                 lerpedColor = Color.Lerp(nightColor, dayColor, 0.4f);
                 break;
             case 19:
-                skyMat.SetFloat("_BlendCubemaps", 0.2f);
+                skyMat.SetFloat("_BlendCubemaps", 0.25f);
                 lerpedColor = Color.Lerp(nightColor, dayColor, 0.2f);
                 break;
             case 20:

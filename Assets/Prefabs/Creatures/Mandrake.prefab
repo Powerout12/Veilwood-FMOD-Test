@@ -36,7 +36,8 @@ Transform:
   m_LocalPosition: {x: 11.582838, y: 0.59, z: -30.854}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6981907453311176083}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6198489945415801376
@@ -51,25 +52,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82663214cf4600a458180e25dbd1ae26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  maxHealth: 30
+  health: 75
+  maxHealth: 75
+  ichorWorth: 5
+  ichorDropRadius: 2
   structManager: {fileID: 0}
   effectsHandler: {fileID: 0}
   player: {fileID: 0}
   rb: {fileID: 0}
   anim: {fileID: 0}
+  droppedItems:
+  - {fileID: 11400000, guid: 3b5afa9f577a91f4c84ad661e6f277cc, type: 2}
+  - {fileID: 11400000, guid: f5fa1d7101a92414b9d7f40f28242b5d, type: 2}
+  dropChance:
+  - 100
+  - 50
   sightRange: 20
   playerInSightRange: 0
   playerInAttackRange: 0
   shovelVulnerable: 1
   isTrapped: 0
   isDead: 0
+  damageToStructure: 0
+  damageToPlayer: 0
   agent: {fileID: 0}
   fleeDistance: 5
   tileMap: {fileID: 0}
   farmTile: {fileID: 2961193080738427394, guid: 5f5fcaf963705e0419b1ecadb42c0641,
     type: 3}
   data: {fileID: 11400000, guid: 8172637bdf1f08549abde986d4a5a463, type: 2}
+  timeBeforeLeavingFarm: 30
   currentState: 0
 --- !u!114 &6983707348498707119
 MonoBehaviour:
@@ -159,7 +171,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8095277121360393263}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -311,3 +323,77 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &7452910561886382712
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8513855937498427272}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01699234
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.072
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.008302536
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d693c00cc55d104383578b440a24d8f,
+        type: 3}
+      propertyPath: m_Name
+      value: mandrake
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d693c00cc55d104383578b440a24d8f, type: 3}
+--- !u!4 &6981907453311176083 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4d693c00cc55d104383578b440a24d8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7452910561886382712}
+  m_PrefabAsset: {fileID: 0}

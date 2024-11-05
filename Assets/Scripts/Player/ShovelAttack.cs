@@ -26,6 +26,8 @@ public class ShovelAttack : MonoBehaviour
         {
             structure.health -= 2;
             print("Hit Structure");
+            PlayerInteraction.Instance.StaminaChange(-1);
+            collider.enabled = false;
         }
 
         var creature = other.GetComponent<CreatureBehaviorScript>();
@@ -34,6 +36,8 @@ public class ShovelAttack : MonoBehaviour
             creature.TakeDamage(25);
             //playsound
             print("Hit Creature");
+            PlayerInteraction.Instance.StaminaChange(-1);
+            collider.enabled = false;
         }
 
         //Something to hit corpses

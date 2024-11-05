@@ -17,6 +17,9 @@ public class CreatureBehaviorScript : MonoBehaviour
     public Rigidbody rb;
     public Animator anim;
 
+    public InventoryItemData[] droppedItems;
+    public float[] dropChance;
+
     public float sightRange = 4; //how far can it see the player
     public bool playerInSightRange = false;
     public bool playerInAttackRange = false;
@@ -62,6 +65,15 @@ public class CreatureBehaviorScript : MonoBehaviour
     public virtual void OnDeath()
     {
         if(ichorWorth > 0) structManager.IchorRefill(transform.position, ichorWorth, ichorDropRadius);
+        //temp stuff while we figure out corpses
+        for(int i = 0; i < droppedItems.Length; i++)
+        {
+            if(Random.Range(0f,10f) < dropChance[i])
+            {
+                GameObject droppedItem = ItemPoolManager.Instance.GrabItem(droppedItems[i]);
+                droppedItem.transform.position = transform.position;
+            }
+        }
     } //Triggers creature specific effects
 
 
