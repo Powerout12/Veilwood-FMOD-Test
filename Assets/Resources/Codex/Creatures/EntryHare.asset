@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EntryHare
   m_EditorClassIdentifier: 
   entryType: 0
-  unlocked: 1
+  unlocked: 0
   entryName: Hare
   description: This devious little bastard will destroy your crops if you do not
     wack it with a shovel or trap it or something idk you could also shoot it but
