@@ -17,13 +17,16 @@ MonoBehaviour:
   hoursPerStage: 4
   harvestableGrowthStages: 
   cropSprites: []
+  rottedImage: {fileID: 0}
   cropYield: {fileID: 0}
   cropSeed: {fileID: 0}
   cropYieldAmount: 3
   seedYieldAmount: 0
   seedYieldVariance: 0
-  waterIntake: 4
+  waterIntake: 3
   ichorIntake: 0
   terraIntake: -0.25
   gloamIntake: 0.75
+  stressLimit: 1
   creaturePrefab: {fileID: 0}
+  behavior: {fileID: 0}

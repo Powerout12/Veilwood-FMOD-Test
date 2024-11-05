@@ -43,6 +43,7 @@ public class ShovelBehavior : ToolBehavior
                     //HandItemManager.Instance.toolSource.PlayOneShot(dig);
                     PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.7f, 1.7f));
                     PlayerMovement.restrictMovementTokens++;
+                    PlayerInteraction.Instance.StaminaChange(-2);
 
                 }
             }

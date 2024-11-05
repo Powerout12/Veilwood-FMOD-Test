@@ -28,7 +28,23 @@ public class WaterCanBehavior : ToolBehavior
                     HandItemManager.Instance.toolSource.PlayOneShot(pour);
                     PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.8f, 1.3f));
                     PlayerMovement.restrictMovementTokens++;
+                    PlayerInteraction.Instance.StaminaChange(-2);
                 } 
+            }
+
+            var interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.InteractWithItem(PlayerInteraction.Instance, out bool interactSuccessful, HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData);
+                if(interactSuccessful)
+                {
+                    HandItemManager.Instance.PlayPrimaryAnimation();
+                    HandItemManager.Instance.toolSource.PlayOneShot(pour);
+                    PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.8f, 1.3f));
+                    PlayerMovement.restrictMovementTokens++;
+                    PlayerInteraction.Instance.StaminaChange(-2);
+                }
+
             }
         }
     }

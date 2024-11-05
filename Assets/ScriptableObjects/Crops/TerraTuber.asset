@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 1129538082, guid: ed83ed8fe1d65064cb837de055a83f95, type: 3}
   - {fileID: -1376193884, guid: ed83ed8fe1d65064cb837de055a83f95, type: 3}
   rottedImage: {fileID: 1125634908, guid: ed83ed8fe1d65064cb837de055a83f95, type: 3}
-  cropYield: {fileID: 0}
-  cropSeed: {fileID: 0}
+  cropYield: {fileID: 11400000, guid: 290e218f74d5d2445b4c40b0ba01d7c2, type: 2}
+  cropSeed: {fileID: 11400000, guid: 41d4e27b3f49bc748823ae9d57d9752d, type: 2}
   cropYieldAmount: 1
   seedYieldAmount: 1
   seedYieldVariance: 2

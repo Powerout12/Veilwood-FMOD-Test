@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 4
   displayName: Terra Tuber Seeds
   description: 
-  icon: {fileID: 112162144, guid: be6afb23f3e5fc54cb6baa4782d3d68f, type: 3}
+  icon: {fileID: 1226185665, guid: ed83ed8fe1d65064cb837de055a83f95, type: 3}
   maxStackSize: 20
   value: 4
   sellValueMultiplier: 0

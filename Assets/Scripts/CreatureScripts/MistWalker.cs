@@ -66,11 +66,9 @@ public class MistWalker : CreatureBehaviorScript
 
     private void UpdateStructureList()
     {
-       availableStructure.Clear();
-        foreach (StructureBehaviorScript structure in structManager.allStructs)
-        {
-            availableStructure.Add(structure);
-        }
+        availableStructure.Clear();
+        availableStructure = structManager.allStructs;
+
         if (availableStructure.Count > 0)
         {
             int r = Random.Range(0, availableStructure.Count);
@@ -130,7 +128,7 @@ public class MistWalker : CreatureBehaviorScript
                 break;
 
             case CreatureState.Die:
-                Die();
+                //OnDeath();
                 break;
 
             case CreatureState.Trapped:
@@ -328,7 +326,7 @@ public class MistWalker : CreatureBehaviorScript
         }
         }
 
-        private void AttackPlayer()
+    private void AttackPlayer()
     {
         // Implementation for attacking the player
     }
@@ -338,13 +336,9 @@ public class MistWalker : CreatureBehaviorScript
         // Implementation for stun behavior
     }
 
-    private void Die()
-    {
-        // Implementation for death behavior
-    }
-
     public override void OnDeath()
     {
+        base.OnDeath();
         agent.enabled = false;
         rb.isKinematic = false;
         agent.ResetPath();
