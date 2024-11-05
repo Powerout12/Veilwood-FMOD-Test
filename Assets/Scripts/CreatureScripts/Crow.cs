@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ public class Crow : CreatureBehaviorScript
         Idle,
         Flee,
         CirclePlayer,
+        CirclePoint,
         AttackPlayer,
         Stun,
         Land,
@@ -35,6 +37,7 @@ public class Crow : CreatureBehaviorScript
     private float savedAngle;
     private GameObject currentStructure;
     public CreatureState currentState;
+    private Vector3 point;
     #endregion
 
     #region Unity Methods
@@ -66,6 +69,9 @@ public class Crow : CreatureBehaviorScript
                 break;
             case CreatureState.CirclePlayer:
                 CircleAroundPlayer();
+                break;
+            case CreatureState.CirclePoint:
+                CircleAroundPoint();
                 break;
             case CreatureState.AttackPlayer:
                 AttackPlayer();
@@ -132,6 +138,33 @@ public class Crow : CreatureBehaviorScript
         }
     }
 
+
+    private void CircleAroundPoint()
+    {
+
+        angle += circleSpeed * Time.deltaTime;
+        if (angle >= 360f) angle -= 360f;
+
+        Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+        height = Mathf.PingPong(Time.time * 2, 10f) + 5f;
+        Vector3 targetPosition = point + offset + Vector3.up * height;
+
+        if (Vector3.Distance(point, transform.position) > radius * 2)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.1f);
+            transform.LookAt(targetPosition);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * circleSpeed);
+            transform.LookAt(targetPosition);
+        }
+        if (!coroutineRunning)
+        {
+            StartCoroutine(Decide());
+        }
+    }
+
     private void AttackPlayer()
     {
         if (!coroutineRunning)
@@ -155,7 +188,24 @@ public class Crow : CreatureBehaviorScript
 
     private void Land()
     {
-      
+        angle += circleSpeed * Time.deltaTime;
+        if (angle >= 360f) angle -= 360f;
+
+        Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+        height = 0;
+        Vector3 targetPosition = point + offset + Vector3.up * height;
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * circleSpeed);
+        transform.LookAt(targetPosition);
+
+        Vector3 down = Vector3.down;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, down, out hit, 5f, LayerMask.GetMask("Ground"))) // Make sure the "Ground" layer is correct
+        {
+            rb.useGravity = true;
+            currentState = CreatureState.Idle;
+        }
+
     }
 
     private void Die()
@@ -188,7 +238,7 @@ public class Crow : CreatureBehaviorScript
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("scarecrow"))
+        if (other.CompareTag("scarecrow") && currentState != CreatureState.CirclePoint || currentState != CreatureState.Flee)
         {
             currentStructure = other.gameObject;
             StopAllCoroutines();
@@ -205,20 +255,16 @@ public class Crow : CreatureBehaviorScript
     {
         coroutineRunning = true;
 
-      
         Vector3 fleeDirection = (transform.position - currentStructure.transform.position).normalized;
+        fleeDirection.y = 0;
     
-        Vector3 targetPosition = transform.position + fleeDirection * radius;
+        point = transform.position + fleeDirection * radius * 2;
+        point = new Vector3(point.x, point.y - 10, point.z);
 
-        while (Vector3.Distance(transform.position, targetPosition) > 1f)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, circleSpeed * Time.deltaTime);
-            yield return null;
-        }
 
- 
-        currentState = CreatureState.CirclePlayer;
+        currentState = CreatureState.CirclePoint;
         coroutineRunning = false;
+        yield return null;
     }
 
 
@@ -228,7 +274,7 @@ public class Crow : CreatureBehaviorScript
     {
         coroutineRunning = true;
         Vector3 targetPos = player.position + Vector3.up * attackHeight;
-        float swoopSpeed = circleSpeed * 10;
+        float swoopSpeed = circleSpeed * 5;
         float rotationSpeed = 5f;
 
         while (Vector3.Distance(transform.position, targetPos) > 1f)
@@ -264,7 +310,22 @@ public class Crow : CreatureBehaviorScript
         coroutineRunning = true;
         yield return new WaitForSeconds(3);
         int x = Random.Range(0, 3);
-        if (x == 0) { currentState = CreatureState.AttackPlayer; }
+        if (x == 0) {
+            if (currentState == CreatureState.CirclePlayer)
+            {
+                currentState = CreatureState.AttackPlayer;
+            }
+            else if (currentState == CreatureState.CirclePoint)
+            {
+                int y = Random.Range(0, 2);
+                if (y == 0)
+                {
+                    currentState = CreatureState.CirclePlayer;
+                }
+                else currentState = CreatureState.Land;
+            }
+
+        }
         coroutineRunning = false;
     }
     #endregion
