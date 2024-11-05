@@ -12,6 +12,6 @@ public class FarmTree : StructureBehaviorScript
 
     public override void StructureInteraction()
     {
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 }

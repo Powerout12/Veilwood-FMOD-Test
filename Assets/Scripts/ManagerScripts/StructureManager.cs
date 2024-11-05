@@ -18,6 +18,8 @@ public class StructureManager : MonoBehaviour
     List<Vector3Int> allTiles = new List<Vector3Int>();
     List<NutrientStorage> storage = new List<NutrientStorage>();
 
+    [Header("CropDebugs")]
+    public bool ignoreCropGrowthTime = false; //if true, each growth phase takes an hour
 
 
     void Awake()
@@ -31,9 +33,10 @@ public class StructureManager : MonoBehaviour
         {
             Instance = this;
         }
+        InstantiateNutrientStorage();
         //load in all the saved data, such as the nutrient storages and alltiles list
         PopulateWeeds(10, 20); //Only do this when a new game has started. Implement weeds spawning in over time
-        PopulateTrees(5, 8);
+        PopulateTrees(8, 12);
     }
 
     public void HourUpdate()
@@ -48,12 +51,12 @@ public class StructureManager : MonoBehaviour
 
     public Vector3 CheckTile(Vector3 pos)
     {
-        print("Checking");
+        //print("Checking");
         Vector3Int gridPos = tileMap.WorldToCell(pos);
 
         TileBase currentTile = tileMap.GetTile(gridPos);
 
-        print(currentTile);
+        //print(currentTile);
         if(currentTile != null && currentTile == freeTile)
         {
             //
@@ -67,6 +70,7 @@ public class StructureManager : MonoBehaviour
     {
         Instantiate(obj, pos, Quaternion.identity);
         Vector3Int gridPos = tileMap.WorldToCell(pos);
+        if(tileMap.GetTile(gridPos) == null) return;
         tileMap.SetTile(gridPos, occupiedTile);
     }
 
@@ -74,12 +78,12 @@ public class StructureManager : MonoBehaviour
     {
         GameObject instance = Instantiate(obj, pos, Quaternion.identity);
         Vector3Int gridPos = tileMap.WorldToCell(pos);
-        tileMap.SetTile(gridPos, occupiedTile);
+        if(tileMap.GetTile(gridPos) != null) tileMap.SetTile(gridPos, occupiedTile);
         return instance;
     }
 
     public bool SpawnLargeStructure(GameObject obj, Vector3 pos)
-    { //STILL DOES NOT WORK
+    { 
         List<Vector3Int> selectedTiles = new List<Vector3Int>();
         Vector3Int gridPos = tileMap.WorldToCell(pos);
         selectedTiles.Add(gridPos);
@@ -100,10 +104,10 @@ public class StructureManager : MonoBehaviour
 
         Vector3 start = tileMap.GetCellCenterWorld(gridPos);
         Vector3 otherEnd = tileMap.GetCellCenterWorld(new Vector3Int(gridPos.x + 1, gridPos.y - 1));
-        print(start);
-        print(otherEnd);
+        //print(start);
+        //print(otherEnd);
         Vector3 center = new Vector3((start.x + otherEnd.x)/2, (start.y + otherEnd.y)/2, (start.z + otherEnd.z)/2);
-        print(center);
+        //print(center);
 
         Instantiate(obj, center, Quaternion.identity);
         return true;
@@ -112,28 +116,65 @@ public class StructureManager : MonoBehaviour
     public void SetTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);
+        if(tileMap.GetTile(gridPos) == null) return;
         tileMap.SetTile(gridPos, occupiedTile);
     }
 
     public void ClearTile(Vector3 pos)
     {
         Vector3Int gridPos = tileMap.WorldToCell(pos);
+        if(tileMap.GetTile(gridPos) == null) return;
         tileMap.SetTile(gridPos, freeTile);
     }
 
     public void ClearLargeTile(Vector3 pos)
     {
         //fetch tiles within a small radius, should return the 4 its occupying
-        print("Clearing");
+        //print("Clearing");
         foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
         {
-            Vector3 position = tileMap.GetCellCenterWorld(gridPosition);
-            if(Vector3.Distance(position, pos) <= 3f)
+            Vector3 tilePosition = tileMap.GetCellCenterWorld(gridPosition);
+            if(Vector3.Distance(tilePosition, pos) <= 3f)
             {
-                tileMap.SetTile(gridPosition, freeTile);
-                print("FoundTile");
+                if(tileMap.GetTile(gridPosition) != null) tileMap.SetTile(gridPosition, freeTile);
+                //print("FoundTile");
             }
             
+        }
+    }
+
+    public void IchorRefill(Vector3 pos, float radius, float amount)
+    {
+        foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
+        {
+            Vector3 tilePosition = tileMap.GetCellCenterWorld(gridPosition);
+            if(Vector3.Distance(tilePosition, pos) <= radius && tileMap.GetTile(gridPosition) != null)
+            {
+                for(int i = 0; i < allTiles.Count; i++)
+                {
+                    if(allTiles[i] == gridPosition)
+                    {
+                        if(storage[i] == null) storage[i] = new NutrientStorage();
+
+                        storage[i].ichorLevel += amount;
+                        if(storage[i].ichorLevel > 10) storage[i].ichorLevel = 10;
+                    } 
+                }
+            }
+            
+        }
+    }
+
+    void InstantiateNutrientStorage()
+    {
+        foreach (var gridPosition in tileMap.cellBounds.allPositionsWithin)
+        {
+            if(tileMap.GetTile(gridPosition) != null)
+            {
+                allTiles.Add(gridPosition);
+                NutrientStorage newStorage = new NutrientStorage();
+                storage.Add(newStorage);
+            }
         }
     }
 
@@ -152,7 +193,8 @@ public class StructureManager : MonoBehaviour
                 }
             } 
         }
-        //if its not in the list
+        //if its not in the list. None of this should ever have to be called since we are instantiating the storages at scene start
+        Debug.Log("We have a storage problem");
         allTiles.Add(gridPos);
         NutrientStorage newStorage = new NutrientStorage();
         storage.Add(newStorage);
