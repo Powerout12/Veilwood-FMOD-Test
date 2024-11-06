@@ -162,6 +162,7 @@ public class FeralHareTest : CreatureBehaviorScript
 
     public override void OnDeath()
     {
+        base.OnDeath();
         anim.SetTrigger("IsDead");
     }
 

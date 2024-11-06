@@ -25,7 +25,7 @@ public class CropData : ScriptableObject
     public float ichorIntake;
     public float terraIntake;
     public float gloamIntake;
-    public int stressLimit = 1; //if the plant exceeds this stress number, it dieas
+    public int stressLimit = 1; //if the plant exceeds this stress number, it dies
 
     public GameObject creaturePrefab; //Specifically for the mandrake and the mimic. If this isnt null, spawn the creature instead of the cropYield
 
