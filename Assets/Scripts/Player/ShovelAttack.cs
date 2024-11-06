@@ -23,6 +23,8 @@ public class ShovelAttack : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Vector3 collisionPoint;
+
         var structure = other.GetComponent<StructureBehaviorScript>();
         if (structure != null)
         {
@@ -31,6 +33,8 @@ public class ShovelAttack : MonoBehaviour
             print("Hit Structure");
             PlayerInteraction.Instance.StaminaChange(-1);
             collider.enabled = false;
+            collisionPoint = other.ClosestPoint(transform.position);
+            PlayHitParticle(collisionPoint);
         }
 
         var creature = other.GetComponent<CreatureBehaviorScript>();
@@ -42,10 +46,26 @@ public class ShovelAttack : MonoBehaviour
             print("Hit Creature");
             PlayerInteraction.Instance.StaminaChange(-1);
             collider.enabled = false;
+            collisionPoint = other.ClosestPoint(transform.position);
+            PlayHitParticle(collisionPoint);
         }
 
         //Something to hit corpses
 
         
+    }
+
+    void PlayHitParticle(Vector3 hitPoint)
+    {
+        print("Played");
+        ParticlePoolManager.Instance.MoveAndPlayVFX(hitPoint, ParticlePoolManager.Instance.hitEffect);
+        return;
+        Vector3 direction = (transform.position - hitPoint).normalized;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, direction, out hit, 10, hitDetection))
+        {
+            ParticlePoolManager.Instance.MoveAndPlayVFX(hit.point, ParticlePoolManager.Instance.hitEffect);
+            print("Played");
+        }
     }
 }

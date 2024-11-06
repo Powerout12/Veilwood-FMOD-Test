@@ -19313,6 +19313,11 @@ PrefabInstance:
       propertyPath: tileMap
       value: 
       objectReference: {fileID: 1482413623}
+    - target: {fileID: 4332731101954976831, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_Name
+      value: ParticlePool
+      objectReference: {fileID: 0}
     - target: {fileID: 4750952263133987452, guid: 8eafeddf8fe5cec4d87507a7231cf339,
         type: 3}
       propertyPath: structGrid
@@ -19322,6 +19327,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManagers
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342429576101963996, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342429576101963996, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.47
       objectReference: {fileID: 0}
     - target: {fileID: 6358613473889610095, guid: 8eafeddf8fe5cec4d87507a7231cf339,
         type: 3}
@@ -50442,7 +50457,7 @@ Transform:
   m_GameObject: {fileID: 1273400362}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.061596, y: -6.0810966, z: 13.625037}
+  m_LocalPosition: {x: -13.31, y: -4.91, z: 19.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -77045,17 +77060,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 95423735e382d434cba05485f177eb26,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95423735e382d434cba05485f177eb26,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95423735e382d434cba05485f177eb26,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95423735e382d434cba05485f177eb26,
         type: 3}
@@ -85392,6 +85407,7 @@ SceneRoots:
   - {fileID: 526567824}
   - {fileID: 1425670497}
   - {fileID: 43361157}
+  - {fileID: 1327919504}
   - {fileID: 677510617}
   - {fileID: 1469060621}
   - {fileID: 1044134439}
@@ -85406,4 +85422,3 @@ SceneRoots:
   - {fileID: 8789177612046424165}
   - {fileID: 427911206}
   - {fileID: 753396525}
-  - {fileID: 1327919504}

@@ -5,7 +5,7 @@ using TMPro;
 
 public class TimeManager : MonoBehaviour
 {
-    public static int currentHour = 15; //caps at 24, day is from 6-20. Military time. Night begins at 8PM,(20) and ends at 6AM, lasting 10 hours. Day lasts 14 hours. Each hour lasts 45 seconds. For demo, 15 seconds
+    public static int currentHour = 15; //caps at 24, day is from 6-20. Military time. Night begins at 8PM,(20) and ends at 6AM, lasting 10 hours. Day lasts 14 hours. Each hour lasts 45/30 seconds
     public static bool isDay;
     public TextMeshProUGUI timeText;
     public Light dayLight;
@@ -46,7 +46,7 @@ public class TimeManager : MonoBehaviour
     {
         do
         {
-            yield return new WaitForSeconds(45);
+            yield return new WaitForSeconds(30);
             currentHour++;
             if(currentHour >= 24) currentHour = 0;
 

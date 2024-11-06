@@ -20,7 +20,7 @@ MonoBehaviour:
     emotions: 0000000003000000
   paths:
   - paragraphs:
-    - 'For a {itemName} I can offer {itemValue} Schmeckles.
+    - 'For a {itemName} I can offer {itemValue} Mints.
 
       Do we have a deal?'
     emotions: 00000000
@@ -31,10 +31,9 @@ MonoBehaviour:
     - Pleasure doing business. {itemSold}
     emotions: 01000000
   - paragraphs:
-    - 'For all of those? I can offer {itemTotalValue} Schmeckles.
+    - 'For all of those? I can offer {itemTotalValue} Mints.
 
-      What do
-      you say?'
+      What do you say?'
     emotions: 00000000
   - paragraphs:
     - I see that caught your eye. Care to buy?
