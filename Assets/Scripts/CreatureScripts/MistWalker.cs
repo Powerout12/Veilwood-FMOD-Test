@@ -14,7 +14,7 @@ public class MistWalker : CreatureBehaviorScript
     bool isBeingAttacked = false; //mainly for use for priority target tracking
     bool coroutineRunning = false;
     private Transform target;
-    public Tilemap tileMap;
+    Tilemap tileMap;
 
     [HideInInspector] public NavMeshAgent agent;
     public enum CreatureState
@@ -39,37 +39,22 @@ public class MistWalker : CreatureBehaviorScript
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         //StartCoroutine(StructureCheck());
-        currentState = CreatureState.SpawnIn;
+        //currentState = CreatureState.SpawnIn;
         StructureBehaviorScript.OnStructuresUpdated += UpdateStructureList; //if a structure is placed or destroyed, this will update the list of available structures
         ImbuedScarecrow.OnScarecrowAttract += TargetImbuedScarecrow;
         UpdateStructureList();
+        tileMap = StructureManager.Instance.tileMap;
     }
     void OnDestroy()
     {
         StructureBehaviorScript.OnStructuresUpdated -= UpdateStructureList; //unsubscribe to prevent memory leaks
     }
 
-    private Vector3 FindRandomTileAroundOrgin()
-    {
-        BoundsInt bounds = tileMap.cellBounds;
-        Vector3 minPosition = tileMap.GetCellCenterWorld(bounds.min);
-        Vector3 maxPosition = tileMap.GetCellCenterWorld(bounds.max);
-
-       
-        Vector3 centerPosition = (minPosition + maxPosition) / 2f;
-
-        
-        centerPosition += tileMap.transform.parent.position;
-
-        Vector3 randomPosistion = GetRandomPointAround(centerPosition, 15f);
-        return randomPosistion;
-    }
-
-    private void SpawnIn()
+    public override void OnSpawn()
     {
         if (!isMoving)
         {
-            Vector3 randomPoint = FindRandomTileAroundOrgin();
+            Vector3 randomPoint = StructureManager.Instance.GetRandomTile();
             StartCoroutine(MoveToPoint(randomPoint));
         }
     }
@@ -124,7 +109,7 @@ public class MistWalker : CreatureBehaviorScript
         switch (currentState)
         {
             case CreatureState.SpawnIn:
-                SpawnIn();
+                OnSpawn();
                 break;
 
             case CreatureState.Idle:

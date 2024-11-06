@@ -2551,11 +2551,12 @@ Transform:
   m_GameObject: {fileID: 89937842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.898404, y: 6.0010967, z: -28.985037}
+  m_LocalPosition: {x: 7.898404, y: 0.05, z: -28.985037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1320378416}
+  - {fileID: 265672825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &94218662
@@ -12850,6 +12851,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260290022}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &265672825 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+    type: 3}
+  m_PrefabInstance: {fileID: 815821642073719471}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &268015929
 GameObject:
   m_ObjectHideFlags: 0
@@ -78840,7 +78847,7 @@ PrefabInstance:
     - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.0610967
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1703552837606156893, guid: 29856514ebb1bf546aec234b149d0a50,
         type: 3}
@@ -79253,6 +79260,74 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &815821642073719471
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 89937843}
+    m_Modifications:
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -38.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -31.334597
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041892218060830233, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507201721181545267, guid: 9bada7e4223709b40a5f5694c13b7505,
+        type: 3}
+      propertyPath: m_Name
+      value: MistWalker
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9bada7e4223709b40a5f5694c13b7505, type: 3}
 --- !u!1001 &833745662382504601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84672,7 +84747,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5630728168007285628
@@ -85188,7 +85263,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &8634736030944031520 stripped

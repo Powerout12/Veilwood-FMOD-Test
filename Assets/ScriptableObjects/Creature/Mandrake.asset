@@ -19,7 +19,10 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  dangerCost: 0
+  dangerCost: 10
+  dangerThreshold: 0
+  spawnWeight: 2
+  spawnCap: 2
   data:
     Name: 
     Id: -1

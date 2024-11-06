@@ -101,7 +101,7 @@ MonoBehaviour:
   structData: {fileID: 11400000, guid: 27864248b8840704fbbb773c399907ad, type: 2}
   health: 999
   maxHealth: 999
-  wealthValue: 1
+  wealthValue: 0
   audioHandler: {fileID: 0}
   clearTileOnDestroy: 1
 --- !u!208 &5878661473273885326

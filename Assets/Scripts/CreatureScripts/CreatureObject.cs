@@ -10,7 +10,10 @@ public class CreatureObject : ScriptableObject
 
     public float[] position = new float[3];
 
-    public int dangerCost = 1;
+    public int dangerCost = 1; //how much wealth does it cost to spawn in
+    public int dangerThreshold = 0; //how much wealth does the player need to have in order to spawn it
+    public int spawnWeight = 10; //how likely is it to get spanwed over another creature
+    public int spawnCap = 5; //how many can spawn per hour at max
 
     public Creature data = new Creature();
 
