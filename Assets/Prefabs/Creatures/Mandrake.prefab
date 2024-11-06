@@ -76,7 +76,7 @@ MonoBehaviour:
   damageToStructure: 0
   damageToPlayer: 0
   agent: {fileID: 0}
-  fleeDistance: 5
+  fleeDistance: 3
   tileMap: {fileID: 0}
   farmTile: {fileID: 2961193080738427394, guid: 5f5fcaf963705e0419b1ecadb42c0641,
     type: 3}

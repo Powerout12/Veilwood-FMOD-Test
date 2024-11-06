@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Tilemaps;
 using static FeralHareTest;
 
 public class MistWalker : CreatureBehaviorScript
@@ -13,10 +14,12 @@ public class MistWalker : CreatureBehaviorScript
     bool isBeingAttacked = false; //mainly for use for priority target tracking
     bool coroutineRunning = false;
     private Transform target;
+    public Tilemap tileMap;
 
     [HideInInspector] public NavMeshAgent agent;
     public enum CreatureState
     {
+        SpawnIn,
         Idle,
         Wander,
         WalkTowardsClosestStructure,
@@ -36,7 +39,7 @@ public class MistWalker : CreatureBehaviorScript
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         //StartCoroutine(StructureCheck());
-        currentState = CreatureState.Idle;
+        currentState = CreatureState.SpawnIn;
         StructureBehaviorScript.OnStructuresUpdated += UpdateStructureList; //if a structure is placed or destroyed, this will update the list of available structures
         ImbuedScarecrow.OnScarecrowAttract += TargetImbuedScarecrow;
         UpdateStructureList();
@@ -46,7 +49,32 @@ public class MistWalker : CreatureBehaviorScript
         StructureBehaviorScript.OnStructuresUpdated -= UpdateStructureList; //unsubscribe to prevent memory leaks
     }
 
-    private void TargetImbuedScarecrow(GameObject structure)
+    private Vector3 FindRandomTileAroundOrgin()
+    {
+        BoundsInt bounds = tileMap.cellBounds;
+        Vector3 minPosition = tileMap.GetCellCenterWorld(bounds.min);
+        Vector3 maxPosition = tileMap.GetCellCenterWorld(bounds.max);
+
+       
+        Vector3 centerPosition = (minPosition + maxPosition) / 2f;
+
+        
+        centerPosition += tileMap.transform.parent.position;
+
+        Vector3 randomPosistion = GetRandomPointAround(centerPosition, 15f);
+        return randomPosistion;
+    }
+
+    private void SpawnIn()
+    {
+        if (!isMoving)
+        {
+            Vector3 randomPoint = FindRandomTileAroundOrgin();
+            StartCoroutine(MoveToPoint(randomPoint));
+        }
+    }
+
+        private void TargetImbuedScarecrow(GameObject structure)
     {
         if (currentState == CreatureState.AttackStructure)
         {
@@ -95,6 +123,10 @@ public class MistWalker : CreatureBehaviorScript
     {
         switch (currentState)
         {
+            case CreatureState.SpawnIn:
+                SpawnIn();
+                break;
+
             case CreatureState.Idle:
                 Idle();
                 break;
@@ -192,21 +224,29 @@ public class MistWalker : CreatureBehaviorScript
     private IEnumerator MoveToPoint(Vector3 destination)
     {
         isMoving = true;
+        coroutineRunning = true;
 
-        
         agent.destination = destination;
 
-        
-        while (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 1f && !isBeingAttacked && !playerInSightRange)
+       
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
         {
+            
+            if (isBeingAttacked || playerInSightRange)
+            {
+                isMoving = false;
+                coroutineRunning = false;
+                yield break; 
+            }
+
             yield return null;
         }
 
-        // Agent has reached the destination, now decide the next action (50/50 chance)
-        int randomChoice = Random.Range(0, 3);  
+       
+        int randomChoice = Random.Range(0, 3);
         if (randomChoice == 0)
         {
-            currentState = CreatureState.Wander;   
+            currentState = CreatureState.Wander;
         }
         else
         {
@@ -214,7 +254,9 @@ public class MistWalker : CreatureBehaviorScript
         }
 
         isMoving = false;
+        coroutineRunning = false;
     }
+
 
 
 

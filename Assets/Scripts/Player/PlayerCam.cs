@@ -1,68 +1,86 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
+    [Header("Sensitivity Settings")]
+    public float sensX = 300f;
+    public float sensY = 300f;
+    public float sensitivityIncrement = 10f;
+    public float smoothSpeed = 0.05f; // Lower value for more responsiveness
 
+    [Header("References")]
     public Transform orientation;
 
-    float xRotation;
-    float yRotation;
+    private float xRotation;
+    private float yRotation;
+    private bool isCursorLocked = true;
+
+    private Vector2 currentMouseDelta;
+    private Vector2 mouseDeltaVelocity;
 
     private void Start()
     {
-        CursorLock();
+        SetCursorLock(true);
     }
 
-    private static void CursorLock()
+    private void LateUpdate()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        HandleCursorLock();
+        if (PlayerMovement.restrictMovementTokens > 0 || PlayerMovement.isCodexOpen) return;
+        if (PlayerMovement.accessingInventory) return;
+        HandleMouseInput();
+        AdjustSensitivity();
     }
 
-    private void Update()
+    private void HandleCursorLock()
     {
-        if (PlayerMovement.accessingInventory || PlayerMovement.isCodexOpen)
+        bool shouldUnlock = PlayerMovement.accessingInventory || PlayerMovement.isCodexOpen;
+        if (shouldUnlock && isCursorLocked)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            return;
+            SetCursorLock(false);
         }
-        else if (!PlayerMovement.accessingInventory)
+        else if (!shouldUnlock && !isCursorLocked)
         {
-            CursorLock();
+            SetCursorLock(true);
         }
+    }
 
-        if(PlayerMovement.restrictMovementTokens > 0 || PlayerMovement.isCodexOpen) return;
+    private void SetCursorLock(bool lockCursor)
+    {
+        Cursor.lockState = lockCursor ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !lockCursor;
+        isCursorLocked = lockCursor;
+    }
 
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+    private void HandleMouseInput()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
 
-        yRotation += mouseX;
+        // Blend between raw and smoothed input for a more responsive feel
+        currentMouseDelta = Vector2.Lerp(currentMouseDelta, new Vector2(mouseX, mouseY), smoothSpeed);
 
-        xRotation -= mouseY;
+        yRotation += currentMouseDelta.x * Time.unscaledDeltaTime;
+        xRotation -= currentMouseDelta.y * Time.unscaledDeltaTime;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler (xRotation,yRotation,0);
-        orientation.rotation = Quaternion.Euler (0,yRotation,0);
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
 
+    private void AdjustSensitivity()
+    {
         if (Input.GetKeyDown(KeyCode.RightBracket))
         {
-            sensX += 100f;
-            sensY += 100f;
+            sensX += sensitivityIncrement;
+            sensY += sensitivityIncrement;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            sensX -= 100f;
-            sensY -= 100f;
+            sensX = Mathf.Max(sensX - sensitivityIncrement, 0);
+            sensY = Mathf.Max(sensY - sensitivityIncrement, 0);
         }
-
-
     }
 }
-
