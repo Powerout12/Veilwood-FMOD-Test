@@ -200,9 +200,9 @@ public class Crow : CreatureBehaviorScript
 
         Vector3 down = Vector3.down;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, down, out hit, 5f, LayerMask.GetMask("Ground"))) // Make sure the "Ground" layer is correct
+        Debug.DrawRay(transform.position, down, Color.yellow);
+        if (Physics.Raycast(transform.position, down, out hit, 1f, LayerMask.GetMask("Ground")))
         {
-            rb.useGravity = true;
             currentState = CreatureState.Idle;
         }
 
@@ -224,6 +224,8 @@ public class Crow : CreatureBehaviorScript
     #endregion
 
     #region Helper Functions
+
+
     private void UpdateStructureList()
     {
         availableStructure.Clear();
