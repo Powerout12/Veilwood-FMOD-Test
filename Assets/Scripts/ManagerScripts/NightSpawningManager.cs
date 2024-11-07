@@ -27,8 +27,9 @@ public class NightSpawningManager : MonoBehaviour
         if(TimeManager.currentHour == 20)
         {
             print("Tally");
+            print(StructureManager.Instance);
             print(StructureManager.Instance.allStructs.Count);
-            //WHY IS THIS RETURNING EMPTY??????
+            //WHY IS THIS RETURNING EMPTY?????? WHENEVER THE MISTWALKER DESTORYS A STRUCT, IT EMPTIES THE LIST
             foreach(StructureBehaviorScript structure in StructureManager.Instance.allStructs)
             {
                difficultyPoints += structure.wealthValue;
@@ -36,7 +37,7 @@ public class NightSpawningManager : MonoBehaviour
             //difficultyPoints += TimeManager.dayNum;
             //originalDifficultyPoints = difficultyPoints;
         }
-        //HourlySpawns();
+        if(difficultyPoints > 0) HourlySpawns();
     }
 
     void HourlySpawns()

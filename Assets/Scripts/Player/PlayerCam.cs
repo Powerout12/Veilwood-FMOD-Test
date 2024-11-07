@@ -38,8 +38,8 @@ public class PlayerCam : MonoBehaviour
 
         if (PlayerMovement.restrictMovementTokens > 0 || PlayerMovement.isCodexOpen) return;
 
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
 
         yRotation += mouseX;
 
@@ -52,14 +52,14 @@ public class PlayerCam : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightBracket))
         {
-            sensX += 100f;
-            sensY += 100f;
+            sensX += 1;
+            sensY += 1;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            sensX -= 100f;
-            sensY -= 100f;
+            sensX -= 1;
+            sensY -= 1;
         }
 
 
