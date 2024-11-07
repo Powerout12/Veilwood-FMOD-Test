@@ -8,7 +8,7 @@ public class HoeBehavior : ToolBehavior
     Vector3 pos;
     UntilledTile tile;
     public GameObject farmTile;
-    public LayerMask mask;
+    public AudioClip swing;
 
     public override void PrimaryUse(Transform _player, ToolType _tool)
     {
@@ -46,10 +46,10 @@ public class HoeBehavior : ToolBehavior
             {
                 usingPrimary = true;
                 HandItemManager.Instance.PlayPrimaryAnimation();
-                //HandItemManager.Instance.toolSource.PlayOneShot(swing);
-                PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.7f, 0));
+                HandItemManager.Instance.toolSource.PlayOneShot(swing);
+                PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.4f, 1.9f));
                 PlayerMovement.restrictMovementTokens++;
-                //HAVE PLAYER NOT BE ABLE TO TURN
+                PlayerInteraction.Instance.StaminaChange(-2);
             }
 
         }
@@ -69,7 +69,7 @@ public class HoeBehavior : ToolBehavior
 
     IEnumerator ExtraLag()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.3f);
         usingPrimary = false;
         PlayerMovement.restrictMovementTokens--;
     }

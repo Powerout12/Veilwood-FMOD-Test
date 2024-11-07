@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Blood Bean
   growthStages: 5
-  hoursPerStage: 6
-  harvestableGrowthStages: 07000000
+  hoursPerStage: 10
+  harvestableGrowthStages: 05000000
   cropSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  rottedImage: {fileID: 0}
   cropYield: {fileID: 0}
   cropSeed: {fileID: 0}
   cropYieldAmount: 1
@@ -31,6 +31,8 @@ MonoBehaviour:
   seedYieldVariance: 0
   waterIntake: 4
   ichorIntake: 0.5
-  terraIntake: -0.5
-  gloamIntake: 0.75
+  terraIntake: 0.25
+  gloamIntake: -0.5
+  stressLimit: 1
   creaturePrefab: {fileID: 0}
+  behavior: {fileID: 0}

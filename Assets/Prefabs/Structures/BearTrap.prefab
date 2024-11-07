@@ -72,7 +72,9 @@ MonoBehaviour:
   structData: {fileID: 11400000, guid: 70eae9d3f1e1d2f4b9c5775154dc7862, type: 2}
   health: 5
   maxHealth: 5
+  wealthValue: 20
   audioHandler: {fileID: 0}
+  clearTileOnDestroy: 1
   topClamp: {fileID: 162950966568236352}
   bottomClamp: {fileID: 6977244607745721664}
   triggeredSFX: {fileID: 8300000, guid: 40db3a189a805c94d88edbe083e182f8, type: 3}
@@ -187,6 +189,10 @@ MonoBehaviour:
   hitSounds: []
   miscSounds1: []
   miscSounds2: []
+  interactSound: {fileID: 0}
+  itemInteractSound: {fileID: 0}
+  breakSound: {fileID: 0}
+  activatedSound: {fileID: 0}
 --- !u!1001 &9110398467083558081
 PrefabInstance:
   m_ObjectHideFlags: 0

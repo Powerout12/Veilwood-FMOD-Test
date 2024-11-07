@@ -974,7 +974,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 500
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -1449,6 +1449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_hoe
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728137783166236117, guid: 7c5038b0a73bada4e9b21de491870606,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11301,40 +11306,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hand_shovel
       objectReference: {fileID: 0}
+    - target: {fileID: 2583505907254681940, guid: d3c87b4b169c31c4592a9165920467b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.95000017
+      value: -0.39
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.02
+      value: -2.09
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5499995
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.000000014901159
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.8657461
+      value: -0.9601437
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5004836
+      value: 0.27950695
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.000000029802319
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
@@ -11344,12 +11354,12 @@ PrefabInstance:
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2923298244563418094, guid: d3c87b4b169c31c4592a9165920467b7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 32.462006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12556,7 +12566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2077741977
 Transform:
   m_ObjectHideFlags: 0
