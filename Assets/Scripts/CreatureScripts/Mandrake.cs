@@ -49,11 +49,11 @@ public class Mandrake : CreatureBehaviorScript
 
     private void Update()
     {
-        timeBeforeLeavingFarm -= Time.deltaTime;
         if (timeBeforeLeavingFarm < 0)
         {
-            currentState = CreatureState.LeaveFarm;
+            if(TimeManager.isDay) currentState = CreatureState.LeaveFarm;
         }
+        else timeBeforeLeavingFarm -= Time.deltaTime;
         float distance = Vector3.Distance(player.position, transform.position);
         playerInSightRange = distance <= sightRange;
         if (isTrapped) { currentState = CreatureState.Trapped; }
@@ -209,11 +209,11 @@ public class Mandrake : CreatureBehaviorScript
 
     private void LeaveFarm()
     {
-        if (hasTarget && !agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 1f)
-        {
-            Destroy(this.gameObject);
-        }
-        else if (!hasTarget)
+        //if (hasTarget && !agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 1f)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        if (!hasTarget)
         {
             hasTarget = true;
             Vector3 fleeDirection = (transform.position - player.position).normalized;

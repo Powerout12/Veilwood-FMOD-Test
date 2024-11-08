@@ -84,7 +84,7 @@ public class BearTrap : StructureBehaviorScript
             if(victim.GetComponent<PlayerInteraction>())
             {
                 PlayerInteraction player = victim.GetComponent<PlayerInteraction>();
-                player.PlayerTakeDamage();
+                player.StaminaChange(-25);
 
                 //restrictplayermovement
                 PlayerMovement.restrictMovementTokens += 1;
@@ -100,7 +100,7 @@ public class BearTrap : StructureBehaviorScript
             {
                 CreatureBehaviorScript creature = victim.GetComponent<CreatureBehaviorScript>();
                 creature.isTrapped = true;
-                if(creature.health > 50)
+                if(creature.health > 75)
                 {
                     //stun and damage
                     creature.TakeDamage(25);
