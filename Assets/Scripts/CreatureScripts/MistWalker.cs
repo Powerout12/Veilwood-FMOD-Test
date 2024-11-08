@@ -377,6 +377,7 @@ public class MistWalker : CreatureBehaviorScript
 
     private void Trapped()
     {
+        agent.ResetPath();
         rb.isKinematic = true;
     }
 

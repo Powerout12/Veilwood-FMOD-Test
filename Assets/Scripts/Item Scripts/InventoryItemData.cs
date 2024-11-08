@@ -20,6 +20,7 @@ public class InventoryItemData : ScriptableObject
     public float value = 0;
     public float sellValueMultiplier = 1; //if value or sellValueMultipier == 0, cannot be sold
     public bool isKeyItem = false; //if true, should not be sold or be able to be thrown away.
+    public bool hasModel;
 
     public float staminaValue = 0; //if higher than 0, restores stamina when eaten, and is therefore consumable
    

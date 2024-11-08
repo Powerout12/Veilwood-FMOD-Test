@@ -55,8 +55,15 @@ public class Crow : CreatureBehaviorScript
 
     private void Update()
     {
+        
+        if (currentState != CreatureState.Land && currentState != CreatureState.Idle && currentState != CreatureState.AttackPlayer)
+        {
+            height = Mathf.Clamp(height, 5f, 15f);
+        }
+
         CheckState(currentState);
     }
+
     #endregion
 
     #region State Checking
@@ -104,10 +111,12 @@ public class Crow : CreatureBehaviorScript
     #region State Functions
     private void Idle()
     {
+        rb.useGravity = true;
         float distance = Vector3.Distance(player.position, transform.position);
         playerInSightRange = distance <= sightRange;
         if (playerInSightRange)
         {
+            rb.useGravity = false;
             currentState = CreatureState.CirclePlayer;
         }
     }
@@ -188,25 +197,31 @@ public class Crow : CreatureBehaviorScript
 
     private void Land()
     {
+        if (coroutineRunning)
+        {
+            StopCoroutine(Decide());
+            coroutineRunning = false;
+        }
+
         angle += circleSpeed * Time.deltaTime;
         if (angle >= 360f) angle -= 360f;
 
-        Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
-        height = 0;
+        Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * (radius / 2);
+        height = -1;
+        point = new Vector3(point.x, 0, point.z);
         Vector3 targetPosition = point + offset + Vector3.up * height;
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * circleSpeed);
-        transform.LookAt(targetPosition);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * (circleSpeed / 2));
 
         Vector3 down = Vector3.down;
         RaycastHit hit;
         Debug.DrawRay(transform.position, down, Color.yellow);
-        if (Physics.Raycast(transform.position, down, out hit, 1f, LayerMask.GetMask("Ground")))
+        if (Physics.Raycast(transform.position, down, out hit, 0.1f, LayerMask.GetMask("Ground")))
         {
             currentState = CreatureState.Idle;
         }
-
     }
+
 
     private void Die()
     {
@@ -312,23 +327,29 @@ public class Crow : CreatureBehaviorScript
         coroutineRunning = true;
         yield return new WaitForSeconds(3);
         int x = Random.Range(0, 3);
-        if (x == 0) {
-            if (currentState == CreatureState.CirclePlayer)
-            {
-                currentState = CreatureState.AttackPlayer;
-            }
-            else if (currentState == CreatureState.CirclePoint)
-            {
-                int y = Random.Range(0, 2);
-                if (y == 0)
-                {
-                    currentState = CreatureState.CirclePlayer;
-                }
-                else currentState = CreatureState.Land;
-            }
 
+        if (currentState != CreatureState.Land)
+        {
+            if (x == 0)
+            {
+                if (currentState == CreatureState.CirclePlayer)
+                {
+                    currentState = CreatureState.AttackPlayer;
+                }
+                else if (currentState == CreatureState.CirclePoint)
+                {
+                    int y = Random.Range(0, 2);
+                    if (y == 0)
+                    {
+                        currentState = CreatureState.CirclePlayer;
+                    }
+                    else currentState = CreatureState.Land;
+                }
+            }
         }
+
         coroutineRunning = false;
     }
+
     #endregion
 }

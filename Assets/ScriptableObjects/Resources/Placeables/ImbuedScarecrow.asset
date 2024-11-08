@@ -15,11 +15,12 @@ MonoBehaviour:
   ID: -1
   displayName: Imbued Scarecrow
   description: 
-  icon: {fileID: 21300000, guid: 18c338445182e7346bb9d27a5ef274da, type: 3}
+  icon: {fileID: 21300000, guid: 63f3c58b44e79c04ea8046ed199c3833, type: 3}
   maxStackSize: 1
   value: 0
   sellValueMultiplier: 1
   isKeyItem: 0
-  placedPrefab: {fileID: 3528986597304786203, guid: 773f692664fd80a4fa2f889e5fe590d6,
+  staminaValue: 0
+  placedPrefab: {fileID: 2887735442889411947, guid: 1e025ba2b9ef8a94eb5baaec0da6b36d,
     type: 3}
   removeAfterUse: 1
