@@ -10,6 +10,9 @@ public class NightSpawningManager : MonoBehaviour
     public CreatureObject[] creatures;
     List<int> spawnedCreatures; //tracks how many of a specific type of creature was spawned this hour
 
+    //public List<GameObject> allCreatures; //all creatures in the scene, have a limit to how many there can be in a scene
+    //this list saves all current creatures, and all spawned creatures through this/saved by this manager should be assigned to this list
+
     public Transform[] testSpawns;
 
     void Start()
@@ -26,10 +29,6 @@ public class NightSpawningManager : MonoBehaviour
         }
         if(TimeManager.currentHour == 20)
         {
-            print("Tally");
-            print(StructureManager.Instance);
-            print(StructureManager.Instance.allStructs.Count);
-            //WHY IS THIS RETURNING EMPTY?????? WHENEVER THE MISTWALKER DESTORYS A STRUCT, IT EMPTIES THE LIST
             foreach(StructureBehaviorScript structure in StructureManager.Instance.allStructs)
             {
                difficultyPoints += structure.wealthValue;
@@ -44,6 +43,10 @@ public class NightSpawningManager : MonoBehaviour
     {
         List<int> weightArray = new List<int>();
         spawnedCreatures = new List<int>();
+        for(int i = 0; i < creatures.Length; i++)
+        {
+            spawnedCreatures.Add(0);
+        }
         int w = 0;
         foreach(CreatureObject c in creatures)
         {
@@ -54,24 +57,31 @@ public class NightSpawningManager : MonoBehaviour
             w++;
         }
 
-        //try to spawn up to 10 things per hour, with a failed attempt counting for 0.5f tries
-        float l = 0;
+        //try to spawn up to 10 things per hour, with a failed attempt counting for 0.25f tries
+        float spawnAttempts = 0;
         int r;
         float threshhold = difficultyPoints * GetThreshold();
+        print("Difficulty points currently is: " + difficultyPoints);
+        print("Threshold is: " + threshhold);
         do
         {
             r = Random.Range(0, weightArray.Count);
             CreatureObject attemptedCreature = creatures[weightArray[r]];
-            if(attemptedCreature.dangerCost <= difficultyPoints && spawnedCreatures[weightArray[r]] < attemptedCreature.spawnCap)
+            if(attemptedCreature.dangerCost <= difficultyPoints && spawnedCreatures[weightArray[r]] < attemptedCreature.spawnCapPerHour && difficultyPoints > threshhold)
             {
                 spawnedCreatures[weightArray[r]]++;
                 SpawnCreature(attemptedCreature);
-                l++;
+                spawnAttempts++;
+                print("Spawned Creature");
             }
-            else l += 0.5f;
+            else 
+            {
+                spawnAttempts += 0.25f;
+                print("Unable to Spawn");
+            }
             
         }
-        while(l < 10); //add threshhold req too
+        while(spawnAttempts < 10); //add threshhold req too
     }
 
     void SpawnCreature(CreatureObject c)
