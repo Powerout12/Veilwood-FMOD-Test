@@ -85,10 +85,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e9c8cdd46599aa4585b39776f6ecd55,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5369138363134078890}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e9c8cdd46599aa4585b39776f6ecd55,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1552726020618781792}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e9c8cdd46599aa4585b39776f6ecd55,
         type: 3}
@@ -102,6 +98,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4652166434733430886}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e9c8cdd46599aa4585b39776f6ecd55,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2193275002398435188}
   m_SourcePrefab: {fileID: 100100000, guid: 5e9c8cdd46599aa4585b39776f6ecd55, type: 3}
 --- !u!1 &1882577524237671823 stripped
 GameObject:
@@ -109,27 +109,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1648646876173377758}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &5369138363134078890
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882577524237671823}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: -0.1, y: 0.36, z: 0}
 --- !u!114 &1552726020618781792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,11 +123,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  ichorWorth: 5
+  ichorDropRadius: 2
   structManager: {fileID: 0}
   effectsHandler: {fileID: 0}
   player: {fileID: 0}
   rb: {fileID: 2833907211085697302}
   anim: {fileID: 0}
+  droppedItems: []
+  dropChance: []
   sightRange: 8
   playerInSightRange: 0
   playerInAttackRange: 0
@@ -310,3 +293,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &2193275002398435188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882577524237671823}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.32, z: 0.5}
+  m_Center: {x: -0.11, y: 0.31, z: 0}

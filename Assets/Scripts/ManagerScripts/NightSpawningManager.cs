@@ -10,8 +10,6 @@ public class NightSpawningManager : MonoBehaviour
     public CreatureObject[] creatures;
     List<int> spawnedCreatures; //tracks how many of a specific type of creature was spawned this hour
 
-    public float[] spawnThresholds; //each hour the difficulty points should drop to this times the original
-
     public Transform[] testSpawns;
 
     void Start()
@@ -28,6 +26,10 @@ public class NightSpawningManager : MonoBehaviour
         }
         if(TimeManager.currentHour == 20)
         {
+            print("Tally");
+            print(StructureManager.Instance);
+            print(StructureManager.Instance.allStructs.Count);
+            //WHY IS THIS RETURNING EMPTY?????? WHENEVER THE MISTWALKER DESTORYS A STRUCT, IT EMPTIES THE LIST
             foreach(StructureBehaviorScript structure in StructureManager.Instance.allStructs)
             {
                difficultyPoints += structure.wealthValue;
@@ -35,7 +37,7 @@ public class NightSpawningManager : MonoBehaviour
             //difficultyPoints += TimeManager.dayNum;
             //originalDifficultyPoints = difficultyPoints;
         }
-        //HourlySpawns();
+        if(difficultyPoints > 0) HourlySpawns();
     }
 
     void HourlySpawns()
@@ -52,9 +54,10 @@ public class NightSpawningManager : MonoBehaviour
             w++;
         }
 
-        //try to spawn up to 15 things per hour, with a failed appempt counting for 0.5f tries
+        //try to spawn up to 10 things per hour, with a failed attempt counting for 0.5f tries
         float l = 0;
         int r;
+        float threshhold = difficultyPoints * GetThreshold();
         do
         {
             r = Random.Range(0, weightArray.Count);
@@ -62,6 +65,7 @@ public class NightSpawningManager : MonoBehaviour
             if(attemptedCreature.dangerCost <= difficultyPoints && spawnedCreatures[weightArray[r]] < attemptedCreature.spawnCap)
             {
                 spawnedCreatures[weightArray[r]]++;
+                SpawnCreature(attemptedCreature);
                 l++;
             }
             else l += 0.5f;
@@ -78,5 +82,48 @@ public class NightSpawningManager : MonoBehaviour
         {
             enemy.OnSpawn();
         }
+    }
+
+    float GetThreshold()
+    {
+        switch (TimeManager.currentHour)
+            {
+                case 1:
+                    return 0.2f;
+                    break;
+                case 2:
+                    return 0.2f;
+                    break;
+                case 3:
+                    return 0;
+                    break;
+                case 4:
+                    return 0;
+                    break;
+                case 5:
+                    return 0;
+                    break;
+                case 6:
+                    return 0;
+                    break;
+                case 20:
+                    return 0.9f;
+                    break;
+                case 21:
+                    return 0.7f;
+                    break;
+                case 22:
+                    return 0.7f;
+                    break;
+                case 23:
+                    return 0.4f;
+                    break;
+                case 0:
+                    return 0.4f;
+                    break;
+                default:
+                    return 1;
+                    break;
+            }
     }
 }

@@ -80,7 +80,10 @@ public class MistWalker : CreatureBehaviorScript
     private void UpdateStructureList()
     {
         availableStructure.Clear();
-        availableStructure = structManager.allStructs;
+        foreach (var structure in structManager.allStructs)
+        {
+            availableStructure.Add(structure);
+        }
 
         if (availableStructure.Count > 0)
         {
@@ -374,6 +377,7 @@ public class MistWalker : CreatureBehaviorScript
 
     private void Trapped()
     {
+        agent.ResetPath();
         rb.isKinematic = true;
     }
 
