@@ -911,7 +911,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":6446473289191807219,"guid":"188187dcc7e9e074995be39d1d2133b5","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":-9064977000902274899,"guid":"7835aa5c608853a419a391842f582899","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mesh
@@ -2836,7 +2836,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":6446473289191807219,"guid":"188187dcc7e9e074995be39d1d2133b5","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":-9064977000902274899,"guid":"7835aa5c608853a419a391842f582899","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mesh
@@ -4839,7 +4839,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 12
+      m_SerializableObject: 15
     m_Space: 2147483647
   m_Property:
     name: A
@@ -4873,7 +4873,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 15
+      m_SerializableObject: 17
     m_Space: 2147483647
   m_Property:
     name: B
@@ -8098,7 +8098,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 18
+      m_SerializableObject: 25
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -8728,7 +8728,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":-4.71999979019165,"y":0.0,"z":0.0}}'
+      m_SerializableObject: '{"position":{"x":-6.0,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Position
@@ -8960,7 +8960,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":-4.889999866485596,"y":0.0,"z":0.0}}'
+      m_SerializableObject: '{"position":{"x":-5.5,"y":0.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Position
