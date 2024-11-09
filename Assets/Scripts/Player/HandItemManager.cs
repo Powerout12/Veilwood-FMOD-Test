@@ -30,6 +30,7 @@ public class HandItemManager : MonoBehaviour
 
     void Start()
     {
+        handRenderer = handSpriteTransform.GetComponent<SpriteRenderer>();
         StartCoroutine(DelayedStart());
     }
 
@@ -43,7 +44,7 @@ public class HandItemManager : MonoBehaviour
     {
         if(currentHandObject) currentHandObject.SetActive(false);
         if(MissingObject()) return;
-        handRenderer.sprite = null;
+        if (handRenderer != null) handRenderer.sprite = null;
         switch (type)
         {
             case ToolType.Hoe:
@@ -83,6 +84,7 @@ public class HandItemManager : MonoBehaviour
     public void ClearHandModel()
     {
         if(currentHandObject) currentHandObject.SetActive(false);
+        if (handRenderer != null) handRenderer.sprite = null;
     }
 
     bool MissingObject()
@@ -116,7 +118,6 @@ public class HandItemManager : MonoBehaviour
     IEnumerator DelayedStart()
     {
         yield return new WaitForSeconds(0.2f);
-        handRenderer = handSpriteTransform.GetComponent<SpriteRenderer>();
         CheckSlotForTool();
     }
 
