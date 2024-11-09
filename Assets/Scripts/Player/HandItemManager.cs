@@ -30,6 +30,7 @@ public class HandItemManager : MonoBehaviour
 
     void Start()
     {
+        handRenderer = handSpriteTransform.GetComponent<SpriteRenderer>();
         StartCoroutine(DelayedStart());
     }
 
@@ -117,7 +118,6 @@ public class HandItemManager : MonoBehaviour
     IEnumerator DelayedStart()
     {
         yield return new WaitForSeconds(0.2f);
-        handRenderer = handSpriteTransform.GetComponent<SpriteRenderer>();
         CheckSlotForTool();
     }
 
