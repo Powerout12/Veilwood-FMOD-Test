@@ -41,7 +41,7 @@ public class ImbuedScarecrow : StructureBehaviorScript
             Rigidbody rb = child.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.isKinematic = false; // Enable physics
+                rb.isKinematic = false;
                 DestroyAfterTime destroyMe;
                 destroyMe = child.GetComponent<DestroyAfterTime>();
                 if (destroyMe != null)

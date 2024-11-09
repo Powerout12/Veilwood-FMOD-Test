@@ -20,6 +20,7 @@ MonoBehaviour:
   value: 0
   sellValueMultiplier: 1
   isKeyItem: 1
+  hasModel: 1
   staminaValue: 0
   durability: 100
   behavior: {fileID: 11400000, guid: 75cf61ebedc34634fa67743048ce44cc, type: 2}
