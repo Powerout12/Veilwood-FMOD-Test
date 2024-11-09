@@ -75,15 +75,19 @@ public class HotbarDisplay : MonoBehaviour
             currentSlot.AssignedInventorySlot.ItemData.UseItem(); //currently just reports what item is in the slot in the debugger
 
             ToolItem t_item = currentSlot.AssignedInventorySlot.ItemData as ToolItem;
-            if(t_item)
+            if (t_item)
             {
                 HandItemManager.Instance.SwapHandModel(t_item.tool);
             }
-            else HandItemManager.Instance.SwapHandModel(ToolType.Null);
-        }
+            else
+            {
+                HandItemManager.Instance.ShowSpriteInHand(currentSlot.AssignedInventorySlot.ItemData);
+                //HandItemManager.Instance.SwapHandModel(ToolType.Null);
+            }
+            }
         else
         {
-            Debug.Log($"No item in hotbar slot {slotIndex + 1}");
+            //Debug.Log($"No item in hotbar slot {slotIndex + 1}");
             HandItemManager.Instance.ClearHandModel();
         }
     }

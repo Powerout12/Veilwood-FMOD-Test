@@ -3098,20 +3098,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2809520291903318222, guid: 3a9ffba1e56e0cb4da733dfa7939ce80,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6577993152013189661, guid: 3a9ffba1e56e0cb4da733dfa7939ce80,
         type: 3}
       propertyPath: m_Name
       value: CodexCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577993152013189661, guid: 3a9ffba1e56e0cb4da733dfa7939ce80,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9199495566324021480, guid: 3a9ffba1e56e0cb4da733dfa7939ce80,
         type: 3}
