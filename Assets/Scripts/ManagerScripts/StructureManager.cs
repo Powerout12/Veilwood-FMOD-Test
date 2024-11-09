@@ -37,14 +37,12 @@ public class StructureManager : MonoBehaviour
         //load in all the saved data, such as the nutrient storages and alltiles list
         PopulateWeeds(10, 20); //Only do this when a new game has started. Implement weeds spawning in over time
         PopulateTrees(8, 12);
+        TimeManager.OnHourlyUpdate += HourUpdate;
     }
 
     public void HourUpdate()
     {
-        foreach (StructureBehaviorScript structure in allStructs)
-        {
-            structure.HourPassed();
-        }
+        print("AllStructs: " + allStructs.Count);
         PopulateWeeds(-9, 3);
     }
 
@@ -64,6 +62,12 @@ public class StructureManager : MonoBehaviour
             return spawnPos;
         } 
         else return new Vector3 (0,0,0);
+    }
+
+    public Vector3 GetRandomTile()
+    {
+        int r = Random.Range(0, allTiles.Count);
+        return tileMap.GetCellCenterWorld(allTiles[r]);
     }
 
     public void SpawnStructure(GameObject obj, Vector3 pos)

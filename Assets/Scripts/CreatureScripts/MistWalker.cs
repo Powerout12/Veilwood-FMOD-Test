@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Tilemaps;
 using static FeralHareTest;
 
 public class MistWalker : CreatureBehaviorScript
 {
+    public List<StructureObject> targettableStructures;
+
     StructureBehaviorScript targetStructure;
     public List<StructureBehaviorScript> availableStructure = new List<StructureBehaviorScript>();
 
@@ -13,10 +16,12 @@ public class MistWalker : CreatureBehaviorScript
     bool isBeingAttacked = false; //mainly for use for priority target tracking
     bool coroutineRunning = false;
     private Transform target;
+    Tilemap tileMap;
 
     [HideInInspector] public NavMeshAgent agent;
     public enum CreatureState
     {
+        SpawnIn,
         Idle,
         Wander,
         WalkTowardsClosestStructure,
@@ -31,22 +36,36 @@ public class MistWalker : CreatureBehaviorScript
 
     public CreatureState currentState;
 
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     void Start()
     {
         base.Start();
-        agent = GetComponent<NavMeshAgent>();
         //StartCoroutine(StructureCheck());
-        currentState = CreatureState.Idle;
+        //currentState = CreatureState.SpawnIn;
         StructureBehaviorScript.OnStructuresUpdated += UpdateStructureList; //if a structure is placed or destroyed, this will update the list of available structures
         ImbuedScarecrow.OnScarecrowAttract += TargetImbuedScarecrow;
         UpdateStructureList();
+        tileMap = StructureManager.Instance.tileMap;
     }
     void OnDestroy()
     {
         StructureBehaviorScript.OnStructuresUpdated -= UpdateStructureList; //unsubscribe to prevent memory leaks
     }
 
-    private void TargetImbuedScarecrow(GameObject structure)
+    public override void OnSpawn()
+    {
+        if (!isMoving)
+        {
+            Vector3 randomPoint = StructureManager.Instance.GetRandomTile();
+            StartCoroutine(MoveToPoint(randomPoint));
+        }
+    }
+
+        private void TargetImbuedScarecrow(GameObject structure)
     {
         if (currentState == CreatureState.AttackStructure)
         {
@@ -67,7 +86,10 @@ public class MistWalker : CreatureBehaviorScript
     private void UpdateStructureList()
     {
         availableStructure.Clear();
-        availableStructure = structManager.allStructs;
+        foreach (var structure in structManager.allStructs)
+        {
+            if(targettableStructures.Contains(structure.structData)) availableStructure.Add(structure);
+        }
 
         if (availableStructure.Count > 0)
         {
@@ -95,6 +117,10 @@ public class MistWalker : CreatureBehaviorScript
     {
         switch (currentState)
         {
+            case CreatureState.SpawnIn:
+                OnSpawn();
+                break;
+
             case CreatureState.Idle:
                 Idle();
                 break;
@@ -192,21 +218,29 @@ public class MistWalker : CreatureBehaviorScript
     private IEnumerator MoveToPoint(Vector3 destination)
     {
         isMoving = true;
+        coroutineRunning = true;
 
-        
         agent.destination = destination;
 
-        
-        while (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance + 1f && !isBeingAttacked && !playerInSightRange)
+       
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
         {
+            
+            if (isBeingAttacked || playerInSightRange)
+            {
+                isMoving = false;
+                coroutineRunning = false;
+                yield break; 
+            }
+
             yield return null;
         }
 
-        // Agent has reached the destination, now decide the next action (50/50 chance)
-        int randomChoice = Random.Range(0, 3);  
+       
+        int randomChoice = Random.Range(0, 3);
         if (randomChoice == 0)
         {
-            currentState = CreatureState.Wander;   
+            currentState = CreatureState.Wander;
         }
         else
         {
@@ -214,7 +248,9 @@ public class MistWalker : CreatureBehaviorScript
         }
 
         isMoving = false;
+        coroutineRunning = false;
     }
+
 
 
 
@@ -347,6 +383,7 @@ public class MistWalker : CreatureBehaviorScript
 
     private void Trapped()
     {
+        agent.ResetPath();
         rb.isKinematic = true;
     }
 

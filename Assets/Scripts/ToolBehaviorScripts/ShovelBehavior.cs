@@ -7,6 +7,7 @@ public class ShovelBehavior : ToolBehavior
 {
     public InventoryItemData thisItem;
     ShovelAttack shovelAttack;
+    public AudioClip swing, dig;
     public override void PrimaryUse(Transform _player, ToolType _tool)
     {
         if (usingPrimary || usingSecondary || PlayerInteraction.Instance.toolCooldown) return;
@@ -16,8 +17,8 @@ public class ShovelBehavior : ToolBehavior
         usingPrimary = true;
         //swing
         HandItemManager.Instance.PlayPrimaryAnimation();
-        //HandItemManager.Instance.toolSource.PlayOneShot(swing);
-        PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.7f, 1.5f));
+        HandItemManager.Instance.toolSource.PlayOneShot(swing);
+        PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.55f, 1.5f));
     }
 
     public override void SecondaryUse(Transform _player, ToolType _tool)
@@ -40,7 +41,7 @@ public class ShovelBehavior : ToolBehavior
                 {
                     usingSecondary = true;
                     HandItemManager.Instance.PlaySecondaryAnimation();
-                    //HandItemManager.Instance.toolSource.PlayOneShot(dig);
+                    HandItemManager.Instance.toolSource.PlayOneShot(dig);
                     PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.7f, 1.7f));
                     PlayerMovement.restrictMovementTokens++;
                     PlayerInteraction.Instance.StaminaChange(-2);

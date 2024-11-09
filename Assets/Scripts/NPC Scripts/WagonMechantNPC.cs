@@ -158,7 +158,7 @@ public class WagonMerchantNPC : NPC, ITalkable
     public void HourlyUpdate()
     {
         //update store at night. Change to perform when not in view of the player 
-        if(TimeManager.currentHour == 17)
+        if(TimeManager.currentHour == 8)
         {
             RefreshStore();
         }

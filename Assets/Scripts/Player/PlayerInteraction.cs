@@ -216,14 +216,10 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void PlayerTakeDamage()
-    {
-        playerEffects.PlayerDamage();
-    }
-
     public void StaminaChange(float amount)
     {
         stamina += amount;
+        if(amount < -5) playerEffects.PlayerDamage();
     }
 
     public IEnumerator ToolUse(ToolBehavior tool, float time, float coolDown)
