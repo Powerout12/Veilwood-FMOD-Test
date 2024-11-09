@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class FarmLand : StructureBehaviorScript
 {
@@ -14,29 +15,47 @@ public class FarmLand : StructureBehaviorScript
     //public float nutrients.waterLevel; //How much has this crop been watered
     public int growthStage = -1; //-1 means there is no crop
     public int hoursSpent = 0; //how long has the plant been in this growth stage for?
+    int plantStress = 0; //how much stress the plant has, gained from lack of nutrients/water. If 0 stress, the plant can produce seeds
 
     public bool harvestable = false; //true if growth stage matches crop data growth stages
     public bool rotted = false;
+    public bool isWeed = false;
+    bool forceDig = false;
 
     private bool ignoreNextGrowthMoment = false; //tick this if crop was just planted
 
     PlayerInventoryHolder playerInventoryHolder;
 
     private NutrientStorage nutrients;
+
+    public VisualEffect growth, growthComplete;
     // Start is called before the first frame update
     void Awake()
     {
         base.Awake();
-        SpriteChange();
-        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+        if(growth) growth.Stop();
+        if(growthComplete) growthComplete.Stop();
     }
 
     void Start()
     {
-        if(!crop) ignoreNextGrowthMoment = true;
+        ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+        if (!crop) ignoreNextGrowthMoment = true;
+        else if(crop.harvestableGrowthStages.Contains(growthStage))
+        {
+            harvestable = true;
+        }
         playerInventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
 
         nutrients = StructureManager.Instance.FetchNutrient(transform.position);
+
+        if(isWeed)
+        {
+            growthStage = Random.Range(0, crop.growthStages);
+            growthStage++;
+        }
+
+        SpriteChange();
     }
 
     // Update is called once per frame
@@ -53,36 +72,75 @@ public class FarmLand : StructureBehaviorScript
         {
             crop = newCrop.cropData;
             growthStage = 1;
+            hoursSpent = 0;
+            plantStress = 0;
             SpriteChange();
             HotbarDisplay.currentSlot.AssignedInventorySlot.RemoveFromStack(1);
             playerInventoryHolder.UpdateInventory();
             ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
+
+            audioHandler.PlayRandomSound(audioHandler.miscSounds1);
 
         }
     }
 
     public override void StructureInteraction()
     {
-        if(harvestable)
+        if(harvestable || forceDig)
         {
+            audioHandler.PlaySound(audioHandler.interactSound);
             harvestable = false;
+            forceDig = false;
             if(rotted == false)
             {
-                GameObject droppedItem;
-                for(int i = 0; i < crop.cropYieldAmount; i++)
+                if (crop.creaturePrefab)
                 {
-                    droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
-                    droppedItem.transform.position = itemDropTransform.position;
+                    Instantiate(crop.creaturePrefab, transform.position, transform.rotation); //Code needs work once mandrake crop is added
                 }
-                for(int i = 0; i < crop.seedYieldAmount; i++)
+                else
                 {
-                    droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
-                    droppedItem.transform.position = itemDropTransform.position;
+                    GameObject droppedItem;
+                    for (int i = 0; i < crop.cropYieldAmount; i++)
+                    {
+                        droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropYield);
+                        droppedItem.transform.position = transform.position;
+                    }
+                    int r = Random.Range(crop.seedYieldAmount - crop.seedYieldVariance, crop.seedYieldAmount + crop.seedYieldVariance + 1);
+                    if(r == 0) r = 1;
+                    for (int i = 0; i < r; i++)
+                    {
+                        if(crop.cropSeed && plantStress == 0)
+                        {
+                            droppedItem = ItemPoolManager.Instance.GrabItem(crop.cropSeed);
+                            droppedItem.transform.position = transform.position;
+                        }
+                        
+                    }
+                    
                 }
             }
 
             crop = null;
+            hoursSpent = 0;
+            if (isWeed) Destroy(this.gameObject);
             SpriteChange();
+        }
+    }
+
+    public override void ToolInteraction(ToolType type, out bool success)
+    {
+        success = false;
+        if(type == ToolType.Shovel && !forceDig && crop)
+        {
+            StartCoroutine(DigPlant());
+            success = true;
+        }
+        if(type == ToolType.WateringCan && PlayerInteraction.Instance.waterHeld > 0 && nutrients.waterLevel < 10)
+        {
+            PlayerInteraction.Instance.waterHeld--;
+            nutrients.waterLevel = 10;
+            SpriteChange();
+            success = true;
         }
     }
 
@@ -99,61 +157,58 @@ public class FarmLand : StructureBehaviorScript
             return;
         }
         hoursSpent++;
-        if(hoursSpent >= crop.hoursPerStage && growthStage < crop.growthStages)
-        {
-            if(growthStage == crop.growthStages - 1)
-            {
-                
-                if(hoursSpent < crop.hoursPerStage * 3) return;
-                //plant rots
-                CropDied();
-            }
-            hoursSpent = 0;
-            growthStage++;
-            if(growthStage == crop.growthStages - 1) harvestable = true;
-            SpriteChange();
-        }
-        if(!rotted)
-        {
-            //update the struct manager after reducing the nutrition values from the tile
-            bool plantDied = false;
-            nutrients.ichorLevel -= crop.ichorIntake;
-            if(nutrients.ichorLevel < 0)
-            {
-                nutrients.ichorLevel = 0;
-                plantDied = true;
-            }
-            nutrients.terraLevel -= crop.terraIntake;
-            if(nutrients.terraLevel < 0)
-            {
-                nutrients.terraLevel = 0;
-                plantDied = true;
-            }
-            nutrients.gloamLevel -= crop.gloamIntake;
-            if(nutrients.gloamLevel < 0)
-            {
-                nutrients.gloamLevel = 0;
-                plantDied = true;
-            }
-            nutrients.waterLevel -= crop.waterIntake;
-            if(nutrients.waterLevel < 0)
-            {
-                nutrients.waterLevel = 0;
-                plantDied = true;
-            }
-            StructureManager.Instance.UpdateStorage(transform.position, nutrients);
+        crop.OnHour(this);
 
-            if(plantDied)
+        if(hoursSpent >= crop.hoursPerStage || StructureManager.Instance.ignoreCropGrowthTime)
+        {
+            if(growthStage >= crop.growthStages)
             {
-                CropDied();
+                //IT HAS REACHED MAX GROWTH STATE
+
+                //if(hoursSpent < crop.hoursPerStage * 3) return;
+                //plant rots
+                //CropDied();
             }
+            else
+            {
+                hoursSpent = 0;
+                if(!isWeed)
+                {
+                    growthStage++;
+                    if(growth) growth.Play();
+                }
+                if(crop.harvestableGrowthStages.Contains(growthStage))
+                {
+                    harvestable = true;
+                    if(growth) growth.Stop();
+                    if(growthComplete) growthComplete.Play();
+                }
+                else harvestable = false;
+                SpriteChange();
+            }
+            
         }
+        else return;
+
+        DrainNutrients();
     }
 
-    void SpriteChange()
+    public void InsertCreature(CropData _data, int _growthStage)
     {
-        print(growthStage);
-        if(crop) cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
+        //the mimic will use this function to "plant" itself
+        isWeed = true;
+        crop = _data;
+        growthStage = _growthStage;
+        SpriteChange();
+    }
+
+    public void SpriteChange()
+    {
+        if(crop) 
+        {
+            if(rotted) cropRenderer.sprite = crop.rottedImage;
+            else cropRenderer.sprite = crop.cropSprites[(growthStage - 1)];
+        }
         else cropRenderer.sprite = null;
 
         if(nutrients.ichorLevel <= 1 || nutrients.terraLevel <= 1 || nutrients.gloamLevel <= 1)
@@ -169,7 +224,43 @@ public class FarmLand : StructureBehaviorScript
         }
     }
 
-    public void CropDied()
+    void DrainNutrients()
+    {
+        //PLANTS DRAIN PER GROWTH STAGE, AND THE PLAYER SHOULD HAVE TO WATER ROUGHLY EVERY STAGE/EVERY OTHER STAGE
+        nutrients.ichorLevel -= crop.ichorIntake;
+        if(nutrients.ichorLevel < 0)
+        {
+            nutrients.ichorLevel = 0;
+            plantStress++;
+        }
+        nutrients.terraLevel -= crop.terraIntake;
+        if(nutrients.terraLevel < 0)
+        {
+            nutrients.terraLevel = 0;
+            plantStress++;
+        }
+        nutrients.gloamLevel -= crop.gloamIntake;
+        if(nutrients.gloamLevel < 0)
+        {
+            nutrients.gloamLevel = 0;
+            plantStress++;
+        }
+        nutrients.waterLevel -= crop.waterIntake;
+        if(nutrients.waterLevel < 0)
+        {
+            nutrients.waterLevel = 0;
+            plantStress++;
+        }
+        StructureManager.Instance.UpdateStorage(transform.position, nutrients);
+
+        if(plantStress > crop.stressLimit && !isWeed)
+        {
+            CropDied();
+        }
+        else SpriteChange();
+    }
+
+    void CropDied()
     {
         rotted = true;
         harvestable = true;
@@ -185,10 +276,26 @@ public class FarmLand : StructureBehaviorScript
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
     }
 
+    IEnumerator DigPlant()
+    {
+        forceDig = true;
+        yield return new WaitForSeconds(1f);
+        StructureInteraction();
+    }
+
     void OnDestroy()
     {
-        if(!gameObject.scene.isLoaded) return;
+        if (!gameObject.scene.isLoaded) return; 
+        if (crop != null && crop.creaturePrefab)
+        {
+            Instantiate(crop.creaturePrefab, transform.position, transform.rotation); //Code needs work once mandrake crop is added
+        }
         ParticlePoolManager.Instance.MoveAndPlayParticle(transform.position, ParticlePoolManager.Instance.dirtParticle);
         base.OnDestroy();
+    }
+
+    public NutrientStorage GetCropStats()
+    {
+        return nutrients;
     }
 }

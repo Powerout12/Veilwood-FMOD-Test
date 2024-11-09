@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class ToolBehavior : ScriptableObject
 {
-    public virtual void PrimaryUse()
+    [HideInInspector] public bool usingPrimary, usingSecondary = false;
+    [HideInInspector] public Transform player;
+    [HideInInspector] public ToolType tool;
+    public LayerMask mask;
+    public virtual void PrimaryUse(Transform player, ToolType tool)
     {
 
     }
 
-    public virtual void SecondaryUse()
+    public virtual void SecondaryUse(Transform player, ToolType tool)
     {
 
     }
+
+    public virtual void ItemUsed() { }
 
 
 }

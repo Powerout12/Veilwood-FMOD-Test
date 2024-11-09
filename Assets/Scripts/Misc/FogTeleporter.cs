@@ -8,11 +8,14 @@ public class FogTeleporter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("triggered");
         if(other.gameObject.layer == 10)
         {
-            print("Teleported");
             if(otherEnd) other.transform.position = otherEnd.position;
+        }
+        else if(other.gameObject.layer == 9)
+        {
+            if(TimeManager.isDay) Destroy(other.gameObject);
+            else if(otherEnd) other.transform.position = otherEnd.position;
         }
 
 

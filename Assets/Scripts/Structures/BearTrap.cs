@@ -70,33 +70,37 @@ public class BearTrap : StructureBehaviorScript
         yield return new WaitForSeconds(0.5f);
         topClamp.rotation = Quaternion.Euler(-161, 90, -90);
         bottomClamp.rotation = Quaternion.Euler(-20, 90, -90);
-        source.PlayOneShot(triggeredSFX);
+        audioHandler.PlaySound(triggeredSFX);
 
-        float distance = Vector3.Distance(victim.transform.position, transform.position);
-        if(distance < 1.2f)
+        if(victim.gameObject.layer == 9) victim.transform.position = transform.position;
+        Vector3 victimPos = new Vector3(victim.transform.position.x, transform.position.y, victim.transform.position.z);
+
+        float distance = Vector3.Distance(victimPos, transform.position);
+        print(distance);
+        if(distance < 1.5f)
         {
-            print(distance);
 
             //does the damage
             if(victim.GetComponent<PlayerInteraction>())
             {
                 PlayerInteraction player = victim.GetComponent<PlayerInteraction>();
-                player.PlayerTakeDamage();
+                player.StaminaChange(-25);
 
                 //restrictplayermovement
-                PlayerMovement.restrictMovement = true;
+                PlayerMovement.restrictMovementTokens += 1;
                 
                 yield return new WaitForSeconds(1);
                 StartCoroutine(Rearm());
 
                 yield return new WaitForSeconds(0.5f);
-                PlayerMovement.restrictMovement = false;
+                PlayerMovement.restrictMovementTokens -= 1;
                 //enable player movement
             } 
             else
             {
                 CreatureBehaviorScript creature = victim.GetComponent<CreatureBehaviorScript>();
-                if(creature.health > 50)
+                creature.isTrapped = true;
+                if(creature.health > 75)
                 {
                     //stun and damage
                     creature.TakeDamage(25);
