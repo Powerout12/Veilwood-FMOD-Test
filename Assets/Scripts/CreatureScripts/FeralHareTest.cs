@@ -8,7 +8,7 @@ public class FeralHareTest : CreatureBehaviorScript
 
     FarmLand foundFarmTile;
 
-    Vector3 jumpPos;
+    Vector3 jumpPos, startingDestination;
     bool isFleeing = false;
     bool jumpCooldown = false;
     bool isEating = false;
@@ -23,7 +23,7 @@ public class FeralHareTest : CreatureBehaviorScript
         Eat,
         FleeFromPlayer,
         Stunned,
-        Dead
+        Dead,
     }
 
     public CreatureState currentState;
@@ -58,6 +58,8 @@ public class FeralHareTest : CreatureBehaviorScript
         {
             CheckState(currentState);
         }
+
+        if(startingDestination != new Vector3(0,0,0) && Vector3.Distance(startingDestination, transform.position) < 3) startingDestination = new Vector3(0,0,0);
     }
 
     private void CheckState(CreatureState state)
@@ -85,12 +87,18 @@ public class FeralHareTest : CreatureBehaviorScript
         }
     }
 
+    public override void OnSpawn()
+    {
+        startingDestination = StructureManager.Instance.GetRandomTile();
+    }
+
     private void Wander()
     {
         if (!jumpCooldown)
         {
             StartCoroutine(JumpCooldownTimer());
-            Hop(jumpPos);
+            if(startingDestination != new Vector3(0,0,0))Hop(startingDestination);
+            else Hop(jumpPos);
         }
         float r = Random.Range(0, 10f);
         if (r > 2 && foundFarmTile)

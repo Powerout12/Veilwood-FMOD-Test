@@ -8,6 +8,7 @@ public class HoeBehavior : ToolBehavior
     Vector3 pos;
     UntilledTile tile;
     public GameObject farmTile;
+    public AudioClip swing;
 
     public override void PrimaryUse(Transform _player, ToolType _tool)
     {
@@ -45,7 +46,7 @@ public class HoeBehavior : ToolBehavior
             {
                 usingPrimary = true;
                 HandItemManager.Instance.PlayPrimaryAnimation();
-                //HandItemManager.Instance.toolSource.PlayOneShot(swing);
+                HandItemManager.Instance.toolSource.PlayOneShot(swing);
                 PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.4f, 1.9f));
                 PlayerMovement.restrictMovementTokens++;
                 PlayerInteraction.Instance.StaminaChange(-2);

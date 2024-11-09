@@ -67,7 +67,7 @@ public class PlayerInventoryHolder : InventoryHolder
             addedToSecondary = secondaryInventorySystem.AddToInventory(data, amount);
             if (addedToSecondary)
             {
-                OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem); // Update only backpack
+                //OnPlayerBackpackDisplayRequested?.Invoke(secondaryInventorySystem); 
                 OnPlayerInventoryChanged?.Invoke(secondaryInventorySystem);         // Notify general inventory change
                 return true;
             }
