@@ -8,6 +8,8 @@ public class HandItemManager : MonoBehaviour
 
     GameObject currentHandObject;
     Animator currentAnim;
+    public GameObject handSpriteTransform;
+    SpriteRenderer handRenderer;
 
     public static HandItemManager Instance;
 
@@ -41,7 +43,8 @@ public class HandItemManager : MonoBehaviour
     {
         if(currentHandObject) currentHandObject.SetActive(false);
         if(MissingObject()) return;
-        switch(type)
+        handRenderer.sprite = null;
+        switch (type)
         {
             case ToolType.Hoe:
                 hoe.SetActive(true);
@@ -60,6 +63,11 @@ public class HandItemManager : MonoBehaviour
                 break;
         }
         if(currentHandObject) currentAnim = currentHandObject.GetComponent<Animator>();
+    }
+
+    public void ShowSpriteInHand(InventoryItemData item)
+    {
+        handRenderer.sprite = item.icon;
     }
 
     public void PlayPrimaryAnimation()
@@ -108,6 +116,7 @@ public class HandItemManager : MonoBehaviour
     IEnumerator DelayedStart()
     {
         yield return new WaitForSeconds(0.2f);
+        handRenderer = handSpriteTransform.GetComponent<SpriteRenderer>();
         CheckSlotForTool();
     }
 
