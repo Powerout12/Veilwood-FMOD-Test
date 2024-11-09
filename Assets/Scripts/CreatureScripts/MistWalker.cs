@@ -7,6 +7,8 @@ using static FeralHareTest;
 
 public class MistWalker : CreatureBehaviorScript
 {
+    public List<StructureObject> targettableStructures;
+
     StructureBehaviorScript targetStructure;
     public List<StructureBehaviorScript> availableStructure = new List<StructureBehaviorScript>();
 
@@ -34,10 +36,14 @@ public class MistWalker : CreatureBehaviorScript
 
     public CreatureState currentState;
 
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     void Start()
     {
         base.Start();
-        agent = GetComponent<NavMeshAgent>();
         //StartCoroutine(StructureCheck());
         //currentState = CreatureState.SpawnIn;
         StructureBehaviorScript.OnStructuresUpdated += UpdateStructureList; //if a structure is placed or destroyed, this will update the list of available structures
@@ -80,7 +86,10 @@ public class MistWalker : CreatureBehaviorScript
     private void UpdateStructureList()
     {
         availableStructure.Clear();
-        availableStructure = structManager.allStructs;
+        foreach (var structure in structManager.allStructs)
+        {
+            if(targettableStructures.Contains(structure.structData)) availableStructure.Add(structure);
+        }
 
         if (availableStructure.Count > 0)
         {
@@ -374,6 +383,7 @@ public class MistWalker : CreatureBehaviorScript
 
     private void Trapped()
     {
+        agent.ResetPath();
         rb.isKinematic = true;
     }
 

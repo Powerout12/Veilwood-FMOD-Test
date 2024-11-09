@@ -10,7 +10,8 @@ public class NightSpawningManager : MonoBehaviour
     public CreatureObject[] creatures;
     List<int> spawnedCreatures; //tracks how many of a specific type of creature was spawned this hour
 
-    public float[] spawnThresholds; //each hour the difficulty points should drop to this times the original
+    //public List<GameObject> allCreatures; //all creatures in the scene, have a limit to how many there can be in a scene
+    //this list saves all current creatures, and all spawned creatures through this/saved by this manager should be assigned to this list
 
     public Transform[] testSpawns;
 
@@ -35,13 +36,17 @@ public class NightSpawningManager : MonoBehaviour
             //difficultyPoints += TimeManager.dayNum;
             //originalDifficultyPoints = difficultyPoints;
         }
-        //HourlySpawns();
+        if(difficultyPoints > 0) HourlySpawns();
     }
 
     void HourlySpawns()
     {
         List<int> weightArray = new List<int>();
         spawnedCreatures = new List<int>();
+        for(int i = 0; i < creatures.Length; i++)
+        {
+            spawnedCreatures.Add(0);
+        }
         int w = 0;
         foreach(CreatureObject c in creatures)
         {
@@ -52,22 +57,31 @@ public class NightSpawningManager : MonoBehaviour
             w++;
         }
 
-        //try to spawn up to 15 things per hour, with a failed appempt counting for 0.5f tries
-        float l = 0;
+        //try to spawn up to 10 things per hour, with a failed attempt counting for 0.25f tries
+        float spawnAttempts = 0;
         int r;
+        float threshhold = difficultyPoints * GetThreshold();
+        print("Difficulty points currently is: " + difficultyPoints);
+        print("Threshold is: " + threshhold);
         do
         {
             r = Random.Range(0, weightArray.Count);
             CreatureObject attemptedCreature = creatures[weightArray[r]];
-            if(attemptedCreature.dangerCost <= difficultyPoints && spawnedCreatures[weightArray[r]] < attemptedCreature.spawnCap)
+            if(attemptedCreature.dangerCost <= difficultyPoints && spawnedCreatures[weightArray[r]] < attemptedCreature.spawnCapPerHour && difficultyPoints > threshhold)
             {
                 spawnedCreatures[weightArray[r]]++;
-                l++;
+                SpawnCreature(attemptedCreature);
+                spawnAttempts++;
+                print("Spawned Creature");
             }
-            else l += 0.5f;
+            else 
+            {
+                spawnAttempts += 0.25f;
+                print("Unable to Spawn");
+            }
             
         }
-        while(l < 10); //add threshhold req too
+        while(spawnAttempts < 10); //add threshhold req too
     }
 
     void SpawnCreature(CreatureObject c)
@@ -78,5 +92,48 @@ public class NightSpawningManager : MonoBehaviour
         {
             enemy.OnSpawn();
         }
+    }
+
+    float GetThreshold()
+    {
+        switch (TimeManager.currentHour)
+            {
+                case 1:
+                    return 0.2f;
+                    break;
+                case 2:
+                    return 0.2f;
+                    break;
+                case 3:
+                    return 0;
+                    break;
+                case 4:
+                    return 0;
+                    break;
+                case 5:
+                    return 0;
+                    break;
+                case 6:
+                    return 0;
+                    break;
+                case 20:
+                    return 0.9f;
+                    break;
+                case 21:
+                    return 0.7f;
+                    break;
+                case 22:
+                    return 0.7f;
+                    break;
+                case 23:
+                    return 0.4f;
+                    break;
+                case 0:
+                    return 0.4f;
+                    break;
+                default:
+                    return 1;
+                    break;
+            }
     }
 }
