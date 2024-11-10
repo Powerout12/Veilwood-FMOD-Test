@@ -33,9 +33,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614662}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614697}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614735}
       id: 0
       isStickyNote: 0
@@ -280,7 +277,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 200
+      m_SerializableObject: 10
     m_Space: 2147483647
   m_Property:
     name: Rate
@@ -288,8 +285,7 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661614698}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661614558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,10 +1395,10 @@ MonoBehaviour:
     m_PropertyValues:
     - 0
     - 1
-    - 0
+    - 2
     - 1
     - 5
-    - 10
+    - 1
     - 0
     - 0
     - 4
@@ -1958,7 +1954,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.06480327993631363,"g":0.15896086394786836,"b":0.012983030639588833,"a":1.0},"time":0.0},{"color":{"r":0.06492523103952408,"g":0.1603773832321167,"b":0.012860452756285668,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":1}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.01860985718667507,"g":0.04564952477812767,"b":0.003728396724909544,"a":1.0},"time":0.0},{"color":{"r":0.01850021816790104,"g":0.04518621414899826,"b":0.0036765069235116245,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":1}'
     m_Space: 2147483647
   m_Property:
     name: gradient
@@ -2545,14 +2541,7 @@ MonoBehaviour:
   m_EnumValues: []
   m_ValueFilter: 0
   m_Tooltip: 
-  m_Nodes:
-  - m_Id: 0
-    linkedSlots:
-    - outputSlot: {fileID: 8926484042661614698}
-      inputSlot: {fileID: 8926484042661614557}
-    position: {x: -327, y: -62}
-    expandedSlots: []
-    expanded: 0
+  m_Nodes: []
 --- !u!114 &8926484042661614698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2586,8 +2575,7 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 1
-  m_LinkedSlots:
-  - {fileID: 8926484042661614557}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661614727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4461,7 +4449,7 @@ MonoBehaviour:
   castShadows: 0
   useExposureWeight: 0
   needsOwnSort: 0
-  shaderGraph: {fileID: 4333940904281232215, guid: 3940763cfc4bf3345b573c8663691d66,
+  shaderGraph: {fileID: 4333940904281232215, guid: 2b22dc43241b4964e878cd5810db514b,
     type: 3}
   materialSettings:
     m_PropertyNames:
@@ -4488,7 +4476,7 @@ MonoBehaviour:
     - 1
     - 0
     - 4
-    - 2
+    - 0
     - 1
     - 0
     - 0
@@ -5335,7 +5323,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":2.2433388233184816,"g":5.507960319519043,"b":0.4973137378692627,"a":1.0}'
+      m_SerializableObject: '{"r":0.20127010345458985,"g":0.4941686689853668,"b":0.04461849108338356,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: _Color
@@ -7881,10 +7869,10 @@ MonoBehaviour:
     m_PropertyValues:
     - 0
     - 1
-    - 3
     - 1
-    - 2
-    - 0
+    - 1
+    - 1
+    - 10
     - 0
     - 0
     - 4
@@ -8326,7 +8314,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 100
+      m_SerializableObject: 80
     m_Space: 2147483647
   m_Property:
     name: A
@@ -8360,7 +8348,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 120
+      m_SerializableObject: 90
     m_Space: 2147483647
   m_Property:
     name: B
@@ -8932,7 +8920,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":1}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0022005473729223015,"g":0.0022005473729223015,"b":0.0022005473729223015,"a":1.0},"time":0.0},{"color":{"r":0.003184401895850897,"g":0.003184401895850897,"b":0.003184401895850897,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":0.994125247001648}],"gradientMode":1}'
     m_Space: 2147483647
   m_Property:
     name: gradient
