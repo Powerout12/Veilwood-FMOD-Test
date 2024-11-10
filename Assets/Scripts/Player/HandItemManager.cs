@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandItemManager : MonoBehaviour
 {
-    public GameObject hoe, shovel, wateringCan;
+    public GameObject hoe, shovel, wateringCan, shotGun;
 
     GameObject currentHandObject;
     Animator currentAnim;
@@ -14,6 +14,8 @@ public class HandItemManager : MonoBehaviour
     public static HandItemManager Instance;
 
     public AudioSource toolSource;
+
+    public Transform bulletStart;
 
     void Awake()
     {
@@ -32,6 +34,7 @@ public class HandItemManager : MonoBehaviour
     {
         handRenderer = handSpriteTransform.GetComponent<SpriteRenderer>();
         StartCoroutine(DelayedStart());
+        if(!bulletStart) Debug.Log("You are missing the transform for where shotgun bullets strt from, which is located on the player");
     }
 
     // Update is called once per frame
@@ -58,6 +61,10 @@ public class HandItemManager : MonoBehaviour
             case ToolType.WateringCan:
                 wateringCan.SetActive(true);
                 currentHandObject = wateringCan;
+                break;
+            case ToolType.ShotGun:
+                shotGun.SetActive(true);
+                currentHandObject = shotGun;
                 break;
             default:
             currentHandObject = null;
