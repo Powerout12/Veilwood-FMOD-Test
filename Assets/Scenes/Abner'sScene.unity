@@ -73087,6 +73087,7 @@ MonoBehaviour:
   isDead: 0
   damageToStructure: 10
   damageToPlayer: 30
+  targettableStructures: []
   availableStructure: []
   agent: {fileID: 0}
   currentState: 0
