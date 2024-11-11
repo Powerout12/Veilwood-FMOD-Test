@@ -27,6 +27,7 @@ public class CreatureBehaviorScript : MonoBehaviour
     public bool shovelVulnerable = true;
     public bool isTrapped = false;
     public bool isDead = false;
+    bool corpseDestroyed = false;
     public int damageToStructure;
     public int damageToPlayer;
 
@@ -58,8 +59,9 @@ public class CreatureBehaviorScript : MonoBehaviour
         {
             effectsHandler.OnHit();
             OnDamage();
-            if(health < corpseHealth && isDead)
+            if(health < corpseHealth && isDead && !corpseDestroyed)
             {
+                corpseDestroyed = true;
                 for(int i = 0; i < droppedItems.Length; i++)
                 {
                     if(Random.Range(0f,10f) < dropChance[i])

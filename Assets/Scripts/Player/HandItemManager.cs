@@ -71,6 +71,7 @@ public class HandItemManager : MonoBehaviour
                 break;
         }
         if(currentHandObject) currentAnim = currentHandObject.GetComponent<Animator>();
+        if(!currentAnim) currentAnim = currentHandObject.GetComponentInChildren<Animator>();
     }
 
     public void ShowSpriteInHand(InventoryItemData item)

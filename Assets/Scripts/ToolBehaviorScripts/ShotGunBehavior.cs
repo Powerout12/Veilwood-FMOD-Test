@@ -26,7 +26,7 @@ public class ShotGunBehavior : ToolBehavior
         //Shoot
         HandItemManager.Instance.PlayPrimaryAnimation();
         HandItemManager.Instance.toolSource.PlayOneShot(shoot);
-        PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.1f, 1.2f));
+        PlayerInteraction.Instance.StartCoroutine(PlayerInteraction.Instance.ToolUse(this, 0.1f, 1.7f));
     }
 
     public override void SecondaryUse(Transform _player, ToolType _tool)
@@ -56,7 +56,9 @@ public class ShotGunBehavior : ToolBehavior
         }
         for (int i = 0; i < bulletCount; i++)
         {
-            GameObject newBullet = Instantiate(bullet, bulletStart.position, Quaternion.identity);
+            GameObject newBullet = ProjectilePoolManager.Instance.GrabBullet();
+            newBullet.transform.position = bulletStart.position;
+            newBullet.transform.rotation = Quaternion.identity;
             Vector3 dir = bulletStart.forward + new Vector3(Random.Range(-bulletSpread,bulletSpread), Random.Range(-bulletSpread,bulletSpread), Random.Range(-bulletSpread,bulletSpread));
             newBullet.GetComponent<Rigidbody>().AddForce(dir * speed);
 

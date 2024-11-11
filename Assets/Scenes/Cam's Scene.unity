@@ -15138,7 +15138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 377703339}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hand_shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19445,6 +19445,41 @@ PrefabInstance:
       propertyPath: timeText
       value: 
       objectReference: {fileID: 1847810725}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190754791202859545, guid: 8eafeddf8fe5cec4d87507a7231cf339,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3406670050517197411, guid: 8eafeddf8fe5cec4d87507a7231cf339,
         type: 3}
       propertyPath: coinText
@@ -19571,7 +19606,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5814743521450389335, guid: 8eafeddf8fe5cec4d87507a7231cf339, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8eafeddf8fe5cec4d87507a7231cf339, type: 3}
@@ -44732,10 +44768,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 377703339}
     m_Modifications:
+    - target: {fileID: 1404332903463739190, guid: 1d45d84ce9875944cb99e7513f672fe8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085713568918766330, guid: 1d45d84ce9875944cb99e7513f672fe8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3845958675927841643, guid: 1d45d84ce9875944cb99e7513f672fe8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5831594845510923954, guid: 1d45d84ce9875944cb99e7513f672fe8,
         type: 3}
       propertyPath: m_Name
       value: shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831594845510923954, guid: 1d45d84ce9875944cb99e7513f672fe8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6604014496612428808, guid: 1d45d84ce9875944cb99e7513f672fe8,
         type: 3}
@@ -44801,6 +44857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912196669402329204, guid: 1d45d84ce9875944cb99e7513f672fe8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

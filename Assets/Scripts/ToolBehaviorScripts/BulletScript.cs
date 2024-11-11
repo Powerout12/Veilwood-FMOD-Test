@@ -22,7 +22,7 @@ public class BulletScript : MonoBehaviour
                 HandItemManager.Instance.toolSource.PlayOneShot(hitStruct);
                 print("Hit Structure");
                 ParticlePoolManager.Instance.MoveAndPlayVFX(transform.position, ParticlePoolManager.Instance.hitEffect);
-                Destroy(this.gameObject);
+                gameObject.SetActive(false);
                 return;
             }
             
@@ -38,7 +38,7 @@ public class BulletScript : MonoBehaviour
                 HandItemManager.Instance.toolSource.PlayOneShot(hitEnemy);
                 print("Hit Creature");
                 ParticlePoolManager.Instance.MoveAndPlayVFX(transform.position, ParticlePoolManager.Instance.hitEffect);
-                Destroy(this.gameObject);
+                gameObject.SetActive(false);
                 return;
             }
         }
@@ -48,7 +48,7 @@ public class BulletScript : MonoBehaviour
             HandItemManager.Instance.toolSource.PlayOneShot(hitGround);
             print("Missed");
             ParticlePoolManager.Instance.MoveAndPlayVFX(transform.position, ParticlePoolManager.Instance.hitEffect);
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
             return;
         }
     }
