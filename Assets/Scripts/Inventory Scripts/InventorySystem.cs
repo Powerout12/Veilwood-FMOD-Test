@@ -63,6 +63,13 @@ public class InventorySystem
         return invSlot == null ? false : true; // If they do return true, if not return false
     }
 
+    //public InventorySlot GrabItem(InventoryItemData item) //Search the inventory for a specific item
+    //{
+        //invSlot = InventorySlots.Where(i => i.ItemData == itemToAdd).ToList(); // If they do get a list of all of them
+
+       // return invSlot == null ? false : true; // If they do return true, if not return false
+    //}
+
     public bool HasFreeSlot(out InventorySlot freeSlot)
     {
       freeSlot = InventorySlots.FirstOrDefault(i => i.ItemData == null); //Get the first free slot
