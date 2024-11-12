@@ -249,6 +249,7 @@ Transform:
   m_Children:
   - {fileID: 1762802711427206768}
   - {fileID: 9117957962325276342}
+  - {fileID: 3201560652370425664}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2215828228040180568
@@ -265,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  corpseHealth: -50
   ichorWorth: 5
   ichorDropRadius: 2
   structManager: {fileID: 0}
@@ -531,3 +533,108 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &3162796934974230699
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4041892218060830233}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.100399
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.0499938
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.6216812
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      propertyPath: m_Name
+      value: MistWalker
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7086865256813604448}
+  m_SourcePrefab: {fileID: 100100000, guid: 7f57b4c075d331a4a923b7a16ad124fc, type: 3}
+--- !u!1 &2820918989307801082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3162796934974230699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7086865256813604448
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820918989307801082}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86a2244ed030d7048ae789329f192bba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &3201560652370425664 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3162796934974230699}
+  m_PrefabAsset: {fileID: 0}
