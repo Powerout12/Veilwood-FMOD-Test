@@ -38,7 +38,7 @@ public class UICropStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Tab"))
+        if(Input.GetButton("Tab") || Input.GetButton("ControllerTab"))
         {
             isDetailed = true;
         }

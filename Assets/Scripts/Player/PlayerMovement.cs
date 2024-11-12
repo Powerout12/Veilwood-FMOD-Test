@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyMovementInput()
     {
+        //print(Input.GetAxisRaw("LeftJoyX"));
         if (ControlManager.isController)
         {
             horizontalInput = Input.GetAxisRaw("LeftJoyX");

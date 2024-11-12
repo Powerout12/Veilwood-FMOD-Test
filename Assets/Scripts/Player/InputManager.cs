@@ -34,13 +34,13 @@ public class InputManager : MonoBehaviour
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
 
-        if (scrollInput > 0f)
+        if (scrollInput > 0f || Input.GetButtonDown("LeftBumper"))
         {
             // Scroll up
             OnScrollInput?.Invoke(-1); 
         }
 
-        if (scrollInput < 0f)
+        if (scrollInput < 0f || Input.GetButtonDown("RightBumper"))
         {
             // Scroll down
             OnScrollInput?.Invoke(1); 

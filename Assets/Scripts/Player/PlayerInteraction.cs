@@ -58,19 +58,19 @@ public class PlayerInteraction : MonoBehaviour
     {
         if(PlayerMovement.restrictMovementTokens > 0) return;
         //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
-        if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
+        if(Input.GetMouseButtonDown(0) || Input.GetAxis("RightTrigger") != 0 && !PlayerMovement.accessingInventory)
         {
             UseHotBarItem();
         }
 
         //RIGHT CLICK USES AN ITEM ON A STRUCTURE, EX: PLANTING A SEED IN FARMLAND
-        if(Input.GetMouseButtonDown(1) && !PlayerMovement.accessingInventory)
+        if(Input.GetMouseButtonDown(1) || Input.GetAxis("LeftTrigger") != 0 && !PlayerMovement.accessingInventory)
         {
             StructureInteractionWithItem();
         }
 
         //SPACE INTERACTS WITH A STRUCTURE WITHOUT USING AN ITEM, EX: HARVESTING A CROP
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("ControllerX"))
         {
             InteractWithObject();
         }
