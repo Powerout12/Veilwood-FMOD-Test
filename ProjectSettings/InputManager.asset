@@ -118,6 +118,38 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+    m_Name: RightJoyX
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 0.1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 3
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: RightJoyY
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 0.1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 4
+    joyNum: 0
+  - serializedVersion: 3
     m_Name: Mouse Y
     descriptiveName: 
     descriptiveNegativeName: 
@@ -166,7 +198,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: JoyHorizontal
+    m_Name: LeftJoyX
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -180,7 +212,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 0
+    joyNum: 10
   - serializedVersion: 3
     m_Name: Vertical
     descriptiveName: 
@@ -198,7 +230,7 @@ InputManager:
     axis: 1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: JoyVertical
+    m_Name: LeftJoyY
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
