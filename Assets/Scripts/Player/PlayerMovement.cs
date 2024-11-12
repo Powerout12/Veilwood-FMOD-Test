@@ -75,9 +75,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyMovementInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
+        if (ControlManager.isController)
+        {
+            horizontalInput = Input.GetAxisRaw("LeftJoyX");
+            verticalInput = Input.GetAxisRaw("LeftJoyY");
+        }
+        else
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && !accessingInventory)
         {

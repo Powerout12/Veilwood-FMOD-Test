@@ -11,7 +11,6 @@ public class PlayerCam : MonoBehaviour
 
     float xRotation;
     float yRotation;
-
     private void Start()
     {
         CursorLock();
@@ -38,12 +37,22 @@ public class PlayerCam : MonoBehaviour
 
         if (PlayerMovement.restrictMovementTokens > 0 || PlayerMovement.isCodexOpen) return;
 
-        float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
-
-        yRotation += mouseX;
-
-        xRotation -= mouseY;
+        if (ControlManager.isController)
+        {
+            float controllerX = Input.GetAxis("RightJoyX") * sensX;
+            float controllerY = Input.GetAxis("RightJoyY") * sensX * -1;
+            yRotation += controllerX;
+            xRotation -= controllerY;
+        }
+        else
+        {
+            float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
+            yRotation += mouseX;
+            xRotation -= mouseY;
+        }
+        
+        
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
