@@ -37,6 +37,7 @@ public class Crow : CreatureBehaviorScript
     private float savedAngle;
     private GameObject currentStructure;
     public CreatureState currentState;
+    public bool isSummoned = false;
     private Vector3 point;
     #endregion
 
@@ -44,7 +45,15 @@ public class Crow : CreatureBehaviorScript
     private void Start()
     {
         base.Start();
-        currentState = CreatureState.Idle;
+        if (isSummoned)
+        {
+            currentState = CreatureState.CirclePlayer;
+        }
+        else
+        {
+            currentState = CreatureState.Idle;
+        }
+        
         timeBeforeAttack = Random.Range(5, 10);
     }
 
@@ -67,6 +76,8 @@ public class Crow : CreatureBehaviorScript
     #endregion
 
     #region State Checking
+
+
     public void CheckState(CreatureState currentState)
     {
         switch (currentState)
