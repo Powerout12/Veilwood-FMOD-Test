@@ -87,11 +87,12 @@ public class PlayerMovement : MonoBehaviour
             verticalInput = Input.GetAxisRaw("Vertical");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !accessingInventory)
+        
+        if (Input.GetButtonDown("Sprint") || Input.GetButtonDown("ControllerSprint") && !accessingInventory)
         {
             moveSpeed = sprintSpeed;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) && !accessingInventory)
+        if (Input.GetButtonUp("Sprint") || Input.GetButtonUp("ControllerSprint") && !accessingInventory)
         {
             moveSpeed = savedMoveSpeed;
         }

@@ -30,7 +30,8 @@ public class ControlManager : MonoBehaviour
         || Input.GetButtonDown("ControllerA")
         || Input.GetButtonDown("ControllerB")
         || Input.GetButtonDown("ControllerX")
-        || Input.GetButtonDown("ControllerY"))
+        || Input.GetButtonDown("ControllerY")
+        || Input.GetButtonDown("ControllerSprint"))
         {
             isController = true;
             //print("vert!!!");
@@ -41,7 +42,11 @@ public class ControlManager : MonoBehaviour
         || Input.GetAxisRaw("Mouse X") != 0
         || Input.GetAxisRaw("Mouse Y") != 0
         || Input.GetButton("Tab")
-        || Input.GetAxis("Mouse ScrollWheel") != 0)
+        || Input.GetAxis("Mouse ScrollWheel") != 0
+        || Input.GetMouseButtonDown(0)
+        || Input.GetMouseButtonDown(1)
+        || Input.GetMouseButtonDown(2)
+        || Input.GetButtonDown("Sprint"))
         {
             isController = false;
         }
