@@ -2803,6 +2803,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: botanist
       objectReference: {fileID: 0}
+    - target: {fileID: 6164996480583612547, guid: ab15c6489374cc149a997b3ceb159c64,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f2abed298bfdc4499a7aaec10a0eda8, type: 2}
     - target: {fileID: 7718618906705022440, guid: ab15c6489374cc149a997b3ceb159c64,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
