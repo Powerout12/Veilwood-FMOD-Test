@@ -8,9 +8,9 @@ public class NightSpawningManager : MonoBehaviour
     //float originalDifficultyPoints = 0;
 
     public CreatureObject[] creatures;
-    List<int> spawnedCreatures; //tracks how many of a specific type of creature was spawned this hour
+    List<int> spawnedCreatures = new List<int>(); //tracks how many of a specific type of creature was spawned this hour
 
-    //public List<GameObject> allCreatures; //all creatures in the scene, have a limit to how many there can be in a scene
+    public List<CreatureBehaviorScript> allCreatures; //all creatures in the scene, have a limit to how many there can be in a scene
     //this list saves all current creatures, and all spawned creatures through this/saved by this manager should be assigned to this list
 
     public Transform[] testSpawns;
@@ -41,13 +41,17 @@ public class NightSpawningManager : MonoBehaviour
 
     void HourlySpawns()
     {
+        List<int> creatureTally = new List<int>(); //this list keeps track of the amount of each specific creature
         //Each monster has their weight added to a list
         List<int> weightArray = new List<int>();
-        spawnedCreatures = new List<int>();
+        spawnedCreatures.Clear();
         for(int i = 0; i < creatures.Length; i++)
         {
             spawnedCreatures.Add(0);
+            creatureTally.Add(0);
         }
+
+
         int w = 0;
         foreach(CreatureObject c in creatures)
         {
@@ -74,6 +78,7 @@ public class NightSpawningManager : MonoBehaviour
             if(attemptedCreature.dangerCost <= difficultyPoints && spawnedCreatures[weightArray[r]] < attemptedCreature.spawnCapPerHour && difficultyPoints > threshhold)
             {
                 spawnedCreatures[weightArray[r]]++;
+                difficultyPoints -= attemptedCreature.dangerCost;
                 SpawnCreature(attemptedCreature);
                 spawnAttempts++;
                 print("Spawned Creature");
@@ -104,40 +109,28 @@ public class NightSpawningManager : MonoBehaviour
             {
                 case 1:
                     return 0.2f;
-                    break;
                 case 2:
                     return 0.2f;
-                    break;
                 case 3:
                     return 0;
-                    break;
                 case 4:
                     return 0;
-                    break;
                 case 5:
                     return 0;
-                    break;
                 case 6:
                     return 0;
-                    break;
                 case 20:
                     return 0.9f;
-                    break;
                 case 21:
                     return 0.7f;
-                    break;
                 case 22:
-                    return 0.7f;
-                    break;
+                    return 0.7f;;
                 case 23:
                     return 0.4f;
-                    break;
                 case 0:
                     return 0.4f;
-                    break;
                 default:
                     return 1;
-                    break;
             }
     }
 }
