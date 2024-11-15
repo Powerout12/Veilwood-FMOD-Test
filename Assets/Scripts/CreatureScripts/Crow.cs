@@ -214,6 +214,11 @@ public class Crow : CreatureBehaviorScript
             coroutineRunning = false;
         }
 
+        if (point == null)
+        {
+        point = transform.position;
+        }
+
         angle += circleSpeed * Time.deltaTime;
         if (angle >= 360f) angle -= 360f;
 
@@ -221,6 +226,8 @@ public class Crow : CreatureBehaviorScript
         height = -1;
         point = new Vector3(point.x, 0, point.z);
         Vector3 targetPosition = point + offset + Vector3.up * height;
+
+        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * (circleSpeed / 2));
 
@@ -265,6 +272,17 @@ public class Crow : CreatureBehaviorScript
     }
 
     private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("scarecrow") && currentState != CreatureState.CirclePoint || currentState != CreatureState.Flee)
+        {
+            currentStructure = other.gameObject;
+            StopAllCoroutines();
+            coroutineRunning = false;
+            currentState = CreatureState.Flee;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("scarecrow") && currentState != CreatureState.CirclePoint || currentState != CreatureState.Flee)
         {
