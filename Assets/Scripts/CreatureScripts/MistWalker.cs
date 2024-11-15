@@ -7,6 +7,8 @@ using static FeralHareTest;
 
 public class MistWalker : CreatureBehaviorScript
 {
+    public List<StructureObject> targettableStructures;
+
     StructureBehaviorScript targetStructure;
     public List<StructureBehaviorScript> availableStructure = new List<StructureBehaviorScript>();
 
@@ -17,6 +19,8 @@ public class MistWalker : CreatureBehaviorScript
     Tilemap tileMap;
 
     [HideInInspector] public NavMeshAgent agent;
+    public AnimEvents animEvents;
+
     public enum CreatureState
     {
         SpawnIn,
@@ -34,10 +38,15 @@ public class MistWalker : CreatureBehaviorScript
 
     public CreatureState currentState;
 
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        if(animEvents) animEvents.OnFloatChange += WalkSpeedToggle;
+    }
+
     void Start()
     {
         base.Start();
-        agent = GetComponent<NavMeshAgent>();
         //StartCoroutine(StructureCheck());
         //currentState = CreatureState.SpawnIn;
         StructureBehaviorScript.OnStructuresUpdated += UpdateStructureList; //if a structure is placed or destroyed, this will update the list of available structures
@@ -82,7 +91,7 @@ public class MistWalker : CreatureBehaviorScript
         availableStructure.Clear();
         foreach (var structure in structManager.allStructs)
         {
-            availableStructure.Add(structure);
+            if(targettableStructures.Contains(structure.structData)) availableStructure.Add(structure);
         }
 
         if (availableStructure.Count > 0)
@@ -107,7 +116,7 @@ public class MistWalker : CreatureBehaviorScript
         }
     }
 
-        public void CheckState(CreatureState currentState)
+    public void CheckState(CreatureState currentState)
     {
         switch (currentState)
         {
@@ -117,30 +126,37 @@ public class MistWalker : CreatureBehaviorScript
 
             case CreatureState.Idle:
                 Idle();
+                anim.SetBool("IsWalking", false);
                 break;
 
             case CreatureState.Wander:
                 Wander();
+                anim.SetBool("IsWalking", true);
                 break;
 
             case CreatureState.WalkTowardsClosestStructure:
                 WalkTowardsClosestStructure();
+                anim.SetBool("IsWalking", true);
                 break;
 
             case CreatureState.WalkTowardsPriorityStructure:
                 WalkTowardsPriorityStructure();
+                anim.SetBool("IsWalking", true);
                 break;
 
             case CreatureState.WalkTowardsPlayer:
                 WalkTowardsPlayer();
+                anim.SetBool("IsWalking", true);
                 break;
 
             case CreatureState.AttackStructure:
                 AttackStructure();
+                anim.SetBool("IsWalking", false);
                 break;
 
             case CreatureState.AttackPlayer:
                 AttackPlayer();
+                anim.SetBool("IsWalking", false);
                 break;
 
             case CreatureState.Stun:
@@ -340,6 +356,7 @@ public class MistWalker : CreatureBehaviorScript
     IEnumerator AttackingStructure()
     {
         //play animation
+        anim.SetTrigger("IsAttacking");
         float distance = Vector3.Distance(transform.position, targetStructure.transform.position);
         if (distance < 3.5f)
         {
@@ -359,6 +376,7 @@ public class MistWalker : CreatureBehaviorScript
     private void AttackPlayer()
     {
         // Implementation for attacking the player
+        anim.SetTrigger("IsAttacking");
     }
 
     private void Stun()
@@ -368,6 +386,7 @@ public class MistWalker : CreatureBehaviorScript
 
     public override void OnDeath()
     {
+        anim.SetTrigger("IsDead");
         base.OnDeath();
         agent.enabled = false;
         rb.isKinematic = false;
@@ -375,10 +394,20 @@ public class MistWalker : CreatureBehaviorScript
         //anim.SetTrigger("IsDead");
     }
 
+    public override void OnDamage()
+    {
+        anim.SetTrigger("IsRecoiling");
+    }
+
     private void Trapped()
     {
         agent.ResetPath();
         rb.isKinematic = true;
+    }
+
+    public void WalkSpeedToggle(float _speed)
+    {
+        agent.speed = _speed;
     }
 
 
