@@ -12,6 +12,10 @@ public class NPCManager : MonoBehaviour
     public bool rascalWantsFood;
     public bool rascalMentionedKey;
 
+    //[Header("NPC Fed Bools")]
+    //public bool rascalFed = false;
+    //public bool lumberjackFed = false;
+
     void Awake()
     {
         if(Instance != null && Instance != this)
