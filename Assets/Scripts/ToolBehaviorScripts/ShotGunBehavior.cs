@@ -12,7 +12,7 @@ public class ShotGunBehavior : ToolBehavior
 
     Transform bulletStart;
 
-    float speed = 90;
+    float speed = 180;
     float bulletSpread = 0.08f;
     float damage = 25;
 
@@ -21,6 +21,27 @@ public class ShotGunBehavior : ToolBehavior
     {
         if (usingPrimary || usingSecondary || PlayerInteraction.Instance.toolCooldown) return;
         if (!player) player = _player;
+
+        var inventory = PlayerInventoryHolder.Instance.PrimaryInventorySystem;
+        if (inventory.ContainsItem(bulletItem, out List<InventorySlot> invSlot))
+        {
+            inventory.RemoveItemsFromInventory(bulletItem, 1);
+        }
+        else 
+        {
+            Debug.Log("No Bullet In Primary");
+            inventory = PlayerInventoryHolder.Instance.secondaryInventorySystem;
+            if (inventory.ContainsItem(bulletItem, out List<InventorySlot> invSlot2))
+            {
+                inventory.RemoveItemsFromInventory(bulletItem, 1);
+            }
+            else
+            {
+                Debug.Log("No Bullet In Secondary");
+                return;
+            }
+        }
+        
         tool = _tool;
         usingPrimary = true;
         //Shoot

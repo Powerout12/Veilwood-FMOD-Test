@@ -11,6 +11,8 @@ public class CreatureBehaviorScript : MonoBehaviour
     public float ichorWorth = 5; //How much ichor does killing this provide to surrounding tiles
     public float ichorDropRadius = 2;
 
+    public CreatureObject creatureData;
+
     [HideInInspector] public StructureManager structManager;
     [HideInInspector] public CreatureEffectsHandler effectsHandler;
     [HideInInspector] public Transform player;
@@ -82,6 +84,7 @@ public class CreatureBehaviorScript : MonoBehaviour
     public virtual void OnDeath()
     {
         if(ichorWorth > 0) structManager.IchorRefill(transform.position, ichorWorth, ichorDropRadius);
+        NightSpawningManager.Instance.allCreatures.Remove(this);
     } //Triggers creature specific effects
 
     public virtual void OnSpawn(){}

@@ -5,15 +5,22 @@ using UnityEngine;
 public class NPCManager : MonoBehaviour
 {
     //MANAGER FOR NPC QUEST AND DIALOGUE PROGRESSION
-    // Start is called before the first frame update
-    void Start()
+
+    public static NPCManager Instance;
+
+    [Header("Main Quest Progression Bools")]
+    public bool rascalWantsFood;
+    public bool rascalMentionedKey;
+
+    void Awake()
     {
-        
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else Instance = this;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
