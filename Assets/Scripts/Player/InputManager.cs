@@ -12,16 +12,27 @@ public class InputManager : MonoBehaviour
     // FOR TOGGLING THE GRID
     public Tilemap structGrid;
     public Color activeColor, hiddenColor;
+    public bool gridIsActive;
 
     void Update()
     {
         CheckForScrollInput();
         CheckNumberInput();
+        
+        if(ControlManager.isController)
+        {
+            if (ControlManager.isDpadRightPressed && structGrid)
+            {
+
+                if (gridIsActive){ structGrid.color = activeColor;}
+                else{ structGrid.color = hiddenColor; }
+            }
+        }
 
         if (Input.GetKeyDown("g") && structGrid)
         {
-            if (structGrid.color == activeColor) structGrid.color = hiddenColor;
-            else structGrid.color = activeColor;
+            if (gridIsActive){ structGrid.color = activeColor; gridIsActive = !gridIsActive; }
+            else{ structGrid.color = hiddenColor; gridIsActive = !gridIsActive; }
         }
 
         if(Input.GetKeyDown(KeyCode.Escape))
