@@ -24,7 +24,6 @@ public class NPCManager : MonoBehaviour
             return;
         }
         else Instance = this;
-
     }
 
 }
