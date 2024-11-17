@@ -24,6 +24,8 @@ public class NPCManager : MonoBehaviour
             return;
         }
         else Instance = this;
+
+        //print(nameof(rascalWantsFood));
     }
 
 }
