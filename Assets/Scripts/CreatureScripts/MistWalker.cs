@@ -418,7 +418,7 @@ public class MistWalker : CreatureBehaviorScript
 
 
        
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 1);
 
 
         attackingPlayer = false;
