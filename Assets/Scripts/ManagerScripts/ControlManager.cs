@@ -53,8 +53,9 @@ public class ControlManager : MonoBehaviour
         || Input.GetButtonDown("ControllerX")
         || Input.GetButtonDown("ControllerY")
         || Input.GetButtonDown("ControllerSprint")
-        || Input.GetAxis("DPadH") != 0
-        || Input.GetAxis("DPadV") != 0)
+        //|| Input.GetAxis("DPadH") != 0
+        //|| Input.GetAxis("DPadV") != 0
+        )
         {
             isController = true;
             //print("vert!!!");
