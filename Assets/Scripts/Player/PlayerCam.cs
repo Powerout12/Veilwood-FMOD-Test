@@ -13,6 +13,8 @@ public class PlayerCam : MonoBehaviour
     float yRotation;
     ControlManager controlManager;
 
+    const float contScalar = 4;
+
     void Awake()
     {
         controlManager = FindFirstObjectByType<ControlManager>();
@@ -52,26 +54,20 @@ public class PlayerCam : MonoBehaviour
         lookY *= 0.5f;
         lookY *= 0.1f;
 
-
-        yRotation += lookX;
-        xRotation -= lookY;
-
-        /* if (ControlManager.isController)
+        if(ControlManager.isGamepad)
         {
-            float controllerX = Input.GetAxis("RightJoyX") * sensX;
-            float controllerY = Input.GetAxis("RightJoyY") * sensX * -1;
-            yRotation += controllerX;
-            xRotation -= controllerY;
+            lookX = lookX * contScalar;
+            lookY = lookY * contScalar;
         }
         else
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
-            yRotation += mouseX;
-            xRotation -= mouseY;
-        } */
-        
-        
+            lookX = lookX * 1;
+            lookY = lookY * 1;
+        }
+
+
+        yRotation += lookX;
+        xRotation -= lookY;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 

@@ -8,7 +8,8 @@ public class ControlManager : MonoBehaviour
     public static bool isController;
     public InputActionReference useHeldItem, interactWithItem, interactWithoutItem, 
     movement, sprint, look, moreInfo, hotbarScroll, hotbarUp, hotbarDown, showGrid;
-    public string currentDevice;
+    string currentDevice;
+    public static bool isGamepad;
     void Start()
     {
         
@@ -18,6 +19,14 @@ public class ControlManager : MonoBehaviour
     void Update()
     {
         currentDevice = GetComponent<PlayerInput>().currentControlScheme;
-        //print(currentDevice);
+        print(currentDevice);
+        if(currentDevice == "Gamepad")
+        {
+            isGamepad = true;
+        }
+        else
+        {
+            isGamepad = false;
+        }
     }
 }
