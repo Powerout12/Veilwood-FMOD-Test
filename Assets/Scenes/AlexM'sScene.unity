@@ -1258,7 +1258,7 @@ PrefabInstance:
     - target: {fileID: 6618451763018252870, guid: 0cf3ef733806f9b4e8e8670e3d9c1481,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -32.999756
+      value: -32.999695
       objectReference: {fileID: 0}
     - target: {fileID: 7779478967069140126, guid: 0cf3ef733806f9b4e8e8670e3d9c1481,
         type: 3}
@@ -59565,6 +59565,12 @@ PrefabInstance:
       propertyPath: shopTarget
       value: 
       objectReference: {fileID: 1908983074}
+    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
+        type: 3}
+      propertyPath: openInventory
+      value: 
+      objectReference: {fileID: -4290668527917364387, guid: 060d319d61d58794a97cf0963535b7d5,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

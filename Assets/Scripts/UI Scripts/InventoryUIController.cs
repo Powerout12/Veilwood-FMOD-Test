@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryUIController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class InventoryUIController : MonoBehaviour
     private bool isBackpackOpen = false;  
  
     public bool readyToPress;
+    ControlManager controlManager;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class InventoryUIController : MonoBehaviour
 
         inventoryHolder = FindObjectOfType<PlayerInventoryHolder>();
         
-
+        controlManager = FindFirstObjectByType<ControlManager>();
     }
 
     void Start()
@@ -35,41 +37,40 @@ public class InventoryUIController : MonoBehaviour
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested += DisplayPlayerBackpack;
+        controlManager.openInventory.action.started += OpenInventory;
     }
 
     private void OnDisable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested -= DisplayPlayerBackpack;
+        controlManager.openInventory.action.started -= OpenInventory;
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            readyToPress = true;
-        }
+        
+        
+    }
 
+    private void OpenInventory(InputAction.CallbackContext obj)
+    {
        
-        if (Input.GetKeyDown(KeyCode.E) && readyToPress)
+        if(!PlayerMovement.accessingInventory)
         {
-            if(!PlayerMovement.accessingInventory)
-            {
-                PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
-                return;
-            }
-            
-            if (chestPanel.gameObject.activeInHierarchy)
-            {
-                CloseInventory();
-            }
-            else if (isBackpackOpen)
-            {
-                CloseBackpack();
-                print("Closing backpack");
-            }
+            PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
+            return;
         }
         
+        if (chestPanel.gameObject.activeInHierarchy)
+        {
+            CloseInventory();
+        }
+        else if (isBackpackOpen)
+        {
+            CloseBackpack();
+            print("Closing backpack");
+        }
     }
 
     void DisplayInventory(InventorySystem invToDisplay)
