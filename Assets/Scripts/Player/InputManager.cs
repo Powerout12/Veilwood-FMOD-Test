@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
-
+using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     // Unity Actions for number key and scroll input
@@ -13,45 +13,63 @@ public class InputManager : MonoBehaviour
     public Tilemap structGrid;
     public Color activeColor, hiddenColor;
     public bool gridIsActive;
+    ControlManager controlManager;
+
+    void Awake()
+    {
+        controlManager = FindFirstObjectByType<ControlManager>();
+    }
+
+    private void OnEnable()
+    {
+        controlManager.hotbarUp.action.started += HotbarUp;
+        controlManager.hotbarDown.action.canceled += HotbarDown;  
+        controlManager.showGrid.action.canceled += ShowGrid;
+    }
+    private void OnDisable()
+    {
+        controlManager.hotbarUp.action.started -= HotbarUp; 
+        controlManager.hotbarDown.action.canceled -= HotbarDown;  
+        controlManager.showGrid.action.canceled -= ShowGrid;
+    }
 
     void Update()
     {
         CheckForScrollInput();
         CheckNumberInput();
         
-        if(ControlManager.isController)
-        {
-            if (ControlManager.isDpadRightPressed && structGrid)
-            {
-
-                if (gridIsActive){ structGrid.color = activeColor;}
-                else{ structGrid.color = hiddenColor; }
-            }
-        }
-
-        if (Input.GetKeyDown("g") && structGrid)
-        {
-            if (gridIsActive){ structGrid.color = activeColor; gridIsActive = !gridIsActive; }
-            else{ structGrid.color = hiddenColor; gridIsActive = !gridIsActive; }
-        }
+        if (gridIsActive){ structGrid.color = activeColor;}
+        else{ structGrid.color = hiddenColor;}
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
     }
+    private void HotbarUp(InputAction.CallbackContext obj)
+    {
+        OnScrollInput?.Invoke(-1);
+    }
+    private void HotbarDown(InputAction.CallbackContext obj)
+    {
+        OnScrollInput?.Invoke(1);
+    }
+    private void ShowGrid(InputAction.CallbackContext obj)
+    {
+        gridIsActive = !gridIsActive;
+    }
 
     private void CheckForScrollInput()
     {
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        float scrollInput = controlManager.hotbarScroll.action.ReadValue<float>();
 
-        if (scrollInput > 0f || Input.GetButtonDown("LeftBumper"))
+        if (scrollInput > 0f)
         {
             // Scroll up
             OnScrollInput?.Invoke(-1); 
         }
 
-        if (scrollInput < 0f || Input.GetButtonDown("RightBumper"))
+        if (scrollInput < 0f)
         {
             // Scroll down
             OnScrollInput?.Invoke(1); 

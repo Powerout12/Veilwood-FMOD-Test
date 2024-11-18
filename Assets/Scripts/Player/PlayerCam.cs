@@ -11,6 +11,12 @@ public class PlayerCam : MonoBehaviour
 
     float xRotation;
     float yRotation;
+    ControlManager controlManager;
+
+    void Awake()
+    {
+        controlManager = FindFirstObjectByType<ControlManager>();
+    }
     private void Start()
     {
         CursorLock();
@@ -37,7 +43,20 @@ public class PlayerCam : MonoBehaviour
 
         if (PlayerMovement.restrictMovementTokens > 0 || PlayerMovement.isCodexOpen) return;
 
-        if (ControlManager.isController)
+        Vector2 look = controlManager.look.action.ReadValue<Vector2>();
+        float lookX = look.x * sensX;
+        float lookY = look.y * sensY;
+        // Scaling sensitivity to match old input system;
+        lookX *= 0.5f;
+        lookX *= 0.1f;
+        lookY *= 0.5f;
+        lookY *= 0.1f;
+
+
+        yRotation += lookX;
+        xRotation -= lookY;
+
+        /* if (ControlManager.isController)
         {
             float controllerX = Input.GetAxis("RightJoyX") * sensX;
             float controllerY = Input.GetAxis("RightJoyY") * sensX * -1;
@@ -50,7 +69,7 @@ public class PlayerCam : MonoBehaviour
             float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
             yRotation += mouseX;
             xRotation -= mouseY;
-        }
+        } */
         
         
 
