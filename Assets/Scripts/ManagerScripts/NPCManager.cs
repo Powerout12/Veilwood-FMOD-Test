@@ -12,6 +12,7 @@ public class NPCManager : MonoBehaviour
     public bool rascalWantsFood;
     public bool rascalMentionedKey;
 
+
     //[Header("NPC Fed Bools")]
     //public bool rascalFed = false;
     //public bool lumberjackFed = false;
@@ -26,6 +27,7 @@ public class NPCManager : MonoBehaviour
         else Instance = this;
 
         //print(nameof(rascalWantsFood));
+
     }
 
 }
