@@ -409,6 +409,18 @@ MonoBehaviour:
     type: 3}
   movement: {fileID: 8786471635816679520, guid: 060d319d61d58794a97cf0963535b7d5,
     type: 3}
+  sprint: {fileID: -4032827547580708922, guid: 060d319d61d58794a97cf0963535b7d5, type: 3}
+  look: {fileID: 3608215692035909477, guid: 060d319d61d58794a97cf0963535b7d5, type: 3}
+  moreInfo: {fileID: 8165805058168795206, guid: 060d319d61d58794a97cf0963535b7d5,
+    type: 3}
+  hotbarScroll: {fileID: 4282090616307805020, guid: 060d319d61d58794a97cf0963535b7d5,
+    type: 3}
+  hotbarUp: {fileID: 4847244299127133825, guid: 060d319d61d58794a97cf0963535b7d5,
+    type: 3}
+  hotbarDown: {fileID: -3995106997469193173, guid: 060d319d61d58794a97cf0963535b7d5,
+    type: 3}
+  showGrid: {fileID: -7289274771137023755, guid: 060d319d61d58794a97cf0963535b7d5,
+    type: 3}
   currentDevice: 
 --- !u!114 &3987123363838110697
 MonoBehaviour:

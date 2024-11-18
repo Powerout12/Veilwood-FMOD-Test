@@ -59565,48 +59565,6 @@ PrefabInstance:
       propertyPath: shopTarget
       value: 
       objectReference: {fileID: 1908983074}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: look
-      value: 
-      objectReference: {fileID: 3608215692035909477, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: sprint
-      value: 
-      objectReference: {fileID: -4032827547580708922, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: hotbarUp
-      value: 
-      objectReference: {fileID: 4847244299127133825, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: moreInfo
-      value: 
-      objectReference: {fileID: 8165805058168795206, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: showGrid
-      value: 
-      objectReference: {fileID: -7289274771137023755, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: hotbarDown
-      value: 
-      objectReference: {fileID: -3995106997469193173, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
-    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
-        type: 3}
-      propertyPath: hotbarScroll
-      value: 
-      objectReference: {fileID: 4282090616307805020, guid: 060d319d61d58794a97cf0963535b7d5,
-        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
