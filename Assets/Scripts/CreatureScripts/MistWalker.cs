@@ -56,6 +56,8 @@ public class MistWalker : CreatureBehaviorScript
         ImbuedScarecrow.OnScarecrowAttract += TargetImbuedScarecrow;
         UpdateStructureList();
         tileMap = StructureManager.Instance.tileMap;
+        agent.enabled = false;
+        agent.enabled = true;
     }
     void OnDestroy()
     {
