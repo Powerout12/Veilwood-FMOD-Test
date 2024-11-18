@@ -56,7 +56,12 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerMovement.restrictMovementTokens > 0) return;
+        if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
+        if(stamina > maxStamina) stamina = maxStamina;
+
+        DisplayHologramCheck();
+
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
         //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
@@ -81,10 +86,6 @@ public class PlayerInteraction : MonoBehaviour
             //DestroyStruct();
         }
 
-        if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
-        if(stamina > maxStamina) stamina = maxStamina;
-
-        DisplayHologramCheck();
 
     }
 
