@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
-using static FeralHareTest;
 
 public class MistWalker : CreatureBehaviorScript
 {
@@ -419,7 +418,7 @@ public class MistWalker : CreatureBehaviorScript
 
 
        
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 1);
 
 
         attackingPlayer = false;
