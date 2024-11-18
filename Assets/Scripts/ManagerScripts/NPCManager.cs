@@ -31,6 +31,7 @@ public class NPCManager : MonoBehaviour
         else Instance = this;
 
         //print(nameof(rascalWantsFood));
+
     }
 
     public void InitializeDictionary()
