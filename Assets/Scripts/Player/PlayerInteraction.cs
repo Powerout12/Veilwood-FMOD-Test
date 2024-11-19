@@ -56,7 +56,12 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerMovement.restrictMovementTokens > 0) return;
+        if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
+        if(stamina > maxStamina) stamina = maxStamina;
+
+        DisplayHologramCheck();
+
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
         //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
         {
@@ -78,11 +83,9 @@ public class PlayerInteraction : MonoBehaviour
         if(Input.GetKeyDown("f"))
         {
             //TO TEST CLEARING A STRUCTURE
-            DestroyStruct();
+            //DestroyStruct();
         }
 
-        if(waterHeld > maxWaterHeld) waterHeld = maxWaterHeld;
-        if(stamina > maxStamina) stamina = maxStamina;
 
     }
 
@@ -235,6 +238,20 @@ public class PlayerInteraction : MonoBehaviour
         yield return new WaitForSeconds(coolDown - time);
         toolCooldown = false;
         //use a bool that says i am done swinging to avoid tool overlap
+    }
+
+    void DisplayHologramCheck()
+    {
+        InventoryItemData item = HotbarDisplay.currentSlot.AssignedInventorySlot.ItemData;
+        if(!item) return;
+        PlaceableItem p_item = item as PlaceableItem;
+        if(!p_item || !p_item.hologramPrefab) return;
+        p_item.DisplayHologram(mainCam.transform);
+
+        if(Input.GetKeyDown("r"))
+        {
+            p_item.RotateHologram();
+        }
     }
     
 }
