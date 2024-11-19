@@ -2623,6 +2623,7 @@ MonoBehaviour:
   chestPanel: {fileID: 3902067817899856662}
   playerBackpackPanel: {fileID: 64658951123738474}
   readyToPress: 0
+  firstObject: {fileID: 6698665613669517702}
 --- !u!114 &5523955718989650972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10248,13 +10249,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6016236312875679004}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6698665613669517702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1120138394679637146, guid: 7d53a592e15124841820b0f8ed0ae73b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6016236312875679004}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8838867210631926264 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -6209335886881821468, guid: 7d53a592e15124841820b0f8ed0ae73b,
     type: 3}
   m_PrefabInstance: {fileID: 6016236312875679004}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6698665613669517702}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94d5417aa5a9cea4d94aae86da3c9369, type: 3}

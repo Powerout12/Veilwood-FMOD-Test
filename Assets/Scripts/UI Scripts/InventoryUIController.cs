@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InventoryUIController : MonoBehaviour
@@ -11,10 +13,10 @@ public class InventoryUIController : MonoBehaviour
     PlayerInventoryHolder inventoryHolder;
 
     private bool isBackpackOpen = false;  
- 
     public bool readyToPress;
+    [SerializeField] private GameObject firstObject;
     ControlManager controlManager;
-
+    EventSystem eventSystem;
     private void Awake()
     {
         readyToPress = true;
@@ -31,6 +33,7 @@ public class InventoryUIController : MonoBehaviour
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
         CloseBackpack();
         readyToPress = true;
+        eventSystem = EventSystem.current;
     }
 
     private void OnEnable()
@@ -38,6 +41,7 @@ public class InventoryUIController : MonoBehaviour
         InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested += DisplayPlayerBackpack;
         controlManager.openInventory.action.started += OpenInventory;
+        controlManager.closeInventory.action.started += CloseInput;
     }
 
     private void OnDisable()
@@ -45,6 +49,7 @@ public class InventoryUIController : MonoBehaviour
         InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested -= DisplayPlayerBackpack;
         controlManager.openInventory.action.started -= OpenInventory;
+        controlManager.closeInventory.action.started -= CloseInput;
     }
 
     void Update()
@@ -58,16 +63,34 @@ public class InventoryUIController : MonoBehaviour
        
         if(!PlayerMovement.accessingInventory)
         {
+            eventSystem.SetSelectedGameObject(firstObject);
             PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
             return;
         }
         
         if (chestPanel.gameObject.activeInHierarchy)
         {
+            eventSystem.SetSelectedGameObject(null);
             CloseInventory();
         }
         else if (isBackpackOpen)
         {
+            eventSystem.SetSelectedGameObject(null);
+            CloseBackpack();
+            print("Closing backpack");
+        }
+    }
+
+    private void CloseInput(InputAction.CallbackContext obj)
+    {
+        if (chestPanel.gameObject.activeInHierarchy)
+        {
+            eventSystem.SetSelectedGameObject(null);
+            CloseInventory();
+        }
+        else if (isBackpackOpen)
+        {
+            eventSystem.SetSelectedGameObject(null);
             CloseBackpack();
             print("Closing backpack");
         }
