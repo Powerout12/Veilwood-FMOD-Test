@@ -616,6 +616,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MousePos",
+                    "type": "Value",
+                    "id": "a718c9ca-6da5-4996-b7dd-16e98b204443",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -781,6 +790,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Split",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2ac2086-d2e1-46a9-aa0a-a2201bac0c13",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

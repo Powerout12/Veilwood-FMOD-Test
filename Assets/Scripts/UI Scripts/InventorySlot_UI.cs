@@ -37,6 +37,11 @@ public class InventorySlot_UI : MonoBehaviour
         controlManager.split.action.started -= Split;
     }
 
+    public void TestPrint()
+    {
+        print("Test");
+    }
+
     private void Select(InputAction.CallbackContext obj)
     {
         if(PlayerMovement.accessingInventory == true)
@@ -73,11 +78,11 @@ public class InventorySlot_UI : MonoBehaviour
         // PointerClick (detect left and right mouse clicks)
         EventTrigger.Entry pointerClick = new EventTrigger.Entry();
         pointerClick.eventID = EventTriggerType.PointerClick;
-        pointerClick.callback.AddListener((eventData) => OnPointerClick((PointerEventData)eventData));
+        //pointerClick.callback.AddListener((eventData) => OnPointerClick((PointerEventData)eventData));
         trigger.triggers.Add(pointerClick);
     }
 
-     void OnPointerClick(PointerEventData eventData)
+    /* void OnPointerClick(PointerEventData eventData)
     {
         print("HELP");
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -90,7 +95,7 @@ public class InventorySlot_UI : MonoBehaviour
             // Handle right-click
             OnRightUISlotClick();
         }
-    } 
+    }  */
 
     private void OnLeftUISlotClick()
     {

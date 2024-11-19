@@ -638,6 +638,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""a718c9ca-6da5-4996-b7dd-16e98b204443"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -805,6 +814,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Split"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2ac2086-d2e1-46a9-aa0a-a2201bac0c13"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -860,6 +880,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_Split = m_UI.FindAction("Split", throwIfNotFound: true);
+        m_UI_MousePos = m_UI.FindAction("MousePos", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1067,6 +1088,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Select;
     private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_Split;
+    private readonly InputAction m_UI_MousePos;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -1075,6 +1097,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Select => m_Wrapper.m_UI_Select;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         public InputAction @Split => m_Wrapper.m_UI_Split;
+        public InputAction @MousePos => m_Wrapper.m_UI_MousePos;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1096,6 +1119,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Split.started += instance.OnSplit;
             @Split.performed += instance.OnSplit;
             @Split.canceled += instance.OnSplit;
+            @MousePos.started += instance.OnMousePos;
+            @MousePos.performed += instance.OnMousePos;
+            @MousePos.canceled += instance.OnMousePos;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1112,6 +1138,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Split.started -= instance.OnSplit;
             @Split.performed -= instance.OnSplit;
             @Split.canceled -= instance.OnSplit;
+            @MousePos.started -= instance.OnMousePos;
+            @MousePos.performed -= instance.OnMousePos;
+            @MousePos.canceled -= instance.OnMousePos;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1169,5 +1198,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnSelect(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnSplit(InputAction.CallbackContext context);
+        void OnMousePos(InputAction.CallbackContext context);
     }
 }
