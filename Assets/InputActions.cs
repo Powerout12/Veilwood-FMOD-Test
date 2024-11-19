@@ -629,6 +629,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Split"",
+                    ""type"": ""Button"",
+                    ""id"": ""17a482e4-98cc-4b4b-a97f-436f7c6fd067"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -755,12 +764,45 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""32cc000e-fef9-4a30-9c54-b641b91ce148"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f7cb5249-b136-46e5-8fa7-aaa9b10840e8"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aecf7aef-aa7d-4337-a9e7-04cfd39f6552"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Split"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0c4745c-3243-4038-9546-550408793900"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Split"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -817,6 +859,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI_UIMove = m_UI.FindAction("UIMove", throwIfNotFound: true);
         m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        m_UI_Split = m_UI.FindAction("Split", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1023,6 +1066,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_UIMove;
     private readonly InputAction m_UI_Select;
     private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_Split;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -1030,6 +1074,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @UIMove => m_Wrapper.m_UI_UIMove;
         public InputAction @Select => m_Wrapper.m_UI_Select;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @Split => m_Wrapper.m_UI_Split;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1048,6 +1093,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @Split.started += instance.OnSplit;
+            @Split.performed += instance.OnSplit;
+            @Split.canceled += instance.OnSplit;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1061,6 +1109,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @Split.started -= instance.OnSplit;
+            @Split.performed -= instance.OnSplit;
+            @Split.canceled -= instance.OnSplit;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1117,5 +1168,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnUIMove(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+        void OnSplit(InputAction.CallbackContext context);
     }
 }

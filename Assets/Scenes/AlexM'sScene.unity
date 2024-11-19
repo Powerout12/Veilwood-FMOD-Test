@@ -59642,6 +59642,18 @@ PrefabInstance:
       objectReference: {fileID: 1908983074}
     - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
         type: 3}
+      propertyPath: split
+      value: 
+      objectReference: {fileID: -1999698616602045232, guid: 060d319d61d58794a97cf0963535b7d5,
+        type: 3}
+    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
+        type: 3}
+      propertyPath: select
+      value: 
+      objectReference: {fileID: 668919531283680143, guid: 060d319d61d58794a97cf0963535b7d5,
+        type: 3}
+    - target: {fileID: 8082979714350972251, guid: 87c0604840a57034e9f6852e4f6cad9e,
+        type: 3}
       propertyPath: openInventory
       value: 
       objectReference: {fileID: -4290668527917364387, guid: 060d319d61d58794a97cf0963535b7d5,

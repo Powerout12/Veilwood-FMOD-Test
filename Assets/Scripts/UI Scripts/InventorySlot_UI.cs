@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class InventorySlot_UI : MonoBehaviour
 {
@@ -13,15 +14,44 @@ public class InventorySlot_UI : MonoBehaviour
 
     public InventorySlot AssignedInventorySlot => assignedInventorySlot;
     public InventoryDisplay ParentDisplay { get; private set; }
+    ControlManager controlManager;
 
     private void Awake()
     {
+        controlManager = FindFirstObjectByType<ControlManager>();
         ClearSlot();
 
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>();
 
         AddEventTriggers();
     }
+
+    private void OnEnable()
+    {
+        controlManager.select.action.started += Select;
+        controlManager.split.action.started += Split;
+    }
+    private void OnDisable()
+    {
+        controlManager.select.action.started -= Select;
+        controlManager.split.action.started -= Split;
+    }
+
+    private void Select(InputAction.CallbackContext obj)
+    {
+        if(PlayerMovement.accessingInventory == true)
+        {
+           OnLeftUISlotClick();
+        }     
+    }
+    private void Split(InputAction.CallbackContext obj)
+    {
+        if(PlayerMovement.accessingInventory == true)
+        {
+            OnRightUISlotClick();
+        }
+    }
+
 
     // Add EventTrigger component and setup event listeners for highlight detection and clicks
     private void AddEventTriggers()
@@ -47,8 +77,9 @@ public class InventorySlot_UI : MonoBehaviour
         trigger.triggers.Add(pointerClick);
     }
 
-    private void OnPointerClick(PointerEventData eventData)
+     void OnPointerClick(PointerEventData eventData)
     {
+        print("HELP");
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // Handle left-click
@@ -59,7 +90,7 @@ public class InventorySlot_UI : MonoBehaviour
             // Handle right-click
             OnRightUISlotClick();
         }
-    }
+    } 
 
     private void OnLeftUISlotClick()
     {
