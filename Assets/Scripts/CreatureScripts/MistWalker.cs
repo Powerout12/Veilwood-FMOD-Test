@@ -460,7 +460,7 @@ public class MistWalker : CreatureBehaviorScript
         anim.SetTrigger("IsDead");
         base.OnDeath();
         agent.enabled = false;
-        rb.isKinematic = false;
+        rb.isKinematic = true;
         agent.ResetPath();
         //anim.SetTrigger("IsDead");
     }

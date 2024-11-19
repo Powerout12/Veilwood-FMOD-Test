@@ -269,6 +269,7 @@ MonoBehaviour:
   corpseHealth: -50
   ichorWorth: 5
   ichorDropRadius: 2
+  creatureData: {fileID: 0}
   structManager: {fileID: 0}
   effectsHandler: {fileID: 0}
   player: {fileID: 0}
@@ -284,13 +285,17 @@ MonoBehaviour:
   isDead: 0
   damageToStructure: 10
   damageToPlayer: 30
+  canCorpseBreak: 0
   targettableStructures:
   - {fileID: 11400000, guid: 4bb8c5d0417971e499a33ac0a0c86ee3, type: 2}
   - {fileID: 11400000, guid: 0df10b19e29cb1c48940ea9ef2efcc81, type: 2}
   - {fileID: 11400000, guid: 045a35b3e3380ed41848d0d35a370181, type: 2}
   availableStructure: []
+  coroutineRunning: 0
+  attackingPlayer: 0
   agent: {fileID: 0}
   animEvents: {fileID: 1571331616092395312}
+  lungeAttackHitbox: {fileID: 0}
   currentState: 2
 --- !u!114 &788383897487939331
 MonoBehaviour:
@@ -684,6 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d8fe26444a2fa4a97a8666b1b9421b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creatureScript: {fileID: 2215828228040180568}
 --- !u!4 &3201560652370425664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
