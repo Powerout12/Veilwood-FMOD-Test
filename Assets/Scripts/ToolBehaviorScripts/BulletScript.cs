@@ -51,6 +51,23 @@ public class BulletScript : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
+
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(LifeTime());
+    }
+
+    void OnDisable()
+    {
+        StopCoroutine(LifeTime());
+    }
+
+    IEnumerator LifeTime()
+    {
+        yield return new WaitForSeconds(3);
+        gameObject.SetActive(false);
     }
 
 }
