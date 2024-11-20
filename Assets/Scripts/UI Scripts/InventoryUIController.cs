@@ -65,6 +65,18 @@ public class InventoryUIController : MonoBehaviour
         if(EventSystem.current.currentSelectedGameObject != null)
             {
                 EventSystem.current.currentSelectedGameObject.GetComponent<InventorySlot_UI>().OnLeftUISlotClick();
+                PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
+                return;
+            }
+            
+            if (chestPanel.gameObject.activeInHierarchy)
+            {
+                CloseInventory();
+            }
+            else if (isBackpackOpen)
+            {
+                CloseBackpack();
+                //print("Closing backpack");
             }
            
         }     
@@ -134,7 +146,7 @@ public class InventoryUIController : MonoBehaviour
     {
         if (!isBackpackOpen)
         {
-            print("Opening");
+            //print("Opening");
             PlayerMovement.accessingInventory = true;
             playerBackpackPanel.gameObject.SetActive(true);
             playerBackpackPanel.RefreshDynamicInventory(invToDisplay);
@@ -155,7 +167,7 @@ public class InventoryUIController : MonoBehaviour
 
     void CloseBackpack()
     {
-        print("Closing");
+        //print("Closing");
         //HandItemManager.Instance.CheckSlotForTool();
         playerBackpackPanel.gameObject.SetActive(false);
         PlayerMovement.accessingInventory = false;
