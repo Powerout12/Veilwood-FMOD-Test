@@ -3,18 +3,20 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System.Security.Principal;
 
 public class InventorySlot_UI : MonoBehaviour
 {
     [SerializeField] private Image itemSprite;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemCount;
-    [SerializeField] private GameObject slotHighlight;
+    [SerializeField] public GameObject slotHighlight;
     [SerializeField] private InventorySlot assignedInventorySlot;
 
     public InventorySlot AssignedInventorySlot => assignedInventorySlot;
     public InventoryDisplay ParentDisplay { get; private set; }
     ControlManager controlManager;
+    bool isSelected;
 
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class InventorySlot_UI : MonoBehaviour
         AddEventTriggers();
     }
 
-    private void OnEnable()
+     private void OnEnable()
     {
         controlManager.select.action.started += Select;
         controlManager.split.action.started += Split;
@@ -40,21 +42,6 @@ public class InventorySlot_UI : MonoBehaviour
     public void TestPrint()
     {
         print("Test");
-    }
-
-    private void Select(InputAction.CallbackContext obj)
-    {
-        if(PlayerMovement.accessingInventory == true)
-        {
-           OnLeftUISlotClick();
-        }     
-    }
-    private void Split(InputAction.CallbackContext obj)
-    {
-        if(PlayerMovement.accessingInventory == true)
-        {
-            OnRightUISlotClick();
-        }
     }
 
 
@@ -82,31 +69,66 @@ public class InventorySlot_UI : MonoBehaviour
         trigger.triggers.Add(pointerClick);
     }
 
-    /* void OnPointerClick(PointerEventData eventData)
+     private void Select(InputAction.CallbackContext obj)
     {
-        print("HELP");
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if(PlayerMovement.accessingInventory == true)
         {
-            // Handle left-click
-            OnLeftUISlotClick();
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+           OnLeftUISlotClick();
+        }     
+    }
+    private void Split(InputAction.CallbackContext obj)
+    {
+        if(PlayerMovement.accessingInventory == true)
         {
-            // Handle right-click
             OnRightUISlotClick();
         }
-    }  */
+    }  
 
-    private void OnLeftUISlotClick()
+    /* void OnPointerClick(PointerEventData eventData)
     {
-        // Handle left-click behavior
-        ParentDisplay?.HandleSlotLeftClick(this);
+        if(!ControlManager.isController)
+        {
+            //print("HELP");
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                // Handle left-click
+                OnLeftUISlotClick();
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                // Handle right-click
+                OnRightUISlotClick();
+            }
+        }
+        else
+        {
+            print("Heyguys");
+        }  
+    } */
+
+    public void Selected()
+    {
+        isSelected = true;
+        slotHighlight.SetActive(true);
     }
 
-    private void OnRightUISlotClick()
+    public void Deselected()
+    {
+        isSelected = false;
+        slotHighlight.SetActive(false);
+    }
+        
+
+    public void OnLeftUISlotClick()
+    {
+        // Handle left-click behavior
+        if(isSelected){ParentDisplay?.HandleSlotLeftClick(this);}
+    }
+
+    public void OnRightUISlotClick()
     {
         // Handle right-click behavior
-        ParentDisplay?.HandleSlotRightClick(this);
+        if(isSelected){ParentDisplay?.HandleSlotRightClick(this);}
     }
 
     private void OnHighlight(bool selected)

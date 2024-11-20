@@ -58,6 +58,25 @@ public class InventoryUIController : MonoBehaviour
         
     }
 
+    private void Select(InputAction.CallbackContext obj)
+    {
+        if(PlayerMovement.accessingInventory == true)
+        {
+        if(EventSystem.current.currentSelectedGameObject != null)
+            {
+                EventSystem.current.currentSelectedGameObject.GetComponent<InventorySlot_UI>().OnLeftUISlotClick();
+            }
+           
+        }     
+    }
+    private void Split(InputAction.CallbackContext obj)
+    {
+        if(PlayerMovement.accessingInventory == true)
+        {
+            EventSystem.current.currentSelectedGameObject.GetComponent<InventorySlot_UI>().OnRightUISlotClick();
+        }
+    } 
+
     private void OpenInventory(InputAction.CallbackContext obj)
     {
        
@@ -72,12 +91,14 @@ public class InventoryUIController : MonoBehaviour
         {
             eventSystem.SetSelectedGameObject(null);
             CloseInventory();
+            HotbarDisplay.currentSlot.slotHighlight.SetActive(true);
         }
         else if (isBackpackOpen)
         {
             eventSystem.SetSelectedGameObject(null);
             CloseBackpack();
             print("Closing backpack");
+            HotbarDisplay.currentSlot.slotHighlight.SetActive(true);
         }
     }
 
@@ -99,6 +120,7 @@ public class InventoryUIController : MonoBehaviour
     void DisplayInventory(InventorySystem invToDisplay)
     {
         //Chest Inventory
+        eventSystem.SetSelectedGameObject(firstObject);
         PlayerMovement.accessingInventory = true;
         chestPanel.gameObject.SetActive(true);
         playerBackpackPanel.gameObject.SetActive(true);
