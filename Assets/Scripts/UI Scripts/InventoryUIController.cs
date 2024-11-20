@@ -58,37 +58,6 @@ public class InventoryUIController : MonoBehaviour
         
     }
 
-    private void Select(InputAction.CallbackContext obj)
-    {
-        if(PlayerMovement.accessingInventory == true)
-        {
-        if(EventSystem.current.currentSelectedGameObject != null)
-            {
-                EventSystem.current.currentSelectedGameObject.GetComponent<InventorySlot_UI>().OnLeftUISlotClick();
-                PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
-                return;
-            }
-            
-            if (chestPanel.gameObject.activeInHierarchy)
-            {
-                CloseInventory();
-            }
-            else if (isBackpackOpen)
-            {
-                CloseBackpack();
-                //print("Closing backpack");
-            }
-           
-        }     
-    }
-    private void Split(InputAction.CallbackContext obj)
-    {
-        if(PlayerMovement.accessingInventory == true)
-        {
-            EventSystem.current.currentSelectedGameObject.GetComponent<InventorySlot_UI>().OnRightUISlotClick();
-        }
-    } 
-
     private void OpenInventory(InputAction.CallbackContext obj)
     {
        
@@ -96,17 +65,20 @@ public class InventoryUIController : MonoBehaviour
         {
             eventSystem.SetSelectedGameObject(firstObject);
             PlayerInventoryHolder.OnPlayerBackpackDisplayRequested?.Invoke(inventoryHolder.secondaryInventorySystem);
+            HotbarDisplay.currentSlot.slotHighlight.SetActive(false);
             return;
         }
         
         if (chestPanel.gameObject.activeInHierarchy)
         {
+            eventSystem.currentSelectedGameObject.GetComponent<InventorySlot_UI>().slotHighlight.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
             CloseInventory();
             HotbarDisplay.currentSlot.slotHighlight.SetActive(true);
         }
         else if (isBackpackOpen)
         {
+            eventSystem.currentSelectedGameObject.GetComponent<InventorySlot_UI>().slotHighlight.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
             CloseBackpack();
             print("Closing backpack");
@@ -118,13 +90,17 @@ public class InventoryUIController : MonoBehaviour
     {
         if (chestPanel.gameObject.activeInHierarchy)
         {
+            eventSystem.currentSelectedGameObject.GetComponent<InventorySlot_UI>().slotHighlight.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
             CloseInventory();
+            HotbarDisplay.currentSlot.slotHighlight.SetActive(true);
         }
         else if (isBackpackOpen)
         {
+            eventSystem.currentSelectedGameObject.GetComponent<InventorySlot_UI>().slotHighlight.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
             CloseBackpack();
+            HotbarDisplay.currentSlot.slotHighlight.SetActive(true);
             print("Closing backpack");
         }
     }
@@ -161,7 +137,6 @@ public class InventoryUIController : MonoBehaviour
         chestPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
         PlayerMovement.accessingInventory = false;
-
         isBackpackOpen = false; 
     }
 

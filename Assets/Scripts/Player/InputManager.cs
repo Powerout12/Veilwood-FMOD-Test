@@ -48,15 +48,15 @@ public class InputManager : MonoBehaviour
     }
     private void HotbarUp(InputAction.CallbackContext obj)
     {
-        OnScrollInput?.Invoke(-1);
+        if(!PlayerMovement.accessingInventory){OnScrollInput?.Invoke(-1);}
     }
     private void HotbarDown(InputAction.CallbackContext obj)
     {
-        OnScrollInput?.Invoke(1);
+        if(!PlayerMovement.accessingInventory){OnScrollInput?.Invoke(1);}
     }
     private void ShowGrid(InputAction.CallbackContext obj)
     {
-        gridIsActive = !gridIsActive;
+        if(!PlayerMovement.accessingInventory){gridIsActive = !gridIsActive;}
     }
 
     private void CheckForScrollInput()

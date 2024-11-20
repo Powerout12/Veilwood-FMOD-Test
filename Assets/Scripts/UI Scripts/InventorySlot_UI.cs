@@ -39,6 +39,11 @@ public class InventorySlot_UI : MonoBehaviour
         controlManager.split.action.started -= Split;
     }
 
+    void Update()
+    {
+        if(PlayerMovement.accessingInventory){slotHighlight.SetActive(isSelected);}
+    }
+
     public void TestPrint()
     {
         print("Test");
@@ -109,13 +114,13 @@ public class InventorySlot_UI : MonoBehaviour
     public void Selected()
     {
         isSelected = true;
-        slotHighlight.SetActive(true);
+        //slotHighlight.SetActive(true);
     }
 
     public void Deselected()
     {
         isSelected = false;
-        slotHighlight.SetActive(false);
+        //slotHighlight.SetActive(false);
     }
         
 

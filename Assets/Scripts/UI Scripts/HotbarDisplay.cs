@@ -24,8 +24,6 @@ public class HotbarDisplay : MonoBehaviour
         {
             inputManager.OnNumberPressed += HandleNumberPressed;
             inputManager.OnScrollInput += HandleScrollInput;
-           
-            
         }
 
         PlayerInventoryHolder.OnPlayerInventoryChanged += UpdateHandItem;
