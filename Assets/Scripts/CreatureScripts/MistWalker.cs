@@ -248,7 +248,7 @@ public class MistWalker : CreatureBehaviorScript
 
     private IEnumerator WaitAround()
     {
-        Debug.Log("Waiting Around CO");
+        
         coroutineRunning = true;
         float r = Random.Range(1, 4.5f);
         yield return new WaitForSeconds(r);
@@ -257,7 +257,7 @@ public class MistWalker : CreatureBehaviorScript
 
     private IEnumerator MoveToPoint(Vector3 destination)
     {
-        Debug.Log("MoveToPoint CO");
+       
         isMoving = true;
         coroutineRunning = true;
 
@@ -396,7 +396,7 @@ public class MistWalker : CreatureBehaviorScript
     IEnumerator AttackingStructure()
     {
         //play animation
-        Debug.Log("Attacking Structure CO");
+       
         anim.SetTrigger("IsAttacking");
         float distance = Vector3.Distance(transform.position, targetStructure.transform.position);
         if (distance < 5f)
