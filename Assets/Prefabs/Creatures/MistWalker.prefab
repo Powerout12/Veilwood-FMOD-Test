@@ -221,8 +221,6 @@ GameObject:
   - component: {fileID: 4041892218060830233}
   - component: {fileID: 2215828228040180568}
   - component: {fileID: 788383897487939331}
-  - component: {fileID: 5987266264898078539}
-  - component: {fileID: 2532416459166459954}
   - component: {fileID: 4923551108285686843}
   - component: {fileID: 2189851238809794655}
   - component: {fileID: 3135005770813834964}
@@ -244,7 +242,7 @@ Transform:
   m_GameObject: {fileID: 6507201721181545267}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.39, y: 1, z: -31.334597}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -286,6 +284,7 @@ MonoBehaviour:
   isDead: 0
   damageToStructure: 10
   damageToPlayer: 30
+  canCorpseBreak: 0
   targettableStructures:
   - {fileID: 11400000, guid: 4bb8c5d0417971e499a33ac0a0c86ee3, type: 2}
   - {fileID: 11400000, guid: 0df10b19e29cb1c48940ea9ef2efcc81, type: 2}
@@ -321,56 +320,6 @@ MonoBehaviour:
   miscSound: {fileID: 0}
   hitParticles: {fileID: 0}
   deathParticles: {fileID: 0}
---- !u!33 &5987266264898078539
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507201721181545267}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2532416459166459954
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507201721181545267}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!195 &4923551108285686843
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -390,7 +339,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!136 &2189851238809794655
@@ -415,7 +364,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 3.26
   m_Direction: 1
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 1.41, z: 0}
 --- !u!82 &3135005770813834964
 AudioSource:
   m_ObjectHideFlags: 0
@@ -437,7 +386,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 40
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -561,7 +510,7 @@ CapsuleCollider:
   m_Radius: 1.5
   m_Height: 3.26
   m_Direction: 1
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 1.65, z: 0}
 --- !u!1001 &3162796934974230699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -593,7 +542,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.948
+      value: 0.063
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,
         type: 3}
@@ -1447,6 +1396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d8fe26444a2fa4a97a8666b1b9421b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creatureScript: {fileID: 2215828228040180568}
 --- !u!4 &3201560652370425664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f57b4c075d331a4a923b7a16ad124fc,

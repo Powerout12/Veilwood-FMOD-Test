@@ -24,8 +24,6 @@ public class HotbarDisplay : MonoBehaviour
         {
             inputManager.OnNumberPressed += HandleNumberPressed;
             inputManager.OnScrollInput += HandleScrollInput;
-           
-            
         }
 
         PlayerInventoryHolder.OnPlayerInventoryChanged += UpdateHandItem;
@@ -69,6 +67,14 @@ public class HotbarDisplay : MonoBehaviour
         {
             currentSlot.ToggleHighlight();
         }
+
+        PlaceableItem p_item = currentSlot.AssignedInventorySlot.ItemData as PlaceableItem;
+        if(p_item)p_item.DisableHologram();
+
+        //if(currentIndex == slotIndex)
+        //{
+        //    return;
+        //}
 
         // Set the new slot
         currentIndex = slotIndex;
