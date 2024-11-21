@@ -31,6 +31,7 @@ public class PlayerInteraction : MonoBehaviour
     private float reach = 5;
 
     public LayerMask interactionLayers;
+    private bool ltCanPress = false;
 
     void Awake()
     {
@@ -59,7 +60,7 @@ public class PlayerInteraction : MonoBehaviour
         //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
         controlManager.useHeldItem.action.started += UseHeldItem; 
         //RIGHT CLICK USES AN ITEM ON A STRUCTURE, EX: PLANTING A SEED IN FARMLAND
-        controlManager.interactWithItem.action.started += InteractWithItem; 
+        controlManager.interactWithItem.action.started += OnInteractWithItem;
         //SPACE INTERACTS WITH A STRUCTURE WITHOUT USING AN ITEM, EX: HARVESTING A CROP
         controlManager.interactWithoutItem.action.started += InteractWithoutItem;
     }
@@ -67,7 +68,7 @@ public class PlayerInteraction : MonoBehaviour
     private void OnDisable()
     {
         controlManager.useHeldItem.action.started -= UseHeldItem;
-        controlManager.interactWithItem.action.started -= InteractWithItem;
+        controlManager.interactWithItem.action.started -= OnInteractWithItem;
         controlManager.interactWithoutItem.action.started -= InteractWithoutItem;
     }
 
@@ -88,12 +89,13 @@ public class PlayerInteraction : MonoBehaviour
         UseHotBarItem();
     }
 
-    private void InteractWithItem(InputAction.CallbackContext obj)
+    private void OnInteractWithItem(InputAction.CallbackContext obj)
     {
         if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown || PlayerMovement.accessingInventory) return;
-        StructureInteractionWithItem();
-        //print("LT");
+        if(ltCanPress == true) { StructureInteractionWithItem(); ltCanPress = false; }
+        else ltCanPress = true;
     }
+
 
     private void InteractWithoutItem(InputAction.CallbackContext obj)
     {
