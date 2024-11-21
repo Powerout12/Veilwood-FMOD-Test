@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEditor.Rendering;
+using UnityEngine.InputSystem;
 
 public class UICropStats : MonoBehaviour
 {
@@ -26,7 +26,12 @@ public class UICropStats : MonoBehaviour
     public Image gloamArrow, terraArrow, ichorArrow, waterArrow;
     public Color c_default, c_rising, c_lowering;
 
-    // Start is called before the first frame update
+    ControlManager controlManager;
+
+    void Awake()
+    {
+        controlManager = FindFirstObjectByType<ControlManager>();
+    }
     void Start()
     {
         growthStageNumberD.text = "";
@@ -35,17 +40,28 @@ public class UICropStats : MonoBehaviour
         StartCoroutine(CheckTimer());
     }
 
+    private void OnEnable()
+    {
+        controlManager.moreInfo.action.started += MoreInfo;
+        controlManager.moreInfo.action.canceled += LessInfo;  
+    }
+    private void OnDisable()
+    {
+        controlManager.moreInfo.action.started -= MoreInfo; 
+        controlManager.moreInfo.action.canceled -= LessInfo;  
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Tab"))
+        /* if(Input.GetButton("Tab") || Input.GetButton("ControllerTab"))
         {
             isDetailed = true;
         }
         else
         {
             isDetailed = false;
-        }
+        } */
 
         if(isDetailed && isActive)
         {
@@ -68,6 +84,15 @@ public class UICropStats : MonoBehaviour
             growthStageTextD.SetActive(false);
             growthStageText.SetActive(false);
         }
+    }
+    
+    private void MoreInfo(InputAction.CallbackContext obj)
+    {
+        isDetailed = true;
+    }
+    private void LessInfo(InputAction.CallbackContext obj)
+    {
+        isDetailed = false;
     }
 
     IEnumerator CheckTimer()

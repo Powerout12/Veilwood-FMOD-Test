@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerInteraction : MonoBehaviour
 
     PlayerInventoryHolder playerInventoryHolder;
     PlayerEffectsHandler playerEffects;
+
+    ControlManager controlManager;
 
     public bool isInteracting { get; private set; }
     public bool toolCooldown;
@@ -29,9 +32,9 @@ public class PlayerInteraction : MonoBehaviour
 
     public LayerMask interactionLayers;
 
-
     void Awake()
     {
+        controlManager = FindFirstObjectByType<ControlManager>();
         stamina = maxStamina;
         if(Instance != null && Instance != this)
         {
@@ -51,7 +54,22 @@ public class PlayerInteraction : MonoBehaviour
         playerEffects = FindObjectOfType<PlayerEffectsHandler>();
     }
 
+    private void OnEnable()
+    {
+        //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
+        controlManager.useHeldItem.action.started += UseHeldItem; 
+        //RIGHT CLICK USES AN ITEM ON A STRUCTURE, EX: PLANTING A SEED IN FARMLAND
+        controlManager.interactWithItem.action.started += InteractWithItem; 
+        //SPACE INTERACTS WITH A STRUCTURE WITHOUT USING AN ITEM, EX: HARVESTING A CROP
+        controlManager.interactWithoutItem.action.started += InteractWithoutItem;
+    }
 
+    private void OnDisable()
+    {
+        controlManager.useHeldItem.action.started -= UseHeldItem;
+        controlManager.interactWithItem.action.started -= InteractWithItem;
+        controlManager.interactWithoutItem.action.started -= InteractWithoutItem;
+    }
 
     // Update is called once per frame
     void Update()
@@ -62,31 +80,22 @@ public class PlayerInteraction : MonoBehaviour
         DisplayHologramCheck();
 
         if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
-        //LEFT CLICK USES THE ITEM CURRENTLY IN THE HAND
-        if(Input.GetMouseButtonDown(0) && !PlayerMovement.accessingInventory)
-        {
-            UseHotBarItem();
-        }
+    }
 
-        //RIGHT CLICK USES AN ITEM ON A STRUCTURE, EX: PLANTING A SEED IN FARMLAND
-        if(Input.GetMouseButtonDown(1) && !PlayerMovement.accessingInventory)
-        {
-            StructureInteractionWithItem();
-        }
+    private void UseHeldItem(InputAction.CallbackContext obj)
+    {
+        UseHotBarItem();
+    }
 
-        //SPACE INTERACTS WITH A STRUCTURE WITHOUT USING AN ITEM, EX: HARVESTING A CROP
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            InteractWithObject();
-        }
+    private void InteractWithItem(InputAction.CallbackContext obj)
+    {
+        StructureInteractionWithItem();
+        //print("LT");
+    }
 
-        if(Input.GetKeyDown("f"))
-        {
-            //TO TEST CLEARING A STRUCTURE
-            //DestroyStruct();
-        }
-
-
+    private void InteractWithoutItem(InputAction.CallbackContext obj)
+    {
+        InteractWithObject();
     }
 
     void StartInteraction(IInteractable interactable)
