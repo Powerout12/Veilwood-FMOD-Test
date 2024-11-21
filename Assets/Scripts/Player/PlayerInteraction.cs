@@ -84,17 +84,20 @@ public class PlayerInteraction : MonoBehaviour
 
     private void UseHeldItem(InputAction.CallbackContext obj)
     {
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
         UseHotBarItem();
     }
 
     private void InteractWithItem(InputAction.CallbackContext obj)
     {
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
         StructureInteractionWithItem();
         //print("LT");
     }
 
     private void InteractWithoutItem(InputAction.CallbackContext obj)
     {
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
         InteractWithObject();
     }
 

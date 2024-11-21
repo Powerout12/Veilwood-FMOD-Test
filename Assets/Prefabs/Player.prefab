@@ -411,6 +411,8 @@ MonoBehaviour:
     type: 3}
   closeInventory: {fileID: 2637130635052683415, guid: 060d319d61d58794a97cf0963535b7d5,
     type: 3}
+  select: {fileID: 668919531283680143, guid: 060d319d61d58794a97cf0963535b7d5, type: 3}
+  split: {fileID: -1999698616602045232, guid: 060d319d61d58794a97cf0963535b7d5, type: 3}
 --- !u!114 &3987123363838110697
 MonoBehaviour:
   m_ObjectHideFlags: 0
