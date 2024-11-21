@@ -260,6 +260,7 @@ public class Mandrake : CreatureBehaviorScript
         StopAllCoroutines();
         currentState = CreatureState.Die;
         anim.SetTrigger("IsDead");
+        agent.enabled = false;
         base.OnDeath();
     }
 
