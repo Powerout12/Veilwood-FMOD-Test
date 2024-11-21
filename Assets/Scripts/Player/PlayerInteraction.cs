@@ -79,25 +79,25 @@ public class PlayerInteraction : MonoBehaviour
 
         DisplayHologramCheck();
 
-        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown || PlayerMovement.accessingInventory) return;
     }
 
     private void UseHeldItem(InputAction.CallbackContext obj)
     {
-        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown || PlayerMovement.accessingInventory) return;
         UseHotBarItem();
     }
 
     private void InteractWithItem(InputAction.CallbackContext obj)
     {
-        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown || PlayerMovement.accessingInventory) return;
         StructureInteractionWithItem();
         //print("LT");
     }
 
     private void InteractWithoutItem(InputAction.CallbackContext obj)
     {
-        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown) return;
+        if(PlayerMovement.restrictMovementTokens > 0 || toolCooldown || PlayerMovement.accessingInventory) return;
         InteractWithObject();
     }
 

@@ -61,8 +61,8 @@ MonoBehaviour:
   structManager: {fileID: 0}
   effectsHandler: {fileID: 0}
   player: {fileID: 0}
-  rb: {fileID: 0}
-  anim: {fileID: 0}
+  rb: {fileID: 6193243988813040387}
+  anim: {fileID: 1998015227713815155}
   droppedItems:
   - {fileID: 11400000, guid: 3b5afa9f577a91f4c84ad661e6f277cc, type: 2}
   - {fileID: 11400000, guid: f5fa1d7101a92414b9d7f40f28242b5d, type: 2}
@@ -118,13 +118,13 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8095277121360393263}
   m_Enabled: 1
-  m_AgentTypeID: -1372625422
+  m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 15
   m_Acceleration: 12
   avoidancePriority: 50
-  m_AngularSpeed: 150
-  m_StoppingDistance: 1
+  m_AngularSpeed: 240
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -404,6 +404,12 @@ PrefabInstance:
 --- !u!4 &606754508397050949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8154013426139049510, guid: 320cf4f9742a57a45a85f0f3fd4e87c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8737898074599838307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1998015227713815155 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7131766959663992848, guid: 320cf4f9742a57a45a85f0f3fd4e87c6,
     type: 3}
   m_PrefabInstance: {fileID: 8737898074599838307}
   m_PrefabAsset: {fileID: 0}
