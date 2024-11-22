@@ -54,7 +54,7 @@ public class Mandrake : CreatureBehaviorScript
 
     private void Update()
     {
-        if(currentState == CreatureState.Die) return;
+        if(currentState == CreatureState.Die || currentState == CreatureState.Trapped) return;
         if(currentState == CreatureState.WakeUp)
         {
             CheckState(currentState);
@@ -242,6 +242,20 @@ public class Mandrake : CreatureBehaviorScript
         else { currentState = CreatureState.Idle; }
 
         isMoving = false;
+    }
+
+    public override void OnStun(float duration)
+    {
+        StartCoroutine(Stun(duration));
+        agent.destination = transform.position;
+        anim.SetBool("IsRunning", false);
+    }
+
+    IEnumerator Stun(float duration)
+    {
+        currentState = CreatureState.Trapped;
+        yield return new WaitForSeconds(duration);
+        currentState = CreatureState.Wander;
     }
 
     private void LeaveFarm()

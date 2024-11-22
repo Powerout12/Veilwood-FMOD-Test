@@ -122,7 +122,7 @@ public class MistWalker : CreatureBehaviorScript
     {
         if (health <= 0) isDead = true;
 
-        if (!isDead)
+        if (!isDead && currentState != CreatureState.Stun)
         {
             float distance = Vector3.Distance(player.position, transform.position);
             playerInSightRange = distance <= sightRange;
@@ -196,7 +196,6 @@ public class MistWalker : CreatureBehaviorScript
                 break;
 
             case CreatureState.Stun:
-                Stun();
                 break;
 
             case CreatureState.Die:
@@ -450,12 +449,9 @@ public class MistWalker : CreatureBehaviorScript
         canLunge = true;
     }
 
-
-
-
     private void OnTriggerEnter(Collider other)
     {
-        if (attackingPlayer && other.CompareTag("Player"))
+        if (attackingPlayer && other.CompareTag("Player") && !isDead)
         {
             PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
             if (playerInteraction != null)
@@ -478,9 +474,19 @@ public class MistWalker : CreatureBehaviorScript
 
 
 
-    private void Stun()
+    public override void OnStun(float duration)
     {
-        // Implementation for stun behavior
+        StartCoroutine(Stun(duration));
+        agent.destination = transform.position;
+        anim.SetBool("IsWalking", false);
+        anim.SetTrigger("IsRecoiling");
+    }
+
+    IEnumerator Stun(float duration)
+    {
+        currentState = CreatureState.Stun;
+        yield return new WaitForSeconds(duration);
+        currentState = CreatureState.Wander;
     }
 
     public override void OnDeath()
