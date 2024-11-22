@@ -21,9 +21,9 @@ public class MistWalker : CreatureBehaviorScript
     [HideInInspector] public NavMeshAgent agent;
     public AnimEvents animEvents;
     public Collider lungeAttackHitbox;
-    private float lungeCooldown = 2f; // time in between lunges
-    private float lastLungeTime = 0f; // tracks when the last lunge occurred
-
+    public float lungeCooldown = 2f; // time in between lunges
+    public float lungeRange = 9; //distance at which it will lunge from
+    private bool canLunge = true;
 
     public enum CreatureState
     {
@@ -369,7 +369,7 @@ public class MistWalker : CreatureBehaviorScript
             agent.destination = player.transform.position;
             float distance = Vector3.Distance(player.position, transform.position);
 
-            if (distance < 9f && Time.time >= lastLungeTime + lungeCooldown)
+            if (distance < lungeRange && canLunge)
             {
                 currentState = CreatureState.AttackPlayer;
             }
@@ -420,20 +420,27 @@ public class MistWalker : CreatureBehaviorScript
 
     IEnumerator AttackingPlayer()
     {
-        attackingPlayer = true;
         coroutineRunning = true;
+        attackingPlayer = true;
 
       
         anim.SetTrigger("IsLunging");
+        canLunge = false;
 
     
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 1);
 
-        lastLungeTime = Time.time;
-        currentState = CreatureState.WalkTowardsPlayer;
-
         attackingPlayer = false;
+
+        currentState = CreatureState.WalkTowardsPlayer;
         coroutineRunning = false;
+        StartCoroutine(LungeCooldown());
+    }
+
+    IEnumerator LungeCooldown()
+    {
+        yield return new WaitForSeconds(lungeCooldown);
+        canLunge = true;
     }
 
 
@@ -457,7 +464,8 @@ public class MistWalker : CreatureBehaviorScript
         agent.destination = player.position;
         if (!coroutineRunning)
         {
-            StartCoroutine(AttackingPlayer());
+            if(canLunge) StartCoroutine(AttackingPlayer()); //lunge
+            //else //swipe attack
         }
     }
 

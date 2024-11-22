@@ -1950,8 +1950,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa9b78fd8dcc331499c389eb23a4d004, type: 2}
   - {fileID: 11400000, guid: 1dd6f9f1dcb60e74390c88d5df494ec7, type: 2}
   dropChance:
-  - 75
-  - 75
+  - 5
+  - 5
   sightRange: 8
   playerInSightRange: 0
   playerInAttackRange: 0
