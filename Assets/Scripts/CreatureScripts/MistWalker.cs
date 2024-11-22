@@ -25,6 +25,8 @@ public class MistWalker : CreatureBehaviorScript
     public float lungeRange = 9; //distance at which it will lunge from
     private bool canLunge = true;
 
+    Vector3 despawnPos;
+
     public enum CreatureState
     {
         SpawnIn,
@@ -61,6 +63,9 @@ public class MistWalker : CreatureBehaviorScript
         tileMap = StructureManager.Instance.tileMap;
         agent.enabled = false;
         agent.enabled = true;
+
+        int r = Random.Range(0, NightSpawningManager.Instance.despawnPositions.Length);
+        despawnPos = NightSpawningManager.Instance.despawnPositions[r].position;
     }
     void OnDestroy()
     {
@@ -213,7 +218,7 @@ public class MistWalker : CreatureBehaviorScript
     {
         if (!coroutineRunning)
         {
-            int r = Random.Range(0, 6);
+            int r = Random.Range(0, 8);
             if (r == 0) 
             {
                 if (availableStructure.Count > 0) 
@@ -221,8 +226,8 @@ public class MistWalker : CreatureBehaviorScript
                     currentState = CreatureState.WalkTowardsClosestStructure;
                 }
             }
-            else if (r < 4 && r >= 1) StartCoroutine(WaitAround());
-            else if (r >= 4) currentState = CreatureState.Wander;
+            else if (r < 6) StartCoroutine(WaitAround());
+            else if (r >= 6) currentState = CreatureState.Wander;
         }
     }
 
@@ -252,7 +257,7 @@ public class MistWalker : CreatureBehaviorScript
     {
         
         coroutineRunning = true;
-        float r = Random.Range(1, 4.5f);
+        float r = Random.Range(1, 1.7f);
         yield return new WaitForSeconds(r);
         coroutineRunning = false;
     }
@@ -262,6 +267,8 @@ public class MistWalker : CreatureBehaviorScript
        
         isMoving = true;
         coroutineRunning = true;
+
+        if(TimeManager.isDay) destination = despawnPos;
 
         agent.destination = destination;
 
