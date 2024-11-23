@@ -187,6 +187,7 @@ public class TimeManager : MonoBehaviour
                 break;
         }
         dayLight.color = lerpedColor;
+        DynamicGI.UpdateEnvironment();
     }
 
     private void OnDestroy()
@@ -220,6 +221,7 @@ public class TimeManager : MonoBehaviour
         {
             structure.TimeLapse(timeDif);
         }
+        InitializeSkyBox();
         StartCoroutine(TimePassage());
     }
 }

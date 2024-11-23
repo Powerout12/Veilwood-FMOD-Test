@@ -288,7 +288,11 @@ public class PlayerInteraction : MonoBehaviour
     IEnumerator GameOver()
     {
         //work on a transition, maybe with the vignette
+        PlayerMovement.restrictMovementTokens++;
+        FadeScreen.coverScreen = true;
         yield return new WaitForSeconds(1.5f);
+        PlayerMovement.restrictMovementTokens--;
+        FadeScreen.coverScreen = false;
         TimeManager.Instance.GameOver();
         if(currentMoney > 0) currentMoney = currentMoney/2;
         transform.position = TimeManager.Instance.playerRespawn.position;
