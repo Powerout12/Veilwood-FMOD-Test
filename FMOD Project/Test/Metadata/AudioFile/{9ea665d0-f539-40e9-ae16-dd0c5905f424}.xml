@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{9ea665d0-f539-40e9-ae16-dd0c5905f424}">
+		<property name="assetPath">
+			<value>Water/Water.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.65341666666666665</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2523e1e6-c4fd-441c-bc48-53f957f9b680}</destination>
+		</relationship>
+	</object>
+</objects>
