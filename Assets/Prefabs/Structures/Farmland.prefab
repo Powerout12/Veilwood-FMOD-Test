@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 3671659933352225911}
   - component: {fileID: 2388967791222999615}
   - component: {fileID: 4807340030674617072}
+  - component: {fileID: 4788953000475321024}
   m_Layer: 6
   m_Name: Farmland
   m_TagString: FarmLand
@@ -399,6 +400,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2.06, z: 2}
   m_Center: {x: 0, y: 0.61, z: 0}
+--- !u!114 &4788953000475321024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2961193080738427394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1001 &3059959822995905547
 PrefabInstance:
   m_ObjectHideFlags: 0
